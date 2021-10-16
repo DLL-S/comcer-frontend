@@ -1,0 +1,28 @@
+<p *ngFor="let funcionario of funcionarios$ | async">{{funcionario.nome}}</p>
+
+<form [formGroup]="adicionaFuncionarioForm" (ngSubmit)="adicionaFuncionario()">
+   <label for="id">Id: </label>
+   <input id="id" type="number" formControlName="id">
+   <br>
+   <label for="nome">nome: </label>
+   <input nome="nome" type="text" formControlName="nome">
+   <br>
+   <label for="cpf">cpf: </label>
+   <input cpf="cpf" type="text" formControlName="cpf">
+   <br>
+   <label for="dataNascimento">dataNascimento: </label>
+   <input dataNascimento="dataNascimento" type="date" formControlName="dataNascimento">
+   <br>
+   <label for="email">email: </label>
+   <input email="email" type="email" formControlName="email">
+   <br>
+   <label for="celular">celular: </label>
+   <input celular="celular" type="text" formControlName="celular">
+   <br>
+   <label for="situacao">situacao: </label>
+   <input situacao="situacao" type="text" formControlName="situacao">
+   <br>
+
+   <button type="submit">Adicionar</button>
+</form>
+
