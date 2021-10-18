@@ -1,4 +1,4 @@
-import { HttpErrorResponse, HttpHeaders } from "@angular/common/http";
+import { HttpClient, HttpErrorResponse, HttpHeaders } from "@angular/common/http";
 import { throwError } from "rxjs";
 import { LocalStorageUtils } from "src/app/shared/utils/LocalStorageUtils";
 import { environment } from "src/environments/environment";
@@ -13,13 +13,16 @@ export abstract class BaseService {
 	 */
 	private _apiBaseUrl: string = environment.apiUrl;
 
+	/**
+	 * Utilitário para armazenamento e consulta de dados no LocalStorage.
+	 */
 	public localStorage = new LocalStorageUtils();
 
 	/**
 	 * Construtor que define o path da url da api.
 	 * @param apiBaseUrlPath O path da Api para o serviço em contexto.
 	 */
-	protected constructor(apiBaseUrlPath: string) {
+	protected constructor(protected http: HttpClient, apiBaseUrlPath: string) {
 		this._apiBaseUrl += apiBaseUrlPath;
 	}
 

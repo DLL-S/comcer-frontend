@@ -125,33 +125,6 @@
         "complemento": ""
       },
       "situacao": "Rescindido"
-    },
-    {
-      "id": 8,
-      "nome": "Teste 8",
-      "cpf": "8888888888",
-      "dataNascimento": "2021-10-06",
-      "email": "teste8@email.com",
-      "celular": "89465654651",
-      "situacao": "Ativo"
-    },
-    {
-      "id": 9,
-      "nome": "Teste 9",
-      "cpf": "999999999",
-      "dataNascimento": "2021-10-12",
-      "email": "teste9@email.com",
-      "celular": "89465654651",
-      "situacao": "Inativo"
-    },
-    {
-      "id": 11,
-      "nome": "Teste11",
-      "cpf": "1111111111",
-      "dataNascimento": "2021-10-12",
-      "email": "teste11@email.com",
-      "celular": "6651611",
-      "situacao": "Ativo"
     }
   ]
 }
