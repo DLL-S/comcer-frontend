@@ -1,1 +1,48 @@
 /* You can add global styles to this file, and also import other style files */
+
+html {
+   font-size: 14px;
+   height: 100%;
+}
+
+body {
+   font-family: Verdana, Georgia, sans-serif;
+   background-color: var(--surface-ground);
+   color: var(--text-color);
+   padding: 0;
+   margin: 0;
+   -webkit-font-smoothing: antialiased;
+   -moz-osx-font-smoothing: grayscale;
+}
+
+.blur-1 {
+   filter: blur(0.15rem);
+   transform: scale(1.1);
+}
+
+.blur-2 {
+   filter: blur(0.25rem);
+   transform: scale(1.1);
+}
+
+.blur-3 {
+   filter: blur(0.35rem);
+   transform: scale(1.1);
+}
+
+.blur-4 {
+   filter: blur(0.45rem);
+   transform: scale(1.1);
+}
+
+.ng-dynamic-forms-input .ng-star-inserted {
+   color: #d9200d;
+   font-size: 0.7rem;
+   padding: 0rem;
+   margin-top: -1.5rem;
+   text-align: start;
+}
+
+.ng-star-inserted ul {
+   list-style-type: none !important;
+}

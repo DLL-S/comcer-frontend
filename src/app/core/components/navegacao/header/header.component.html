@@ -1,0 +1,24 @@
+<header class="topbar" #topbar>
+   <div class="titulo topbar-box">
+      <i class="topbar-item menu-icone fas"
+         [ngClass]="{ 'fa-times': visibilidadeDoMenu, 'fa-bars': !visibilidadeDoMenu }" (click)="toggleMenu()"></i>
+      <a *ngIf="!(isMobile$ | async)" class="topbar-item titulo-label" [routerLink]="url">
+         <b>{{ titulo }}</b>
+      </a>
+   </div>
+   <div class="topbar-box" routerLink="/">
+      <img class="topbar-item logo" src="assets/img/logo-horizontal-transparente.png" alt="Logotipo Comanda Certa">
+   </div>
+   <div class="topbar-box">
+      <a class="topbar-item" routerLink="/login">
+         <i class="fas fa-sign-out-alt sair-icone"></i>
+         <span class="sair-label">Sair</span>
+      </a>
+   </div>
+</header>
+
+<p-sidebar class="p-d-flex p-flex-column" [(visible)]="visibilidadeDoMenu" [baseZIndex]="10000" [showCloseIcon]="false">
+   <nav class="menu">
+      <p-menu [model]="items" (click)="toggleMenu()"></p-menu>
+   </nav>
+</p-sidebar>

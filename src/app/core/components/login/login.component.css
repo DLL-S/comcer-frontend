@@ -1,0 +1,97 @@
+.container {
+   background-image: url("/assets/img/login-bg-blur.jpg");
+   background-repeat: no-repeat;
+   background-size: cover;
+   width: 100%;
+   height: 100%;
+   position: fixed;
+   left: 0;
+   right: 0;
+   top: 0;
+   bottom: 0;
+   display: flex;
+   justify-content: center;
+   align-items: center;
+   text-align: center;
+   /* TODO: SUBSTITUIR PELO ROUTE GUARD */
+   z-index: 1000;
+}
+
+.login-container {
+   width: 100%;
+   height: 30rem;
+   display: flex;
+   justify-content: center;
+   align-items: center;
+   text-align: center;
+}
+
+.bar-container {
+   background: rgba(255, 255, 255, 0.25);
+   width: 100%;
+   height: 20rem;
+   -webkit-box-shadow: 5px 5px 20px -2px rgba(0, 0, 0, 0.4);
+   box-shadow: 5px 5px 20px -2px rgba(0, 0, 0, 0.4);
+}
+
+.bar-img {
+   background-image: url("/assets/img/logo-horizontal-transparente.png");
+   background-repeat: no-repeat;
+   background-size: contain;
+   background-position-x: 10%;
+   width: 100%;
+   height: 100%;
+   opacity: 95%;
+}
+
+.form-container {
+   background: var(--surface-0);
+   width: 30rem;
+   height: 25rem;
+   display: flex;
+   position: absolute;
+   right: 0;
+   margin-right: 5%;
+   -webkit-box-shadow: 5px 5px 20px -2px rgba(0, 0, 0, 0.4);
+   box-shadow: 5px 5px 20px -2px rgba(0, 0, 0, 0.4);
+   padding: 2rem 3rem 3rem 3rem;
+}
+
+.form {
+   width: 100%;
+   top: 50%;
+   align-self: center;
+}
+
+:host ::ng-deep .p-inputtext {
+   width: 100%;
+   height: 3.5rem;
+   margin-bottom: 1.5rem;
+}
+
+:host ::ng-deep .p-button {
+   width: 100%;
+   height: 3rem;
+   font-weight: bold;
+}
+
+@media screen and (max-width: 1120px) {
+   div.bar-img {
+      display: none;
+   }
+
+   div.bar-container {
+      height: 67%;
+   }
+
+   div.form-container {
+      width: 40%;
+      height: 60%;
+      min-width: 25rem;
+      max-width: 30rem;
+      min-height: 21rem;
+      max-height: 25rem;
+      right: auto;
+      margin: auto;
+   }
+}

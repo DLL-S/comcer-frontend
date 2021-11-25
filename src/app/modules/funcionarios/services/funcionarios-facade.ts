@@ -1,6 +1,6 @@
 import { Injectable } from "@angular/core";
 import { Observable } from "rxjs";
-import { GenericFacade } from "src/app/core/services/generic.facade";
+import { BaseFacade } from "src/app/core/services/base.facade";
 import { Funcionario } from "../models/funcionario.model";
 import { FuncionariosApi } from "./funcionarios-api";
 import { FuncionariosState } from "./funcionarios.state";
@@ -10,7 +10,7 @@ import { FuncionariosState } from "./funcionarios.state";
  * Faz intermédio entre os serviços de api e o estado da aplicação web.
  */
 @Injectable()
-export class FuncionariosFacade extends GenericFacade<Funcionario, FuncionariosApi, FuncionariosState> {
+export class FuncionariosFacade extends BaseFacade<Funcionario, FuncionariosApi, FuncionariosState> {
 
 	funcionariosAtivos$: Observable<any[]>;
 	funcionariosInativos$: Observable<any[]>;

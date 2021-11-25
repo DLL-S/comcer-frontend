@@ -1,0 +1,101 @@
+:host ::ng-deep .topbar {
+   background: var(--primary-color);
+   color: var(--primary-color-text);
+   height: 3.929rem;
+   width: 100%;
+   padding-left: 1rem;
+   padding-right: 1rem;
+   position: sticky;
+   position: -webkit-sticky;
+   left: 0;
+   top: 0;
+   z-index: 1000;
+   display: -ms-flexbox;
+   display: -webkit-flex;
+   display: flex;
+   -webkit-flex-direction: row;
+   -ms-flex-direction: row;
+   flex-direction: row;
+   -webkit-flex-wrap: nowrap;
+   -ms-flex-wrap: nowrap;
+   flex-wrap: nowrap;
+   -webkit-justify-content: space-between;
+   -ms-flex-pack: justify;
+   justify-content: space-between;
+   -webkit-align-content: flex-start;
+   -ms-flex-line-pack: start;
+   align-content: flex-start;
+   -webkit-align-items: center;
+   -ms-flex-align: center;
+   align-items: center;
+}
+
+.topbar-box {
+   -webkit-order: 0;
+   -ms-flex-order: 0;
+   order: 0;
+   flex: 1;
+   display: flex;
+   justify-content: center;
+   align-items: center;
+}
+
+.topbar-box:first-child {
+   justify-content: flex-start;
+}
+
+.topbar-box:last-child {
+   justify-content: flex-end;
+}
+
+.topbar-item {
+   transition: opacity 0.5s;
+}
+
+.topbar-item:hover {
+   cursor: pointer;
+   opacity: 85%;
+   -webkit-transition: opacity 0.5s 0s ease;
+   -moz-transition: opacity 0.5s 0s ease;
+   -o-transition: opacity 0.5s 0s ease;
+   transition: opacity 0.5s 0s ease;
+}
+
+.logo {
+   width: 125px;
+}
+
+.topbar a {
+   text-decoration: none;
+   color: var(--primary-color-text);
+   vertical-align: middle;
+   text-align: center;
+}
+
+.fas:not(.sair-icone) {
+   font-size: 1.429rem;
+}
+
+.titulo-label {
+   margin-left: 0.800rem;
+}
+
+.sair-label {
+   margin-left: 0.250rem;
+}
+
+:host ::ng-deep .p-sidebar-left {
+   top: 4.55rem;
+   left: 0.571rem;
+   height: fit-content;
+   padding-bottom: 1rem;
+}
+
+:host ::ng-deep .p-sidebar-header {
+   display: none;
+}
+
+:host ::ng-deep .p-menu {
+   border: none;
+   width: auto;
+}

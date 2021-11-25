@@ -1,6 +1,6 @@
 import { Injectable } from "@angular/core";
 import { map, Observable } from "rxjs";
-import { GenericState } from "src/app/core/services/generic.state";
+import { BaseState } from "src/app/core/services/base.state";
 import { EnumSituacaoUsuario } from "src/app/shared/models/enums/situacao.enum";
 import { Funcionario } from "../models/funcionario.model";
 
@@ -8,7 +8,7 @@ import { Funcionario } from "../models/funcionario.model";
  * Gerenciador de estado para funcionários.
  */
 @Injectable()
-export class FuncionariosState extends GenericState<Funcionario> {
+export class FuncionariosState extends BaseState<Funcionario> {
 
 	/**
 	 * Lista todos os funcionários ativos na state.

@@ -1,0 +1,15 @@
+<div class="container">
+   <div class="login-container">
+      <div class="bar-container">
+         <div class="bar-img"></div>
+      </div>
+      <div class="form-container" (submit)="logar()">
+         <form [formGroup]="loginFormGroup" class="form">
+            <dynamic-primeng-form [group]="loginFormGroup" [model]="loginFormModel">
+            </dynamic-primeng-form>
+            <button pButton class="p-button-success" type="submit" label="Entrar"
+               [disabled]="!loginFormGroup.valid"></button>
+         </form>
+      </div>
+   </div>
+</div>

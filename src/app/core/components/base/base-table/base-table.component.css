@@ -1,0 +1,18 @@
+.caption-container {
+   display: flex;
+   justify-content: flex-start;
+   align-content: flex-start;
+   align-items: center;
+}
+
+.caption-box {
+   order: 0;
+   flex: 1;
+   display: flex;
+   justify-content: flex-end;
+   align-items: center;
+}
+
+.spacer:not(:first-child) {
+   margin-left: 1rem;
+}

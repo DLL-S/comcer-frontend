@@ -1,20 +1,20 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { BaseFormComponent } from './base-form.component';
+import { PaginaEmConstrucaoComponent } from './pagina-em-construcao.component';
 
-describe('BaseFormComponent', () => {
-  let component: BaseFormComponent;
-  let fixture: ComponentFixture<BaseFormComponent>;
+describe('PaginaEmConstrucaoComponent', () => {
+  let component: PaginaEmConstrucaoComponent;
+  let fixture: ComponentFixture<PaginaEmConstrucaoComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ BaseFormComponent ]
+      declarations: [ PaginaEmConstrucaoComponent ]
     })
     .compileComponents();
   });
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(BaseFormComponent);
+    fixture = TestBed.createComponent(PaginaEmConstrucaoComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
