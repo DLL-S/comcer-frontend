@@ -1,6 +1,8 @@
 import { HttpClient, HttpHeaders } from "@angular/common/http";
+import { map, Observable } from "rxjs";
 import { LocalStorageUtils } from "src/app/shared/utils/LocalStorageUtils";
 import { environment } from "src/environments/environment";
+import { ResponseModel } from "../models/response.model";
 
 /**
  * Classe de serviço base.
@@ -15,13 +17,13 @@ export abstract class GenericService {
 	/**
 	 * Utilitário para armazenamento e consulta de dados no LocalStorage.
 	 */
-	public localStorage = new LocalStorageUtils();
+	public localStorage: LocalStorageUtils = new LocalStorageUtils();
 
 	/**
 	 * Construtor que define o path da url da api.
 	 * @param apiBaseUrlPath O path da Api para o serviço em contexto.
 	 */
-	protected constructor(protected http: HttpClient, apiBaseUrlPath: string) {
+	protected constructor (protected http: HttpClient, apiBaseUrlPath: string) {
 		this._apiBaseUrl += apiBaseUrlPath;
 	}
 
@@ -53,9 +55,9 @@ export abstract class GenericService {
 		return {
 			headers: new HttpHeaders({
 				'Content-Type': 'application/json',
-				'Authorization': `Bearer ${this.localStorage.obterTokenUsuario()}`
+				'Authorization': `Bearer ${ this.localStorage.obterTokenUsuario() }`
 			})
-		}
+		};
 	}
 
 	/**
@@ -63,7 +65,9 @@ export abstract class GenericService {
 	 * @param response A resposta a ser analisada.
 	 * @returns Um objeto contendo os dados da resposta.
 	 */
-	protected extrairDados(response: any) {
-		return response.data || {};
+	protected extrairDados(response: Observable<ResponseModel>): Observable<any> {
+		return response.pipe(
+			map(result => result.resultados || [ {} ])
+		);
 	}
 }

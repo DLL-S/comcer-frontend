@@ -24,6 +24,7 @@ export class HeaderComponent implements OnInit {
 				items: [
 					{ label: "Início", icon: "fas fa-home", routerLink: "/" },
 					{ label: "Funcionários", icon: "fas fa-address-card", routerLink: "/funcionarios" },
+					{ label: "Pedidos", icon: "fas fa-hand-holding-usd", routerLink: "/pedidos" },
 				]
 			},
 		];

@@ -1,0 +1,11 @@
+<div class="container">
+   <p-card *ngFor="let pedido of (pedidos$ | async) || []" header={{pedido.produto.nome}}
+      subheader={{pedido.produto.descricao}} [style]="{width: '300px'}" styleClass="p-card-shadow">
+      <ng-template pTemplate="header">
+         <img alt={{pedido.produto.nome}} src="data:image/png;base64,{{pedido.produto.foto}}" />
+      </ng-template>
+      <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Inventore sed consequuntur error repudiandae numquam
+         deserunt!
+      </p>
+   </p-card>
+</div>

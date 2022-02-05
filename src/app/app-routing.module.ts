@@ -8,6 +8,7 @@ import { PaginaNaoEncontradaComponent } from "./core/components/paginas/pagina-n
 const routes: Routes = [
 	{ path: "login", component: LoginComponent },
 	{ path: "funcionarios", loadChildren: () => import("./modules/funcionarios/funcionarios.module").then(m => m.FuncionariosModule) },
+	{ path: "pedidos", loadChildren: () => import("./modules/pedidos/pedidos.module").then(m => m.PedidosModule) },
 	{ path: "acesso-negado", component: AcessoNegadoComponent },
 	{ path: "pagina-nao-encontrada", component: PaginaNaoEncontradaComponent },
 	{ path: "pagina-em-construcao", component: PaginaEmConstrucaoComponent }

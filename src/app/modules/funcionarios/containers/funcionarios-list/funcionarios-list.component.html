@@ -1,6 +1,4 @@
-<app-base-table [colunas]="colunasTabela" [dados$]="funcionarios$" [lazyLoad]="true"
-   [carregando$]="tabelaEstaCarregando$" [camposDoFiltro]="camposDoFiltro" [dadoChave]="'nome'" [exibirBotaoNovo]="true"
-   [exibirBotaoRecarregar]=" true" (eventoDeCarregamento)="carregarPagina($event)"
-   (eventoDePesquisa)="pesquisar($event)" (eventoDeRecarregamento)="recarregar()"
-   (eventoDeFormDeEdicao)="exibirFormulario($event)">
+<app-base-table [colunas]="colunasTabela" [dados$]="funcionarios$" [carregando$]="tabelaEstaCarregando$"
+   [camposDoFiltro]="camposDoFiltro" [dadoChave]="'nome'" [exibirBotaoNovo]="true" [exibirBotaoRecarregar]=" true"
+   (eventoDeCarregamento)="carregarDados()" (eventoDeFormDeEdicao)="exibirFormulario($event)">
 </app-base-table>

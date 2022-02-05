@@ -1,11 +1,10 @@
 import { Component, OnInit } from "@angular/core";
 import { FormControl, FormGroup } from "@angular/forms";
 import { Observable, of } from "rxjs";
-import { Paginacao } from "src/app/core/models/paginacao.model";
 import { ColunasParaTabela } from "src/app/core/models/tabela-headers.model";
 import { TitleService } from "src/app/core/services/title.service";
 import { Funcionario } from "../../models/funcionario.model";
-import { FuncionariosFacade } from "../../services/funcionarios-facade";
+import { FuncionariosApi } from "../../services/funcionarios-api";
 
 @Component({
 	selector: "app-funcionarios-list",
@@ -20,9 +19,9 @@ export class FuncionariosListComponent implements OnInit {
 	colunasTabela: ColunasParaTabela;
 	camposDoFiltro: string[];
 
-	constructor (private titleService: TitleService, private funcionariosFacade: FuncionariosFacade) {
+	constructor (private titleService: TitleService, private funcionariosApi: FuncionariosApi) {
 		this.titleService.setTitle("Funcionários", "/funcionarios");
-		this.camposDoFiltro = [ "nome", "email" ];
+
 		this.funcionarios$ = of(Array<Funcionario>());
 		this.tabelaEstaCarregando$ = of(false);
 		this.colunasTabela = {
@@ -33,6 +32,7 @@ export class FuncionariosListComponent implements OnInit {
 			],
 			exibirAcoes: true
 		};
+		this.camposDoFiltro = [ "nome", "email" ];
 
 		this.adicionaFuncionarioForm = new FormGroup({
 			id: new FormControl(),
@@ -46,29 +46,19 @@ export class FuncionariosListComponent implements OnInit {
 	}
 
 	ngOnInit(): void {
-		this.funcionarios$ = this.funcionariosFacade.objetos$;
+		this.carregarDados();
 		this.funcionarios$.subscribe(() => this.tabelaEstaCarregando$ = of(false));
 	}
 
-	recarregar(): void {
+	carregarDados(): void {
 		this.tabelaEstaCarregando$ = of(true);
-		this.funcionariosFacade.carregarObjetos();
-	}
-
-	carregarPagina(event$: Paginacao): void {
-		console.log(event$);
-		console.log("Ordenando...");
-	}
-
-	pesquisar(termoDeBusca$: Observable<string>): void {
-		this.tabelaEstaCarregando$ = of(true);
-		this.funcionariosFacade.pesquisar(termoDeBusca$);
+		this.funcionarios$ = this.funcionariosApi.listar();
 	}
 
 	adicionaFuncionario(): void {
 		let funcionario: Funcionario = this.adicionaFuncionarioForm.value as Funcionario;
 		console.log(funcionario);
-		this.funcionariosFacade.criar(funcionario);
+		this.funcionariosApi.criar(funcionario);
 	}
 
 	exibirFormulario(event$: unknown): void {

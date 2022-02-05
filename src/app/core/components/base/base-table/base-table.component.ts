@@ -1,6 +1,5 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { Observable, of } from 'rxjs';
-import { Paginacao } from "src/app/core/models/paginacao.model";
+import { Observable } from 'rxjs';
 import { ColunasParaTabela } from 'src/app/core/models/tabela-headers.model';
 
 @Component({
@@ -10,7 +9,6 @@ import { ColunasParaTabela } from 'src/app/core/models/tabela-headers.model';
 })
 export class BaseTableComponent implements OnInit {
 
-	@Input() lazyLoad: boolean;
 	@Input() colunas?: ColunasParaTabela;
 	@Input() dados$: Observable<unknown[]>;
 	@Input() carregando$?: Observable<boolean>;
@@ -21,26 +19,21 @@ export class BaseTableComponent implements OnInit {
 	@Input() camposDoFiltro: string[];
 	@Input() exibirBotaoNovo: boolean;
 	@Input() exibirBotaoRecarregar: boolean;
-	@Output() eventoDeCarregamento: EventEmitter<Paginacao>;
-	@Output() eventoDePesquisa: EventEmitter<Observable<string>>;
-	@Output() eventoDeRecarregamento: EventEmitter<unknown>;
+	@Output() eventoDeCarregamento: EventEmitter<unknown>;
 	@Output() eventoDeFormDeEdicao: EventEmitter<unknown>;
 	@Output() eventoDeInativacao: EventEmitter<number>;
 
 	constructor () {
-		this.lazyLoad = false;
 		this.dados$ = new Observable<unknown[]>();
 		this.paginacao = true;
 		this.qtdeLinhas = 5;
 		this.destacarLinha = true;
 		this.dadoChave = "";
-		this.camposDoFiltro = [ '' ]; // TODO remover se não for usar mesmo
+		this.camposDoFiltro = [ '' ];
 		this.exibirBotaoNovo = false;
 		this.exibirBotaoRecarregar = false;
 
-		this.eventoDeCarregamento = new EventEmitter<Paginacao>();
-		this.eventoDePesquisa = new EventEmitter<Observable<string>>();
-		this.eventoDeRecarregamento = new EventEmitter();
+		this.eventoDeCarregamento = new EventEmitter();
 		this.eventoDeFormDeEdicao = new EventEmitter();
 		this.eventoDeInativacao = new EventEmitter();
 	}
@@ -48,17 +41,8 @@ export class BaseTableComponent implements OnInit {
 	ngOnInit(): void {
 	}
 
-	carregarDados(event$: any): void {
-		let pagina: Paginacao = new Paginacao(event$.sortField, event$.first, event$.rows, event$.sortOrder);
-		this.eventoDeCarregamento.emit(pagina);
-	}
-
-	dispararPesquisa(termoDeBusca: string): void {
-		this.eventoDePesquisa.emit(of(termoDeBusca));
-	}
-
-	dispararRecarregamento(): void {
-		this.eventoDeRecarregamento.emit();
+	carregarDados(): void {
+		this.eventoDeCarregamento.emit();
 	}
 
 	dispararFormDeEdicao(linha: unknown): void {

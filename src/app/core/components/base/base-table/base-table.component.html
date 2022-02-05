@@ -1,6 +1,6 @@
-<p-table #tabelaDados [value]="(dados$ | async) || []" [lazy]="lazyLoad" (onLazyLoad)="carregarDados($event)"
-   [paginator]="paginacao" [totalRecords]="7" [rows]="qtdeLinhas" [rowHover]="destacarLinha" dataKey="{{ dadoChave }}"
-   [globalFilterFields]="camposDoFiltro" styleClass="p-datatable-sm" responsiveLayout="scroll">
+<p-table #tabelaDados [value]="(dados$ | async) || []" [lazy]="false" [paginator]="paginacao" [totalRecords]="10"
+   [rows]="qtdeLinhas" [rowHover]="destacarLinha" dataKey="{{ dadoChave }}" [globalFilterFields]="camposDoFiltro"
+   styleClass="p-datatable-sm" responsiveLayout="scroll">
 
    <ng-template pTemplate="caption">
       <div class="caption-container">
@@ -9,10 +9,10 @@
                (click)="dispararFormDeEdicao(null)"></button>
             <button pButton *ngIf="exibirBotaoRecarregar" class="spacer"
                [icon]="!(carregando$ | async) || false ? 'pi pi-refresh' : 'pi pi-refresh pi-spinner'"
-               (click)="dispararRecarregamento()" [disabled]="(carregando$ | async) || false"></button>
+               (click)="carregarDados()" [disabled]="(carregando$ | async) || false"></button>
             <span class="p-input-icon-left spacer">
                <i class="pi pi-search"></i>
-               <input pInputText type="text" (keyup)="dispararPesquisa($any($event.target).value)"
+               <input pInputText type="text" (input)="tabelaDados.filterGlobal($any($event.target).value, 'contains')"
                   placeholder="Pesquisar..." />
             </span>
          </div>

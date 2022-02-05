@@ -1,0 +1,16 @@
+img {
+   width: 300px;
+   max-height: 220px !important;
+   height: 220px !important;
+   min-width: 300px;
+   min-height: 220px !important;
+   object-fit: fill;
+}
+
+.container {
+   display: flex;
+}
+
+:host ::ng-deep .p-card {
+   margin: 10px;
+}

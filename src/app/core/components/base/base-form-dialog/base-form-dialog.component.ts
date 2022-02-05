@@ -1,6 +1,6 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, OnInit } from "@angular/core";
 import { DynamicFormService } from "@ng-dynamic-forms/core";
-import { DialogService } from 'primeng/dynamicdialog';
+import { DialogService } from "primeng/dynamicdialog";
 
 @Component({
 	selector: 'app-base-form-dialog',
@@ -9,7 +9,8 @@ import { DialogService } from 'primeng/dynamicdialog';
 })
 export class BaseFormDialogComponent implements OnInit {
 
-	@Input() titulo: string;
+	//@Input() titulo: string;
+	//@Input() controles: any[];
 
 	constructor (public dialogService: DialogService, private formService: DynamicFormService) { }
 
