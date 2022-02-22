@@ -1,6 +1,6 @@
 import { HttpClient, HttpHeaders } from "@angular/common/http";
 import { map, Observable } from "rxjs";
-import { LocalStorageUtils } from "src/app/shared/utils/LocalStorageUtils";
+import { LocalStorageService } from "src/app/core/services/LocalStorageService";
 import { environment } from "src/environments/environment";
 import { ResponseModel } from "../models/response.model";
 
@@ -17,7 +17,7 @@ export abstract class GenericService {
 	/**
 	 * Utilitário para armazenamento e consulta de dados no LocalStorage.
 	 */
-	public localStorage: LocalStorageUtils = new LocalStorageUtils();
+	public localStorage: LocalStorageService = new LocalStorageService();
 
 	/**
 	 * Construtor que define o path da url da api.
@@ -55,7 +55,7 @@ export abstract class GenericService {
 		return {
 			headers: new HttpHeaders({
 				'Content-Type': 'application/json',
-				'Authorization': `Bearer ${ this.localStorage.obterTokenUsuario() }`
+				'Authorization': `Bearer ${ this.localStorage.obtenhaTokenUsuario() }`
 			})
 		};
 	}
@@ -67,7 +67,7 @@ export abstract class GenericService {
 	 */
 	protected extrairDados(response: Observable<ResponseModel>): Observable<any> {
 		return response.pipe(
-			map(result => result.resultados || [ {} ])
+			map(result => { return result.resultados || [ {} ]; })
 		);
 	}
 }

@@ -23,7 +23,7 @@ export abstract class BaseApi<TModel extends BaseModel> extends GenericService {
 	 * @returns Um {@link Observable} contendo os dados da resposta.
 	 */
 	public listar(): Observable<TModel[]> {
-		var response: Observable<ResponseModel> = this.http.get<ResponseModel>(this.apiBaseUrl, this.obtenhaHeaders());
+		var response: Observable<ResponseModel> = this.http.get<ResponseModel>(this.apiBaseUrl, this.obtenhaHeaderAuth());
 		return this.extrairDados(response);
 	}
 
@@ -33,7 +33,7 @@ export abstract class BaseApi<TModel extends BaseModel> extends GenericService {
 	 * @returns Um {@link Observable} contendo os dados da resposta.
 	 */
 	public pesquisarPorId(id: number): Observable<TModel> {
-		var response: Observable<ResponseModel> = this.http.get<ResponseModel>(`${ this.apiBaseUrl }/${ id }`, this.obtenhaHeaders());
+		var response: Observable<ResponseModel> = this.http.get<ResponseModel>(`${ this.apiBaseUrl }/${ id }`, this.obtenhaHeaderAuth());
 		return this.extrairDados(response);
 	}
 
@@ -42,7 +42,7 @@ export abstract class BaseApi<TModel extends BaseModel> extends GenericService {
 	 * @param objeto O objeto a ser cadastrado.
 	 */
 	public criar(objeto: TModel): Observable<TModel> {
-		var response: Observable<ResponseModel> = this.http.post<ResponseModel>(this.apiBaseUrl, objeto, this.obtenhaHeaders());
+		var response: Observable<ResponseModel> = this.http.post<ResponseModel>(this.apiBaseUrl, objeto, this.obtenhaHeaderAuth());
 		return this.extrairDados(response);
 	}
 
@@ -51,7 +51,7 @@ export abstract class BaseApi<TModel extends BaseModel> extends GenericService {
 	 * @param objeto O objeto a ser atualizado.
 	 */
 	public atualizar(objeto: TModel): Observable<TModel> {
-		var response: Observable<ResponseModel> = this.http.put<ResponseModel>(this.apiBaseUrl, objeto, this.obtenhaHeaders());
+		var response: Observable<ResponseModel> = this.http.put<ResponseModel>(this.apiBaseUrl, objeto, this.obtenhaHeaderAuth());
 		return this.extrairDados(response);
 	}
 
@@ -61,7 +61,7 @@ export abstract class BaseApi<TModel extends BaseModel> extends GenericService {
 	 * @returns O status Http informa se a operação falhou ou executou.
 	 */
 	public remover(id: number): Observable<any> {
-		var response: Observable<any> = this.http.delete(`${ this.apiBaseUrl }/${ id }`, this.obtenhaHeaders());
+		var response: Observable<any> = this.http.delete(`${ this.apiBaseUrl }/${ id }`, this.obtenhaHeaderAuth());
 		return response;
 	}
 }

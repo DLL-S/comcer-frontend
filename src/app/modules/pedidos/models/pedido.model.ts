@@ -1,14 +1,10 @@
 import { BaseModel } from "src/app/shared/models/base.model";
-import { EnumStatusPedido } from "src/app/shared/models/enums/status-pedido.enum";
-import { Produto } from "src/app/shared/models/temp/produto.model";
+import { ProdutoPedido } from "./produto-pedido.model";
 
 /**
  * Interface padrão do Model Pedido.
  */
 export interface Pedido extends BaseModel {
-	produto: Produto;
-	quantidade: number;
-	valorUnitario: number;
-	status: EnumStatusPedido;
+	produtosDoPedido: ProdutoPedido[];
 	dataHoraPedido?: Date;
 }

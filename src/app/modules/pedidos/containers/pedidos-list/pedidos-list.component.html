@@ -1,11 +1,65 @@
-<div class="container">
-   <p-card *ngFor="let pedido of (pedidos$ | async) || []" header={{pedido.produto.nome}}
-      subheader={{pedido.produto.descricao}} [style]="{width: '300px'}" styleClass="p-card-shadow">
+<div *ngIf="(pedidosView$ | async) as pedidos">
+   <p-dataView #dv [value]="(pedidosView$ | async) || []" [paginator]="true" [rows]="10" filterBy="nomeProdutoDoPedido"
+      layout="grid" [loading]="pedidos.length == 0" [alwaysShowPaginator]="false">
       <ng-template pTemplate="header">
-         <img alt={{pedido.produto.nome}} src="data:image/png;base64,{{pedido.produto.foto}}" />
+         <div class="flex flex-column md:flex-row md:justify-content-between">
+            <span class="p-input-icon-left mb-2 md:mb-0">
+               <i class="pi pi-search"></i>
+               <input type="search" pInputText placeholder="Procurar comanda"
+                  (input)="dv.filter($any($event.target).value)">
+            </span>
+            <p-dataViewLayoutOptions></p-dataViewLayoutOptions>
+         </div>
       </ng-template>
-      <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Inventore sed consequuntur error repudiandae numquam
-         deserunt!
-      </p>
-   </p-card>
+      <ng-template let-pedido pTemplate="listItem">
+         <div class="col-12">
+            <div class="pedido-list-item">
+               <img [src]="'data:image/png;base64,' + pedido.fotoProdutoDoPedido" [alt]="pedido.nomeProdutoDoPedido" />
+               <div class="pedido-list-detail">
+                  <div class="pedido-name">{{pedido.nomeProdutoDoPedido}}</div>
+                  <div class="pedido-description">{{pedido.descricaoProdutoDoPedido}}</div>
+                  <i class="pi pi-tag pedido-category-icon"></i><span
+                     class="pedido-category">{{pedido.quantidadeProdutoDoPedido}}</span>
+               </div>
+               <div class="pedido-list-action">
+                  <span class="pedido-price">{{pedido.precoProdutoDoPedido | currency:"BRL"}}</span>
+                  <p-button icon="fa fa-{{pedido.statusProdutoDoPedido == 'Pendente' ? 'utensils' : 'check'}}"
+                     label="{{pedido.statusProdutoDoPedido == 'Pendente' ? 'Cozinhar' : 'Concluir'}}"
+                     [disabled]="pedido.statusProdutoDoPedido === 'Pronto'" (click)="atualizarStatusPedido(pedido)">
+                  </p-button>
+                  <span
+                     [class]="'pedido-badge status-'+pedido.statusProdutoDoPedido">{{pedido.statusProdutoDoPedido}}</span>
+               </div>
+            </div>
+         </div>
+      </ng-template>
+      <ng-template let-pedido pTemplate="gridItem">
+         <div class="col-12 md:col-3">
+            <div class="pedido-grid-item card">
+               <div class="pedido-grid-item-top">
+                  <div>
+                     <i class="pi pi-shopping-cart pedido-category-icon"></i>
+                     <span class="pedido-category">{{pedido.quantidadeProdutoDoPedido}}</span>
+                  </div>
+                  <span
+                     [class]="'pedido-badge status-'+pedido.statusProdutoDoPedido">{{pedido.statusProdutoDoPedido}}</span>
+               </div>
+               <div class="pedido-grid-item-content">
+                  <img [src]="'data:image/png;base64,' + pedido.fotoProdutoDoPedido"
+                     [alt]="pedido.nomeProdutoDoPedido" />
+                  <div class="pedido-name {{pedido.nomeProdutoDoPedido.length <= 20 ? '' : 'scroll'}}">
+                     {{pedido.nomeProdutoDoPedido}}
+                  </div>
+                  <div class="pedido-description">{{pedido.descricaoProdutoDoPedido}}</div>
+               </div>
+               <div class="pedido-grid-item-bottom">
+                  <span class="pedido-price">{{pedido.precoProdutoDoPedido | currency:"BRL"}}</span>
+                  <p-button icon="fa fa-{{pedido.statusProdutoDoPedido == 'Pendente' ? 'utensils' : 'check'}}"
+                     [disabled]="pedido.statusProdutoDoPedido === 'Pronto'" (click)="atualizarStatusPedido(pedido)">
+                  </p-button>
+               </div>
+            </div>
+         </div>
+      </ng-template>
+   </p-dataView>
 </div>

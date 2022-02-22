@@ -1,0 +1,6 @@
+<div *ngFor="let pedido of (comandas$ | async) || []">
+   <p>{{pedido | json}}</p>
+   <!-- <div *ngFor="let produtoDoPedido of pedido.pedidosDoProduto">
+      <h1>{{produtoDoPedido.produto.nome}}</h1>
+   </div> -->
+</div>

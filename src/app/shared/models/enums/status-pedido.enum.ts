@@ -3,6 +3,6 @@
  */
 export enum EnumStatusPedido {
 	Pendente,
-	Conzinhando,
+	Cozinhando,
 	Pronto
 }

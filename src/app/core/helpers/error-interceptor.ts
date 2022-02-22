@@ -2,21 +2,20 @@ import { HttpErrorResponse, HttpEvent, HttpHandler, HttpInterceptor, HttpRequest
 import { Injectable } from "@angular/core";
 import { Router } from "@angular/router";
 import { catchError, Observable, throwError } from "rxjs";
-import { LocalStorageUtils } from "src/app/shared/utils/LocalStorageUtils";
+import { LocalStorageService } from "src/app/core/services/LocalStorageService";
 
 @Injectable()
 export class ErrorInterceptor implements HttpInterceptor {
 
-	private _localStorageUtil: LocalStorageUtils;
+	private _localStorageUtil: LocalStorageService;
 
 	/**
 	 * Inicia uma instância de {@link @ErrorInterceptor}.
 	 * @param router O {@link Route} para acompanhamento da rota.
 	 */
 	public constructor (private router: Router) {
-		this._localStorageUtil = new LocalStorageUtils();
+		this._localStorageUtil = new LocalStorageService();
 	}
-
 
 	intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
 
@@ -37,7 +36,7 @@ export class ErrorInterceptor implements HttpInterceptor {
 					break;
 				case 401: // Unauthorized
 					this._localStorageUtil.limparDadosLocaisUsuario();
-					this.router.navigate([ '/conta/login' ], { queryParams: { returnUrl: this.router.url } });
+					this.router.navigate([ '/login' ], { queryParams: { returnUrl: this.router.url } });
 					break;
 				case 403: // Not allowed
 					this.router.navigate([ '/acesso-negado' ]);

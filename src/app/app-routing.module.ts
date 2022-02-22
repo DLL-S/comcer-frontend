@@ -9,6 +9,7 @@ const routes: Routes = [
 	{ path: "login", component: LoginComponent },
 	{ path: "funcionarios", loadChildren: () => import("./modules/funcionarios/funcionarios.module").then(m => m.FuncionariosModule) },
 	{ path: "pedidos", loadChildren: () => import("./modules/pedidos/pedidos.module").then(m => m.PedidosModule) },
+	{ path: "comandas", loadChildren: () => import("./modules/comandas/comandas.module").then(m => m.ComandasModule) },
 	{ path: "acesso-negado", component: AcessoNegadoComponent },
 	{ path: "pagina-nao-encontrada", component: PaginaNaoEncontradaComponent },
 	{ path: "pagina-em-construcao", component: PaginaEmConstrucaoComponent }

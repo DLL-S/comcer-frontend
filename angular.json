@@ -87,7 +87,9 @@
 							"browserTarget": "comcer-frontend:build:production"
 						},
 						"development": {
-							"browserTarget": "comcer-frontend:build:development"
+							"browserTarget": "comcer-frontend:build:development",
+							"ssl": true,
+							"proxyConfig": "./proxy.config.js"
 						}
 					},
 					"defaultConfiguration": "development"

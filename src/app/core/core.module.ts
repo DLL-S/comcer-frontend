@@ -17,6 +17,7 @@ import { AcessoNegadoComponent } from "./components/paginas/acesso-negado/acesso
 import { PaginaEmConstrucaoComponent } from "./components/paginas/pagina-em-construcao/pagina-em-construcao.component";
 import { PaginaNaoEncontradaComponent } from "./components/paginas/pagina-nao-encontrada/pagina-nao-encontrada.component";
 import { ErrorInterceptor } from "./helpers/error-interceptor";
+import { LoginService } from "./services/login.service";
 
 export const httpInterceptorProviders = [
 	{ provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },
@@ -53,7 +54,8 @@ export const httpInterceptorProviders = [
 		BaseTableComponent,
 	],
 	providers: [
-		httpInterceptorProviders
+		httpInterceptorProviders,
+		LoginService
 	]
 })
 export class CoreModule { }
