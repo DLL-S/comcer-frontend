@@ -1,1 +1,30 @@
 /* You can add global styles to this file, and also import other style files */
+
+html, body {
+   height: 100%;
+}
+
+body {
+   margin: 0;
+   font-family: Roboto, "Helvetica Neue", sans-serif;
+}
+
+.blur-1 {
+   filter: blur(0.15rem);
+   transform: scale(1.1);
+}
+
+.blur-2 {
+   filter: blur(0.25rem);
+   transform: scale(1.1);
+}
+
+.blur-3 {
+   filter: blur(0.35rem);
+   transform: scale(1.1);
+}
+
+.blur-4 {
+   filter: blur(0.45rem);
+   transform: scale(1.1);
+}
