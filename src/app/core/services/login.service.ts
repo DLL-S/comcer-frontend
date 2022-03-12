@@ -1,26 +1,53 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { map, Observable } from 'rxjs';
+import { ActivatedRoute, Router } from "@angular/router";
+import { BehaviorSubject, map } from 'rxjs';
 import { Usuario } from "../models/usuario.model";
 import { BaseApi } from "./base-api.service";
+import { NotificationService } from './notification.service';
 
 @Injectable()
 export class LoginService extends BaseApi {
 
-	constructor (protected override http: HttpClient) {
-		super(http, "/login");
-	}
+    private loggedIn: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
 
-	login(usuario: Usuario): Observable<Usuario> {
-		let response = this.http
-			.post<Usuario>(this.apiBaseUrl, usuario, this.obtenhaHeaders())
-			.pipe(
-				map(result => {
-					this.localStorage.salvarDadosLocaisUsuario(result);
-					return result || {};
-				})
-			);
+    get isLoggedIn() {
+        return this.loggedIn.asObservable();
+    }
 
-		return response;
-	}
+    constructor (
+        protected override http: HttpClient,
+        private router: Router,
+        private route: ActivatedRoute,
+        private notificationService: NotificationService
+
+    ) {
+        super(http, "/login");
+        if (this.localStorage.obtenhaTokenUsuario() && this.localStorage.obtenhaUsuario())
+            this.loggedIn.next(true);
+        else {
+            this.logout();
+        }
+    }
+
+    login(usuario: Usuario) {
+        this.http.post<Usuario>(this.apiBaseUrl, usuario, this.obtenhaHeaders())
+            .pipe(
+                map(result => {
+                    this.localStorage.salvarDadosLocaisUsuario(result);
+                    return result || {};
+                }))
+            .subscribe(() => {
+                let returnUrl = this.route.snapshot.queryParams[ 'returnUrl' ];
+                returnUrl ? this.router.navigate([ returnUrl ]) : this.router.navigate([ '/' ]);
+                this.notificationService.exibir("Login realizado com sucesso!");
+                this.loggedIn.next(true);
+            });
+    }
+
+    logout() {
+        this.loggedIn.next(false);
+        this.localStorage.limparDadosLocaisUsuario();
+        this.router.navigate([ '/login' ], { queryParams: { returnUrl: this.router.url } });
+    }
 }

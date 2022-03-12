@@ -18,7 +18,7 @@ export class LocalStorageService {
 	 * @returns O token do usuário no storage.
 	 */
 	public obtenhaTokenUsuario(): string | null {
-		return localStorage.getItem("comcer.token") || "";
+		return localStorage.getItem("comcer.token");
 	}
 
 	/**

@@ -1,1 +1,29 @@
-<p>login works!</p>
+<div class="container">
+   <div class="login-container">
+      <div class="bar-container">
+         <div class="bar-img"></div>
+      </div>
+      <mat-card>
+         <mat-card-content>
+            <form [formGroup]="loginFormGroup" (ngSubmit)="onSubmit()">
+               <p>Faça login para continuar</p>
+               <mat-form-field class="full-width-input" appearance="outline">
+                  <mat-label>Usuário</mat-label>
+                  <input matInput formControlName="usuario" required>
+                  <mat-error *ngIf="isFieldInvalid('usuario')">
+                     Por favor informe seu usuário!
+                  </mat-error>
+               </mat-form-field>
+               <mat-form-field class="full-width-input" appearance="outline">
+                  <mat-label>Senha</mat-label>
+                  <input matInput type="password" placeholder="Senha" formControlName="senha" required>
+                  <mat-error *ngIf="isFieldInvalid('senha')">
+                     Informe sua senha com mais de 8 caracteres
+                  </mat-error>
+               </mat-form-field>
+               <button class="btn-login" mat-raised-button color="primary" type="submit">Entrar</button>
+            </form>
+         </mat-card-content>
+      </mat-card>
+   </div>
+</div>
