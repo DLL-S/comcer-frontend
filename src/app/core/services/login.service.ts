@@ -9,7 +9,7 @@ import { NotificationService } from './notification.service';
 @Injectable()
 export class LoginService extends BaseApi {
 
-    private loggedIn: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
+    public loggedIn: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
 
     get isLoggedIn() {
         return this.loggedIn.asObservable();
@@ -23,11 +23,6 @@ export class LoginService extends BaseApi {
 
     ) {
         super(http, "/login");
-        if (this.localStorage.obtenhaTokenUsuario() && this.localStorage.obtenhaUsuario())
-            this.loggedIn.next(true);
-        else {
-            this.logout();
-        }
     }
 
     login(usuario: Usuario) {
@@ -38,7 +33,7 @@ export class LoginService extends BaseApi {
                     return result || {};
                 }))
             .subscribe(() => {
-                let returnUrl = this.route.snapshot.queryParams[ 'returnUrl' ];
+                let returnUrl = this.route.snapshot.queryParams[ 'returnUrl' ].split("?")[ 0 ];
                 returnUrl ? this.router.navigate([ returnUrl ]) : this.router.navigate([ '/' ]);
                 this.notificationService.exibir("Login realizado com sucesso!");
                 this.loggedIn.next(true);
@@ -48,6 +43,12 @@ export class LoginService extends BaseApi {
     logout() {
         this.loggedIn.next(false);
         this.localStorage.limparDadosLocaisUsuario();
-        this.router.navigate([ '/login' ], { queryParams: { returnUrl: this.router.url } });
+        this.router.navigate([ '/login' ],
+            {
+                queryParams: {
+                    returnUrl: this.router.url
+                },
+                queryParamsHandling: "merge"
+            });
     }
 }

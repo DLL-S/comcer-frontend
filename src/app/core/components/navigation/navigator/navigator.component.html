@@ -1,0 +1,30 @@
+<mat-toolbar color="primary" *ngIf="isLoggedIn$ | async as isLoggedIn" class="mat-elevation-z3">
+   <div class="titulo topbar-box">
+      <i class="topbar-item menu-icone fas fa-bars" (click)="toggleSideBar()"></i>
+      <a *ngIf="!(isMobile$ | async)" class="topbar-item titulo-label" [routerLink]="url">
+         {{ titulo }}
+      </a>
+   </div>
+   <div class="topbar-box" routerLink="/">
+      <img class="topbar-item logo" src="assets/img/logo-horizontal-transparente.png" alt="Logotipo Comanda Certa">
+   </div>
+   <div class="topbar-box">
+      <a class="topbar-item" (click)="onLogout()">
+         <i class="fas fa-sign-out-alt sair-icone"></i>
+         <span class="sair-label">Sair</span>
+      </a>
+   </div>
+</mat-toolbar>
+
+<mat-drawer-container autosize>
+
+   <mat-drawer class="mat-elevation-z3" [mode]="(isMobile$ | async) ? 'over' : 'side'" [opened]="visibilidadeDoMenu"
+      *ngIf="isLoggedIn$ | async as isLoggedIn">
+      I'm a drawer
+   </mat-drawer>
+
+   <mat-drawer-content>
+      <router-outlet></router-outlet>
+   </mat-drawer-content>
+
+</mat-drawer-container>

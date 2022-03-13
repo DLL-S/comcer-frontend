@@ -13,6 +13,10 @@ export class BaseGuard implements CanActivate {
 
     canActivate(next: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<boolean> {
         // TODO: Implementar guardas com controle de acesso
-        return of(false);
+        if (!this.loginService.localStorage.obtenhaUsuario() && !this.loginService.localStorage.obtenhaTokenUsuario()) {
+            this.loginService.logout();
+            return of(false);
+        }
+        return of(true);
     }
 }

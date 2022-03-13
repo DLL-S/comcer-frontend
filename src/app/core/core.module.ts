@@ -6,10 +6,12 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
+import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatToolbarModule } from '@angular/material/toolbar';
+import { RouterModule } from '@angular/router';
 import { LoginComponent } from './components/login/login.component';
-import { HeaderComponent } from './components/navigation/header/header.component';
+import { NavigatorComponent } from './components/navigation/navigator/navigator.component';
 import { BaseGuard } from "./helpers/base.guard";
 import { ErrorInterceptor } from "./helpers/error-interceptor";
 import { LoginService } from "./services/login.service";
@@ -21,10 +23,11 @@ export const httpInterceptorProviders = [
 @NgModule({
     declarations: [
         LoginComponent,
-        HeaderComponent
+        NavigatorComponent
     ],
     imports: [
         CommonModule,
+        RouterModule,
         FormsModule,
         ReactiveFormsModule,
         MatFormFieldModule,
@@ -32,11 +35,12 @@ export const httpInterceptorProviders = [
         MatInputModule,
         MatButtonModule,
         MatToolbarModule,
-        MatSnackBarModule
+        MatSnackBarModule,
+        MatSidenavModule
     ],
     exports: [
         LoginComponent,
-        HeaderComponent
+        NavigatorComponent
     ],
     providers: [
         httpInterceptorProviders,

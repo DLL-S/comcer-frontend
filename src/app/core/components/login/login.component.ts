@@ -20,7 +20,7 @@ export class LoginComponent implements OnInit {
         private loginService: LoginService,
         private formBuilder: FormBuilder,
     ) {
-        this.titleService.setTitle("Entrar", "/login", "Acessar a aplicação");
+        this.titleService.setTitle("Entrar", "/login", "Comanda Certa");
         this.loginFormGroup = this.formBuilder.group({
             usuario: [ "", Validators.required ],
             senha: [ "", [ Validators.required, Validators.minLength(8) ] ]
