@@ -8,25 +8,27 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { CoreModule } from "./core/core.module";
+import { SharedModule } from "./shared/shared.module";
 
 registerLocaleData(localePt);
 
 @NgModule({
-  declarations: [
-    AppComponent
-  ],
-  imports: [
-    BrowserModule,
-    AppRoutingModule,
-    BrowserAnimationsModule,
-    FormsModule,
-    ReactiveFormsModule,
-    HttpClientModule,
-    CoreModule
-  ],
-  providers: [
-    [ { provide: APP_BASE_HREF, useValue: "/" } ],
-  ],
-  bootstrap: [ AppComponent ]
+    declarations: [
+        AppComponent
+    ],
+    imports: [
+        BrowserModule,
+        AppRoutingModule,
+        BrowserAnimationsModule,
+        FormsModule,
+        ReactiveFormsModule,
+        HttpClientModule,
+        CoreModule,
+        SharedModule
+    ],
+    providers: [
+        [ { provide: APP_BASE_HREF, useValue: "/" } ],
+    ],
+    bootstrap: [ AppComponent ]
 })
 export class AppModule { }

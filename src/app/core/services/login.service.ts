@@ -34,7 +34,7 @@ export class LoginService extends BaseApi {
                 }))
             .subscribe(() => {
                 let returnUrl = this.route.snapshot.queryParams[ 'returnUrl' ].split("?")[ 0 ];
-                returnUrl ? this.router.navigate([ returnUrl ]) : this.router.navigate([ '/' ]);
+                returnUrl && returnUrl != "/login" ? this.router.navigate([ returnUrl ]) : this.router.navigate([ '/' ]);
                 this.notificationService.exibir("Login realizado com sucesso!");
                 this.loggedIn.next(true);
             });

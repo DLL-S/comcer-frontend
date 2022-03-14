@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Observable, of } from "rxjs";
-import { IsMobileState } from "src/app/core/services/is-mobile.state";
 import { LoginService } from "src/app/core/services/login.service";
+import { IsMobileState } from "src/app/core/services/states/is-mobile.state";
 import { TitleService } from "src/app/core/services/title.service";
 
 @Component({
@@ -14,6 +14,11 @@ export class NavigatorComponent implements OnInit {
     isLoggedIn$: Observable<boolean> = of(true);
     visibilidadeDoMenu: boolean = true;
     isMobile$: Observable<boolean>;
+    items: {
+        itensPrincipais: { label: string, icon: string, url: string; }[],
+        itensCadastro: { label: string, icon: string, url: string; }[];
+    };
+
 
     constructor (
         private loginService: LoginService,
@@ -25,6 +30,18 @@ export class NavigatorComponent implements OnInit {
             if (state && this.visibilidadeDoMenu)
                 this.toggleSideBar();
         });
+
+        this.items = {
+            itensPrincipais: [
+                { label: "Pedidos", icon: "fas fa-utensils", url: "/" },
+                { label: "Comandas", icon: "fas fa-receipt", url: "/comandas" }
+            ],
+            itensCadastro: [
+                { label: "Mesas", icon: "fas fa-table", url: "/mesas" },
+                { label: "Produtos", icon: "fas fa-box", url: "/produtos" },
+                { label: "Funcionários", icon: "fas fa-address-card", url: "/funcionarios" },
+            ]
+        };
     }
 
     ngOnInit(): void {

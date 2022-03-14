@@ -20,7 +20,26 @@
 
    <mat-drawer class="mat-elevation-z3" [mode]="(isMobile$ | async) ? 'over' : 'side'" [opened]="visibilidadeDoMenu"
       *ngIf="isLoggedIn$ | async as isLoggedIn">
-      I'm a drawer
+      <mat-nav-list role="list">
+         <mat-list-item role="listitem" *ngFor="let item of items.itensPrincipais" routerLink="{{item.url}}">
+            <i class="{{item.icon}} menu-icon"></i>
+            {{item.label}}
+         </mat-list-item>
+
+         <mat-expansion-panel class="mat-elevation-z0" expanded>
+            <mat-expansion-panel-header>
+               <mat-panel-title>
+                  Cadastros
+               </mat-panel-title>
+            </mat-expansion-panel-header>
+
+            <mat-list-item role="listitem" *ngFor="let item of items.itensCadastro" routerLink="{{item.url}}">
+               <i class="{{item.icon}} menu-icon"></i>
+               {{item.label}}
+            </mat-list-item>
+
+         </mat-expansion-panel>
+      </mat-nav-list>
    </mat-drawer>
 
    <mat-drawer-content>

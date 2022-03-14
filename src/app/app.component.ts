@@ -1,6 +1,6 @@
 import { Component, HostListener, OnInit } from '@angular/core';
-import { IsMobileState } from "./core/services/is-mobile.state";
 import { LoginService } from "./core/services/login.service";
+import { IsMobileState } from "./core/services/states/is-mobile.state";
 
 @Component({
     selector: 'app-root',

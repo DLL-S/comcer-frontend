@@ -3,8 +3,9 @@ mat-drawer-container {
 }
 
 mat-drawer {
-   width: 230px;
-   padding: 80px 15px;
+   width: 220px;
+   padding-top: 65px;
+   padding-bottom: 10px;
    position: fixed;
 }
 
@@ -74,4 +75,13 @@ mat-toolbar {
 a {
    text-decoration: none;
    color: #fff;
+}
+
+.menu-icon {
+   color: #414040;
+   margin-right: 5px;
+}
+
+:host::ng-deep .mat-expansion-panel-body {
+   padding: 0 !important;
 }
