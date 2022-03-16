@@ -1,5 +1,5 @@
 import { HttpClient } from "@angular/common/http";
-import { Observable } from "rxjs";
+import { map, Observable } from "rxjs";
 import { ResponseModel } from "src/app/core/models/response.model";
 import { BaseModel } from "src/app/shared/models/base.model";
 import { BaseApi } from "./base-api.service";
@@ -23,19 +23,19 @@ export abstract class GenericApi<TModel extends BaseModel> extends BaseApi {
      * @param termoDeBusca A string de consulta.
      * @returns Um {@link Observable} contendo os dados da resposta.
      */
-    public pesquisar(termoDeBusca: string): Observable<TModel[]> {
-        if (termoDeBusca.length > 0)
-            return this.http.get<TModel[]>(`${ this.apiBaseUrl }?nome=${ termoDeBusca }`, this.obtenhaHeaders());
-        return this.http.get<TModel[]>(this.apiBaseUrl, this.obtenhaHeaders());
+    public pesquisar(termoDeBusca: string): Observable<ResponseModel<TModel>> {
+        var response: Observable<ResponseModel<TModel>> = this.http.get<ResponseModel<TModel>>(
+            `${ this.apiBaseUrl }?termoDeBusca=${ termoDeBusca }`, this.obtenhaHeaders());
+        return response;
     }
 
     /**
      * Obtém uma lista dos objetos do back end.
      * @returns Um {@link Observable} contendo os dados da resposta.
      */
-    public listar(): Observable<TModel[]> {
-        var response: Observable<ResponseModel> = this.http.get<ResponseModel>(this.apiBaseUrl, this.obtenhaHeaderAuth());
-        return this.extrairDados(response);
+    public listar(): Observable<ResponseModel<TModel>> {
+        var response: Observable<ResponseModel<TModel>> = this.http.get<ResponseModel<TModel>>(this.apiBaseUrl, this.obtenhaHeaderAuth());
+        return response;
     }
 
     /**
@@ -44,8 +44,11 @@ export abstract class GenericApi<TModel extends BaseModel> extends BaseApi {
      * @returns Um {@link Observable} contendo os dados da resposta.
      */
     public pesquisarPorId(id: number): Observable<TModel> {
-        var response: Observable<ResponseModel> = this.http.get<ResponseModel>(`${ this.apiBaseUrl }/${ id }`, this.obtenhaHeaderAuth());
-        return this.extrairDados(response);
+        return this.http.get<ResponseModel<TModel>>(`${ this.apiBaseUrl }/${ id }`, this.obtenhaHeaderAuth()).pipe(
+            map(result => {
+                return result.resultados[ 0 ];
+            })
+        );
     }
 
     /**
@@ -53,8 +56,11 @@ export abstract class GenericApi<TModel extends BaseModel> extends BaseApi {
      * @param objeto O objeto a ser cadastrado.
      */
     public criar(objeto: TModel): Observable<TModel> {
-        var response: Observable<ResponseModel> = this.http.post<ResponseModel>(this.apiBaseUrl, objeto, this.obtenhaHeaderAuth());
-        return this.extrairDados(response);
+        return this.http.post<ResponseModel<TModel>>(this.apiBaseUrl, objeto, this.obtenhaHeaderAuth()).pipe(
+            map(result => {
+                return result.resultados[ 0 ];
+            })
+        );
     }
 
     /**
@@ -62,8 +68,11 @@ export abstract class GenericApi<TModel extends BaseModel> extends BaseApi {
      * @param objeto O objeto a ser atualizado.
      */
     public atualizar(objeto: TModel): Observable<TModel> {
-        var response: Observable<ResponseModel> = this.http.put<ResponseModel>(this.apiBaseUrl, objeto, this.obtenhaHeaderAuth());
-        return this.extrairDados(response);
+        return this.http.put<ResponseModel<TModel>>(this.apiBaseUrl, objeto, this.obtenhaHeaderAuth()).pipe(
+            map(result => {
+                return result.resultados[ 0 ];
+            })
+        );
     }
 
     /**
@@ -71,8 +80,19 @@ export abstract class GenericApi<TModel extends BaseModel> extends BaseApi {
      * @param id O id do objeto a ser removido.
      * @returns O status Http informa se a operação falhou ou executou.
      */
-    public remover(id: number): Observable<any> {
-        var response: Observable<any> = this.http.delete(`${ this.apiBaseUrl }/${ id }`, this.obtenhaHeaderAuth());
+    public remover(id: number): Observable<TModel> {
+        var response: Observable<TModel> = this.http.delete<TModel>(`${ this.apiBaseUrl }/${ id }`, this.obtenhaHeaderAuth());
         return response;
+    }
+
+    /**
+     * Obtém os dados da resposta Http ou um objeto vazio.
+     * @param response A resposta a ser analisada.
+     * @returns Um objeto contendo os dados da resposta.
+     */
+    public extrairDados(response: Observable<ResponseModel<TModel>>): Observable<TModel[]> {
+        return response.pipe(
+            map(result => { return result.resultados || [ {} ]; })
+        );
     }
 }

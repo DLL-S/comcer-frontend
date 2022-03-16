@@ -1,13 +1,14 @@
 import { debounceTime, distinctUntilChanged, Observable, switchMap } from "rxjs";
+import { ResponseModel } from 'src/app/core/models/response.model';
 import { BaseModel } from "src/app/shared/models/base.model";
 import { GenericApi } from "../generic-api.service";
 import { NotificationService } from "../notification.service";
-import { BaseState } from "../states/base.state";
+import { GenericState } from "../states/generic.state";
 
 /**
  * Faz intermédio entre os serviços de api e o estado da aplicação web.
  */
-export abstract class BaseFacade<TModel extends BaseModel, TApi extends GenericApi<TModel>, TState extends BaseState<TModel>> {
+export abstract class BaseFacade<TModel extends BaseModel, TApi extends GenericApi<TModel>, TState extends GenericState<TModel>> {
 
     public objetos$: Observable<TModel[]>;
 
@@ -29,7 +30,8 @@ export abstract class BaseFacade<TModel extends BaseModel, TApi extends GenericA
      * Carrega os objetos do back end no state.
      */
     public carregarObjetos(): void {
-        this.api.pesquisar("").subscribe(objetos => this.state.objetos = objetos);
+        let response$ = this.api.listar();
+        this.processeResponseDeLeitura(response$);
     }
 
     /**
@@ -37,13 +39,11 @@ export abstract class BaseFacade<TModel extends BaseModel, TApi extends GenericA
      * @param termoDeBusca A string de consulta.
      */
     public pesquisar(termoDeBusca$: Observable<string>): void {
-        termoDeBusca$.pipe(
-            distinctUntilChanged(),
-            debounceTime(300),
-            switchMap(termoDeBusca => { return this.api.pesquisar(termoDeBusca); })
-        ).subscribe(objetos => {
-            this.state.objetos = objetos;
-        });
+        let response$ = termoDeBusca$.pipe(distinctUntilChanged(), debounceTime(300),
+            switchMap(termoDeBusca => {
+                return this.api.pesquisar(termoDeBusca);
+            }));
+        this.processeResponseDeLeitura(response$);
     }
 
     /**
@@ -53,8 +53,9 @@ export abstract class BaseFacade<TModel extends BaseModel, TApi extends GenericA
      */
     public pesquisarPorId(id: number): TModel | null {
         let objeto = this.state.pesquisarPorId(id);
-        if (!objeto)
-            this.api.pesquisarPorId(id).subscribe(result => objeto = result);
+        if (!objeto) {
+            this.api.pesquisarPorId(id).subscribe(response => objeto = response);
+        }
 
         return objeto || null;
     }
@@ -75,7 +76,7 @@ export abstract class BaseFacade<TModel extends BaseModel, TApi extends GenericA
             },
             error: erro => {
                 this.state.remover(tempObjeto.id);
-                this.notificationService.exibir("$Ocorreu um erro ao processar sua solicitação.");
+                this.notificationService.exibir("Ocorreu um erro ao processar sua solicitação.");
             }
         });
     }
@@ -90,15 +91,15 @@ export abstract class BaseFacade<TModel extends BaseModel, TApi extends GenericA
             this.api.atualizar(objeto).subscribe({
                 next: objeto => {
                     this.state.atualizar(objeto);
-                    // TODO Notificar usuário...
+                    this.notificationService.exibir("Atualização realizada com sucesso!");
                 },
                 error: erro => {
-                    // TODO Notificar usuário...
+                    this.notificationService.exibir("Ocorreu um erro ao processar sua solicitação.");
                 }
             });
         }
         else {
-            // TODO Notificar usuário...
+            this.notificationService.exibir("Informe um Id valido para alterar.");
         }
     }
 
@@ -110,11 +111,18 @@ export abstract class BaseFacade<TModel extends BaseModel, TApi extends GenericA
         this.api.remover(id).subscribe({
             next: objeto => {
                 this.state.remover(id);
-                // TODO Notificar usuário...
+                this.notificationService.exibir(`$Exclusão realizada com sucesso! (Id: ${ id })`);
             },
             error: erro => {
-                // TODO Notificar usuário...
+                this.notificationService.exibir("Ocorreu um erro ao processar sua solicitação.");
             }
+        });
+    }
+
+    private processeResponseDeLeitura(response: Observable<ResponseModel<TModel>>) {
+        response.subscribe(response => {
+            let data = response.resultados as TModel[];
+            this.state.objetos = data;
         });
     }
 }

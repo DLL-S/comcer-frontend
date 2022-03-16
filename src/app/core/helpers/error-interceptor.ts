@@ -1,10 +1,12 @@
 import { HttpErrorResponse, HttpEvent, HttpHandler, HttpInterceptor, HttpRequest } from "@angular/common/http";
 import { Injectable } from "@angular/core";
-import { Router } from "@angular/router";
 import { catchError, Observable, throwError } from "rxjs";
 import { LoginService } from "../services/login.service";
 import { NotificationService } from './../services/notification.service';
 
+/**
+ * Interceptador de erros HTTP global.
+ */
 @Injectable()
 export class ErrorInterceptor implements HttpInterceptor {
 
@@ -14,7 +16,6 @@ export class ErrorInterceptor implements HttpInterceptor {
      */
     public constructor (
         private loginService: LoginService,
-        private router: Router,
         private notificationService: NotificationService
     ) { }
 
