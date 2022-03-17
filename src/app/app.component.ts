@@ -9,14 +9,11 @@ import { IsMobileState } from "./core/services/states/is-mobile.state";
 })
 export class AppComponent implements OnInit {
 
-    constructor (private loginService: LoginService, private isMobileState: IsMobileState) { }
+    constructor (private loginService: LoginService, private isMobileState: IsMobileState) {
+        this.loginService.verificarLogin();
+    }
 
     ngOnInit(): void {
-        if (this.loginService.localStorage.obtenhaUsuario() && this.loginService.localStorage.obtenhaTokenUsuario())
-            this.loginService.loggedIn.next(true);
-        else {
-            this.loginService.logout();
-        }
     }
 
     @HostListener('window:resize', [ '$event' ])

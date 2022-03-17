@@ -7,15 +7,13 @@ import { PedidosService } from "../../services/pedidos.service";
 import { ProdutosPedidosService } from "../../services/produtos-pedidos.service";
 
 @Component({
-    selector: 'app-pedidos-list',
-    templateUrl: './pedidos-list.component.html',
-    styleUrls: [ './pedidos-list.component.css' ]
+    selector: 'app-pedidos-prontos',
+    templateUrl: './pedidos-prontos.component.html',
+    styleUrls: [ '../shared-styles.css' ]
 })
-export class PedidosListComponent implements OnInit {
+export class PedidosProntosComponent implements OnInit {
 
     response$: Observable<ResponseModel<PedidoViewModel>>;
-    pedidosPendentes$: Observable<PedidoViewModel[]>;
-    pedidosCozinhando$: Observable<PedidoViewModel[]>;
     pedidosProntos$: Observable<PedidoViewModel[]>;
 
     constructor (
@@ -23,18 +21,6 @@ export class PedidosListComponent implements OnInit {
         private produtosPedidoService: ProdutosPedidosService
     ) {
         this.response$ = this.pedidosService.listaDeProdutosPorPedido$;
-
-        this.pedidosPendentes$ = this.response$.pipe(
-            map(result => {
-                return result.resultados/*.filter(item => item.statusProdutoDoPedido == EnumStatusProdutoDoPedido.Pendente)*/;
-            })
-        );
-
-        this.pedidosCozinhando$ = this.response$.pipe(
-            map(result => {
-                return result.resultados/*.filter(item => item.statusProdutoDoPedido == EnumStatusProdutoDoPedido.Pendente)*/;
-            })
-        );
 
         this.pedidosProntos$ = this.response$.pipe(
             map(result => {

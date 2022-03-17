@@ -1,13 +1,12 @@
 import { HttpClient } from "@angular/common/http";
 import { map, Observable } from "rxjs";
 import { ResponseModel } from "src/app/core/models/response.model";
-import { BaseModel } from "src/app/shared/models/base.model";
 import { BaseApi } from "./base-api.service";
 
 /**
  * Classe de serviço genérico.
  */
-export abstract class GenericApi<TModel extends BaseModel> extends BaseApi {
+export abstract class GenericApi<TModel> extends BaseApi {
 
     /**
      * Inicia uma nova instância do serviço.
@@ -19,24 +18,10 @@ export abstract class GenericApi<TModel extends BaseModel> extends BaseApi {
     }
 
     /**
-     * Obtém uma lista dos objetos do back end de acordo com os parâmetros especificados.
-     * @param termoDeBusca A string de consulta.
-     * @returns Um {@link Observable} contendo os dados da resposta.
-     */
-    public pesquisar(termoDeBusca: string): Observable<ResponseModel<TModel>> {
-        var response: Observable<ResponseModel<TModel>> = this.http.get<ResponseModel<TModel>>(
-            `${ this.apiBaseUrl }?termoDeBusca=${ termoDeBusca }`, this.obtenhaHeaders());
-        return response;
-    }
-
-    /**
      * Obtém uma lista dos objetos do back end.
      * @returns Um {@link Observable} contendo os dados da resposta.
      */
-    public listar(): Observable<ResponseModel<TModel>> {
-        var response: Observable<ResponseModel<TModel>> = this.http.get<ResponseModel<TModel>>(this.apiBaseUrl, this.obtenhaHeaderAuth());
-        return response;
-    }
+    public listaDeObjetos$ = this.http.get<ResponseModel<TModel>>(this.apiBaseUrl, this.obtenhaHeaderAuth());
 
     /**
      * Pesquisa um objeto no back end pelo Id.
@@ -49,6 +34,17 @@ export abstract class GenericApi<TModel extends BaseModel> extends BaseApi {
                 return result.resultados[ 0 ];
             })
         );
+    }
+
+    /**
+     * Obtém uma lista dos objetos do back end de acordo com os parâmetros especificados.
+     * @param termoDeBusca A string de consulta.
+     * @returns Um {@link Observable} contendo os dados da resposta.
+     */
+    public pesquisar(termoDeBusca: string): Observable<ResponseModel<TModel>> {
+        var response: Observable<ResponseModel<TModel>> = this.http.get<ResponseModel<TModel>>(
+            `${ this.apiBaseUrl }?termoDeBusca=${ termoDeBusca }`, this.obtenhaHeaderAuth());
+        return response;
     }
 
     /**
@@ -86,9 +82,9 @@ export abstract class GenericApi<TModel extends BaseModel> extends BaseApi {
     }
 
     /**
-     * Obtém os dados da resposta Http ou um objeto vazio.
+     * Extrai os dados de uma {@link ResponseModel} para um {@link TModel}.
      * @param response A resposta a ser analisada.
-     * @returns Um objeto contendo os dados da resposta.
+     * @returns Um Observale de {@link TModel} ou de uma lista vazia.
      */
     public extrairDados(response: Observable<ResponseModel<TModel>>): Observable<TModel[]> {
         return response.pipe(

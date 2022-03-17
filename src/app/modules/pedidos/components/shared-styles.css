@@ -15,7 +15,7 @@
    border-radius: 4px;
    border-color: #b3b9c4;
    height: 100%;
-   width: 32.5%;
+   width: 32.4%;
    overflow-y: auto;
    overflow-x: hidden;
 }
@@ -37,18 +37,6 @@
    background-color: #dfdfdf;
    padding: 3px 9px;
    border-radius: 50px;
-}
-
-.badge-pendente {
-   background-color: #ffc4ce;
-}
-
-.badge-cozinhando {
-   background-color: #fff0bf;
-}
-
-.badge-pronto {
-   background-color: #cff5c0;
 }
 
 .lista {

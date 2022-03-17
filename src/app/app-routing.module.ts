@@ -13,6 +13,11 @@ const routes: Routes = [
         canActivate: [ BaseGuard ]
     },
     {
+        path: "home", loadChildren: () =>
+            import("./modules/pedidos/pedidos.module").then(m => m.PedidosModule),
+        canActivate: [ BaseGuard ]
+    },
+    {
         path: "pedidos", loadChildren: () =>
             import("./modules/pedidos/pedidos.module").then(m => m.PedidosModule),
         canActivate: [ BaseGuard ]

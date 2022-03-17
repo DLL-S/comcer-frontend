@@ -9,7 +9,7 @@ import { NotificationService } from './notification.service';
 @Injectable()
 export class LoginService extends BaseApi {
 
-    public loggedIn: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
+    private loggedIn: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
 
     get isLoggedIn() {
         return this.loggedIn.asObservable();
@@ -19,10 +19,21 @@ export class LoginService extends BaseApi {
         protected override http: HttpClient,
         private router: Router,
         private route: ActivatedRoute,
-        private notificationService: NotificationService
-
+        private notificationService: NotificationService,
     ) {
         super(http, "/login");
+    }
+
+    verificarLogin(): boolean {
+        if (this.localStorage.obtenhaUsuario() && this.localStorage.obtenhaTokenUsuario()) {
+            this.loggedIn.next(true);
+            return true;
+        }
+        else {
+            this.logout();
+        }
+
+        return false;
     }
 
     login(usuario: Usuario) {

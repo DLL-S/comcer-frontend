@@ -1,1 +1,41 @@
-<p>pedidos-list works!</p>
+<div cdkDropListGroup class="main-container">
+   <div class="container-lista mat-elevation-z2">
+      <div class="container-titulo">
+         <span class="badge badge-pendente">3</span>
+         Pendentes
+      </div>
+      <div class="lista" cdkDropList (cdkDropListDropped)="drop($event)">
+         <div class="item-lista" *ngFor="let item of pedidosPendentes$ | async" cdkDrag>
+            <div class="custom-placeholder" *cdkDragPlaceholder></div>
+            <img src='data:image/png;base64,{{item.fotoProdutoDoPedido}}' />
+            {{item.nomeProdutoDoPedido}}
+         </div>
+      </div>
+   </div>
+   <div class="container-lista mat-elevation-z2">
+      <div class="container-titulo">
+         <span class="badge badge-cozinhando">3</span>
+         Cozinhando
+      </div>
+      <div class="lista" cdkDropList (cdkDropListDropped)="drop($event)">
+         <div class="item-lista" *ngFor="let item of pedidosCozinhando$ | async" cdkDrag>
+            <div class="custom-placeholder" *cdkDragPlaceholder></div>
+            <img src='data:image/png;base64,{{item.fotoProdutoDoPedido}}' />
+            {{item.nomeProdutoDoPedido}}
+         </div>
+      </div>
+   </div>
+   <div class="container-lista mat-elevation-z2">
+      <div class="container-titulo">
+         <span class="badge badge-pronto">3</span>
+         Prontos
+      </div>
+      <div class="lista" cdkDropList (cdkDropListDropped)="drop($event)">
+         <div class="item-lista" *ngFor="let item of pedidosProntos$ | async" cdkDrag>
+            <div class="custom-placeholder" *cdkDragPlaceholder></div>
+            <img src='data:image/png;base64,{{item.fotoProdutoDoPedido}}' />
+            {{item.nomeProdutoDoPedido}}
+         </div>
+      </div>
+   </div>
+</div>
