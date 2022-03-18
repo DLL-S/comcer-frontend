@@ -19,3 +19,11 @@
    overflow-y: auto;
    overflow-x: hidden;
 }
+
+.botao-recarregar {
+   position: fixed;
+   bottom: 40px;
+   right: 40px;
+   width: 70px;
+   height: 70px;
+}

@@ -17,17 +17,26 @@ export class PedidosProntosComponent implements OnInit {
     constructor (private produtosPedidoService: ProdutosPedidosService, private store: Store) {
         this.store.pedidosView$.subscribe({
             next: pedidos => {
+
+                const pedidosFiltrados = pedidos.filter(pedido =>
+                    pedido.statusProdutoDoPedido == EnumStatusProdutoDoPedido.Pronto);
+
                 if (this.pedidosProntos.length == 0)
-                    this.pedidosProntos = pedidos.filter(pedido => pedido.statusProdutoDoPedido == EnumStatusProdutoDoPedido.Pronto);
+                    this.pedidosProntos = pedidosFiltrados;
                 else {
-                    pedidos.filter(pedido => pedido.statusProdutoDoPedido == EnumStatusProdutoDoPedido.Pronto)
-                        .map(item => {
-                            const index = this.pedidosProntos.indexOf(item);
-                            if (index >= 0) {
-                                this.pedidosProntos[ index ] = item;
-                            }
-                        });
+                    pedidosFiltrados.map(item => {
+                        const index = this.pedidosProntos.findIndex(x => x.idDoProdutoDoPedido == item.idDoProdutoDoPedido);
+                        if (index >= 0) {
+                            this.pedidosProntos[ index ] = item;
+                        }
+                        else {
+                            this.pedidosProntos.push(item);
+                        }
+                    });
                 }
+
+                this.pedidosProntos = this.pedidosProntos.filter(x =>
+                    pedidosFiltrados.find(y => y.idDoProdutoDoPedido == x.idDoProdutoDoPedido));
             }
         });
     }

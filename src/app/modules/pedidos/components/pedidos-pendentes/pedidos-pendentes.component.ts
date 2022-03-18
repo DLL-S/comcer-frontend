@@ -17,17 +17,26 @@ export class PedidosPendentesComponent implements OnInit {
     constructor (private produtosPedidoService: ProdutosPedidosService, private store: Store) {
         this.store.pedidosView$.subscribe({
             next: pedidos => {
+
+                const pedidosFiltrados = pedidos.filter(pedido =>
+                    pedido.statusProdutoDoPedido == EnumStatusProdutoDoPedido.Pendente);
+
                 if (this.pedidosPendentes.length == 0)
-                    this.pedidosPendentes = pedidos.filter(pedido => pedido.statusProdutoDoPedido == EnumStatusProdutoDoPedido.Pendente);
+                    this.pedidosPendentes = pedidosFiltrados;
                 else {
-                    pedidos.filter(pedido => pedido.statusProdutoDoPedido == EnumStatusProdutoDoPedido.Pendente)
-                        .map(item => {
-                            const index = this.pedidosPendentes.indexOf(item);
-                            if (index >= 0) {
-                                this.pedidosPendentes[ index ] = item;
-                            }
-                        });
+                    pedidosFiltrados.map(item => {
+                        const index = this.pedidosPendentes.findIndex(x => x.idDoProdutoDoPedido == item.idDoProdutoDoPedido);
+                        if (index >= 0) {
+                            this.pedidosPendentes[ index ] = item;
+                        }
+                        else {
+                            this.pedidosPendentes.push(item);
+                        }
+                    });
                 }
+
+                this.pedidosPendentes = this.pedidosPendentes.filter(x =>
+                    pedidosFiltrados.find(y => y.idDoProdutoDoPedido == x.idDoProdutoDoPedido));
             }
         });
     }

@@ -13,17 +13,21 @@ export class PedidosListComponent implements OnInit, OnDestroy {
     constructor (
         private pedidosService: PedidosService,
     ) {
-        this.pedidosService.listaDeProdutosPorPedido$.subscribe();
+        this.atualizarDados();
     }
 
     ngOnInit(): void {
         this.scheduler = setInterval(() => {
-            this.pedidosService.listaDeProdutosPorPedido$.subscribe();
+            this.atualizarDados();
         }, 60000);
     }
 
     ngOnDestroy(): void {
         if (this.scheduler)
             clearInterval(this.scheduler);
+    }
+
+    atualizarDados() {
+        this.pedidosService.listaDeProdutosPorPedido$.subscribe();
     }
 }

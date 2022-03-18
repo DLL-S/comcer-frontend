@@ -17,17 +17,26 @@ export class PedidosCozinhandoComponent implements OnInit {
     constructor (private produtosPedidoService: ProdutosPedidosService, private store: Store) {
         this.store.pedidosView$.subscribe({
             next: pedidos => {
+
+                const pedidosFiltrados = pedidos.filter(pedido =>
+                    pedido.statusProdutoDoPedido == EnumStatusProdutoDoPedido.Cozinhando);
+
                 if (this.pedidosCozinhando.length == 0)
-                    this.pedidosCozinhando = pedidos.filter(pedido => pedido.statusProdutoDoPedido == EnumStatusProdutoDoPedido.Cozinhando);
+                    this.pedidosCozinhando = pedidosFiltrados;
                 else {
-                    pedidos.filter(pedido => pedido.statusProdutoDoPedido == EnumStatusProdutoDoPedido.Cozinhando)
-                        .map(item => {
-                            const index = this.pedidosCozinhando.indexOf(item);
-                            if (index >= 0) {
-                                this.pedidosCozinhando[ index ] = item;
-                            }
-                        });
+                    pedidosFiltrados.map(item => {
+                        const index = this.pedidosCozinhando.findIndex(x => x.idDoProdutoDoPedido == item.idDoProdutoDoPedido);
+                        if (index >= 0) {
+                            this.pedidosCozinhando[ index ] = item;
+                        }
+                        else {
+                            this.pedidosCozinhando.push(item);
+                        }
+                    });
                 }
+
+                this.pedidosCozinhando = this.pedidosCozinhando.filter(x =>
+                    pedidosFiltrados.find(y => y.idDoProdutoDoPedido == x.idDoProdutoDoPedido));
             }
         });
     }
