@@ -8,6 +8,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { CoreModule } from "./core/core.module";
+import { Store } from "./modules/states/store";
 import { SharedModule } from "./shared/shared.module";
 
 registerLocaleData(localePt);
@@ -28,6 +29,7 @@ registerLocaleData(localePt);
     ],
     providers: [
         [ { provide: APP_BASE_HREF, useValue: "/" } ],
+        Store
     ],
     bootstrap: [ AppComponent ]
 })

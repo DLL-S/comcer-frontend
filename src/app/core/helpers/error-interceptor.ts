@@ -47,12 +47,16 @@ export class ErrorInterceptor implements HttpInterceptor {
                     break;
                 case 500:
                     this.notificationService.exibir("Oops, ocorreu um erro no servidor!");
-                    customError.push("Ocorreu um erro no servidor!");
+                    customError.push("500: Internal server error");
                     response.error.errors = customError;
+                    break;
+                case 504:
+                    this.notificationService.exibir("Timeout: A conexão com servidor falhou.");
+                    customError.push("504: Connection timeout");
                     break;
                 default:
                     this.notificationService.exibir("Erro desconhecido, contate o suporte!");
-                    customError.push("Ocorreu um erro desconhecido...");
+                    customError.push("Erro desconhecido");
                     response.error.errors = customError;
                     break;
             }

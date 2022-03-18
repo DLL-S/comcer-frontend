@@ -1,9 +1,8 @@
-import { CdkDragDrop } from "@angular/cdk/drag-drop";
+import { CdkDragDrop, moveItemInArray } from "@angular/cdk/drag-drop";
 import { Component, OnInit } from '@angular/core';
-import { map, Observable } from "rxjs";
-import { ResponseModel } from "src/app/core/models/response.model";
+import { Store } from "src/app/modules/states/store";
+import { EnumStatusProdutoDoPedido } from "src/app/shared/models/enums/status-produto-pedido.enum";
 import { PedidoViewModel } from "../../models/pedido-view.model";
-import { PedidosService } from "../../services/pedidos.service";
 import { ProdutosPedidosService } from "../../services/produtos-pedidos.service";
 
 @Component({
@@ -13,26 +12,36 @@ import { ProdutosPedidosService } from "../../services/produtos-pedidos.service"
 })
 export class PedidosCozinhandoComponent implements OnInit {
 
-    response$: Observable<ResponseModel<PedidoViewModel>>;
-    pedidosPendentes$: Observable<PedidoViewModel[]>;
+    pedidosCozinhando: PedidoViewModel[] = [];
 
-    constructor (
-        private pedidosService: PedidosService,
-        private produtosPedidoService: ProdutosPedidosService
-    ) {
-        this.response$ = this.pedidosService.listaDeProdutosPorPedido$;
-
-        this.pedidosPendentes$ = this.response$.pipe(
-            map(result => {
-                return result.resultados/*.filter(item => item.statusProdutoDoPedido == EnumStatusProdutoDoPedido.Pendente)*/;
-            })
-        );
+    constructor (private produtosPedidoService: ProdutosPedidosService, private store: Store) {
+        this.store.pedidosView$.subscribe({
+            next: pedidos => {
+                if (this.pedidosCozinhando.length == 0)
+                    this.pedidosCozinhando = pedidos.filter(pedido => pedido.statusProdutoDoPedido == EnumStatusProdutoDoPedido.Cozinhando);
+                else {
+                    pedidos.filter(pedido => pedido.statusProdutoDoPedido == EnumStatusProdutoDoPedido.Cozinhando)
+                        .map(item => {
+                            const index = this.pedidosCozinhando.indexOf(item);
+                            if (index >= 0) {
+                                this.pedidosCozinhando[ index ] = item;
+                            }
+                        });
+                }
+            }
+        });
     }
 
     ngOnInit(): void {
     }
 
-    drop(event: CdkDragDrop<PedidoViewModel[] | null>) {
+    drop(event: CdkDragDrop<PedidoViewModel[]>) {
 
+        if (event.previousContainer === event.container) {
+            moveItemInArray(event.container.data, event.previousIndex, event.currentIndex);
+        }
+        else {
+            this.produtosPedidoService.atualizarStatusProdutoPedido(event, EnumStatusProdutoDoPedido.Cozinhando);
+        }
     }
 }
