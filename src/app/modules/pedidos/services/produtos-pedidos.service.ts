@@ -4,8 +4,8 @@ import { Injectable } from '@angular/core';
 import { ResponseModel } from "src/app/core/models/response.model";
 import { GenericApi } from "src/app/core/services/generic-api.service";
 import { NotificationService } from '../../../core/services/notification.service';
-import { Store } from "../../states/store";
 import { ProdutoPedido } from '../models/produto-pedido.model';
+import { PedidosState } from "../state/pedidos-state";
 import { EnumStatusProdutoDoPedido } from './../../../shared/models/enums/status-produto-pedido.enum';
 import { PedidoViewModel } from './../models/pedido-view.model';
 
@@ -19,14 +19,14 @@ export class ProdutosPedidosService extends GenericApi<ProdutoPedido> {
      * Inicia uma nova instância de {@link PedidosApi}
      * @param http O {@link HttpClient} do serviço.
      */
-    constructor (http: HttpClient, private notificationService: NotificationService, private store: Store) {
+    constructor (http: HttpClient, private notificationService: NotificationService, private state: PedidosState) {
         super(http, "/produtosdopedido");
     }
 
     /**
      * Atualiza o status de um {@link ProdutoPedido} no back end.
-     * @param idProduto O id do {@link Produto} do {@link Pedido}.
-     * @param novoStatus O novo status ({@link EnumStatusPedido}) do pedido.
+     * @param event O {@link CdkDragDrop} evento contendo os dados da movimentação do item na tela.
+     * @param novoStatus O novo status do pedido.
      */
     public atualizarStatusProdutoPedido(event: CdkDragDrop<PedidoViewModel[]>, novoStatus: EnumStatusProdutoDoPedido) {
 
@@ -39,7 +39,7 @@ export class ProdutosPedidosService extends GenericApi<ProdutoPedido> {
         this.http.put<ResponseModel<ProdutoPedido>>(urlEndpoint, null, this.obtenhaHeaderAuth())
             .subscribe({
                 next: result => {
-                    const stateValue = this.store.value.pedidosView;
+                    const stateValue = this.state.value.pedidosView;
 
                     const pedidosView = stateValue.map((pedido: PedidoViewModel) => {
                         if (pedidoAtualizado.idDoProdutoDoPedido == pedido.idDoProdutoDoPedido)
@@ -48,7 +48,7 @@ export class ProdutosPedidosService extends GenericApi<ProdutoPedido> {
                             return pedido;
                     });
 
-                    this.store.set(pedidosView, "pedidosView");
+                    this.state.set(pedidosView, "pedidosView");
                     this.notificationService.exibir(`${ result.resultados[ 0 ].id } - ${ result.resultados[ 0 ].produto.nome }: ${ EnumStatusProdutoDoPedido[ result.resultados[ 0 ].status ] }`);
                 },
                 error: error => {
