@@ -25,7 +25,8 @@ registerLocaleData(localePt);
         ReactiveFormsModule,
         HttpClientModule,
         CoreModule,
-        SharedModule
+        SharedModule,
+
     ],
     providers: [
         [ { provide: APP_BASE_HREF, useValue: "/" } ],

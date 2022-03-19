@@ -46,7 +46,7 @@ export class ErrorInterceptor implements HttpInterceptor {
                     this.notificationService.exibir("Ops, o recurso que você tentou acessar não existe!");
                     break;
                 case 500:
-                    this.notificationService.exibir("Oops, ocorreu um erro no servidor!");
+                    this.notificationService.exibir("Ops, ocorreu um erro no servidor!");
                     customError.push("500: Internal server error");
                     response.error.errors = customError;
                     break;

@@ -28,4 +28,25 @@ export class PedidosService extends GenericApi<Pedido> {
                 this.store.set(next.resultados, "pedidosView");
             })
         );
+
+    public processarPedidosParaTela(pedidosTela: PedidoViewModel[], pedidosFiltrados: PedidoViewModel[]) {
+        if (pedidosTela.length == 0)
+            pedidosTela = pedidosFiltrados;
+        else {
+            pedidosFiltrados.map(item => {
+                const index = pedidosTela.findIndex(x => x.idDoProdutoDoPedido == item.idDoProdutoDoPedido);
+                if (index >= 0) {
+                    pedidosTela[ index ] = item;
+                }
+                else {
+                    pedidosTela.push(item);
+                }
+            });
+        }
+
+        pedidosTela = pedidosTela.filter(x =>
+            pedidosFiltrados.find(y => y.idDoProdutoDoPedido == x.idDoProdutoDoPedido));
+
+        return pedidosTela;
+    }
 }

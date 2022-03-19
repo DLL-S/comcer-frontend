@@ -33,13 +33,13 @@ export class NavigatorComponent implements OnInit {
 
         this.items = {
             itensPrincipais: [
-                { label: "Pedidos", icon: "fas fa-utensils", url: "/" },
-                { label: "Comandas", icon: "fas fa-receipt", url: "/comandas" }
+                { label: "Pedidos", icon: "restaurant", url: "/" },
+                { label: "Comandas", icon: "receipt", url: "/comandas" }
             ],
             itensCadastro: [
-                { label: "Mesas", icon: "fas fa-table", url: "/mesas" },
-                { label: "Produtos", icon: "fas fa-box", url: "/produtos" },
-                { label: "Funcionários", icon: "fas fa-address-card", url: "/funcionarios" },
+                { label: "Mesas", icon: "table_restaurant", url: "/mesas" },
+                { label: "Produtos", icon: "lunch_dining", url: "/produtos" },
+                { label: "Funcionários", icon: "badge", url: "/funcionarios" },
             ]
         };
     }

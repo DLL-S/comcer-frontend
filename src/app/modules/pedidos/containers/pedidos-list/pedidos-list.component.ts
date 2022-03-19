@@ -1,5 +1,7 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { PedidosService } from "../../services/pedidos.service";
+import { NotificationService } from './../../../../core/services/notification.service';
+import { TitleService } from './../../../../core/services/title.service';
 
 @Component({
     selector: 'app-pedidos-list',
@@ -12,7 +14,10 @@ export class PedidosListComponent implements OnInit, OnDestroy {
 
     constructor (
         private pedidosService: PedidosService,
+        private notificationService: NotificationService,
+        titleService: TitleService
     ) {
+        titleService.setTitle("Fila de pedidos");
         this.atualizarDados();
     }
 
@@ -27,7 +32,10 @@ export class PedidosListComponent implements OnInit, OnDestroy {
             clearInterval(this.scheduler);
     }
 
-    atualizarDados() {
-        this.pedidosService.listaDeProdutosPorPedido$.subscribe();
+    atualizarDados(exibirNotificacao: boolean = false) {
+        this.pedidosService.listaDeProdutosPorPedido$.subscribe(() => {
+            if (exibirNotificacao)
+                this.notificationService.exibir("Dados atualizados com sucesso!");
+        });
     }
 }

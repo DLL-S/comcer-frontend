@@ -12,6 +12,7 @@ import { PedidosListComponent } from './containers/pedidos-list/pedidos-list.com
 import { PedidosRoutingModule } from './pedidos-routing.module';
 import { PedidosService } from "./services/pedidos.service";
 import { ProdutosPedidosService } from './services/produtos-pedidos.service';
+import { PedidosItemComponent } from './components/pedidos-item/pedidos-item.component';
 
 @NgModule({
     declarations: [
@@ -19,6 +20,7 @@ import { ProdutosPedidosService } from './services/produtos-pedidos.service';
         PedidosPendentesComponent,
         PedidosCozinhandoComponent,
         PedidosProntosComponent,
+        PedidosItemComponent,
     ],
     imports: [
         CommonModule,
@@ -27,7 +29,7 @@ import { ProdutosPedidosService } from './services/produtos-pedidos.service';
         MatButtonModule,
         DragDropModule,
         MatProgressSpinnerModule,
-        MatIconModule
+        MatIconModule,
     ],
     providers: [
         PedidosService,

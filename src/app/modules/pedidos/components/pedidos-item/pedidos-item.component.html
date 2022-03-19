@@ -1,0 +1,22 @@
+<div class="container">
+   <div class="imagem-produto">
+      <img src='data:image/png;base64,{{pedido.fotoProdutoDoPedido}}' />
+   </div>
+   <div class="container-descricao">
+      <div class="descricao">
+         <mat-icon class="descricao-icone">lunch_dining</mat-icon>
+         {{pedido.nomeProdutoDoPedido}}
+      </div>
+      <div class="descricao">
+         <mat-icon class="descricao-icone">table_restaurant</mat-icon>
+         {{pedido.nomeComanda}}
+      </div>
+      <div class="descricao">
+         <mat-icon class="descricao-icone">shopping_basket</mat-icon>
+         {{pedido.quantidadeProdutoDoPedido}}x
+      </div>
+   </div>
+   <div class="data-hora-pedido">
+      {{pedido.dataHoraPedido | date: 'HH:mm a'}}
+   </div>
+</div>

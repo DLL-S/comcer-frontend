@@ -49,6 +49,7 @@ mat-toolbar {
 
 .topbar-item {
    transition: opacity 0.5s;
+   display: flex;
 }
 
 .topbar-item:hover {
@@ -68,8 +69,15 @@ mat-toolbar {
    margin-left: 0.800rem;
 }
 
+.sair-icone {
+   transform: scale(0.9);
+   align-self: center;
+   vertical-align: middle;
+}
+
 .sair-label {
    margin-left: 0.250rem;
+   font-size: 16px;
 }
 
 a {
@@ -78,7 +86,8 @@ a {
 }
 
 .menu-icon {
-   color: #414040;
+   transform: scale(0.8);
+   color: #535353;
    margin-right: 5px;
 }
 

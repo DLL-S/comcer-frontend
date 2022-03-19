@@ -1,0 +1,38 @@
+.container {
+   display: flex;
+}
+
+.imagem-produto {
+   max-width: 90px;
+   min-width: 90px;
+   display: flex;
+   object-fit: cover;
+   overflow: hidden;
+   justify-content: center;
+   margin-right: 10px;
+}
+
+.container-descricao {
+   display: inline-block;
+   width: 100%;
+}
+
+.descricao {
+   white-space: nowrap;
+   overflow: hidden !important;
+   text-overflow: ellipsis;
+}
+
+.descricao-icone {
+   transform: scale(0.8);
+   color: #535353;
+   margin-right: 5px;
+   vertical-align: middle;
+}
+
+.data-hora-pedido {
+   font-size: 10px;
+   position: absolute;
+   margin-left: 303px;
+   margin-top: 78px;
+}

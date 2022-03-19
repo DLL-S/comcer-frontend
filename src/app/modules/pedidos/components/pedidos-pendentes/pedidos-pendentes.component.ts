@@ -3,6 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { Store } from "src/app/modules/states/store";
 import { EnumStatusProdutoDoPedido } from "src/app/shared/models/enums/status-produto-pedido.enum";
 import { PedidoViewModel } from "../../models/pedido-view.model";
+import { PedidosService } from "../../services/pedidos.service";
 import { ProdutosPedidosService } from "../../services/produtos-pedidos.service";
 
 @Component({
@@ -14,29 +15,14 @@ export class PedidosPendentesComponent implements OnInit {
 
     pedidosPendentes: PedidoViewModel[] = [];
 
-    constructor (private produtosPedidoService: ProdutosPedidosService, private store: Store) {
+    constructor (private pedidoService: PedidosService, private produtosPedidoService: ProdutosPedidosService, private store: Store) {
         this.store.pedidosView$.subscribe({
             next: pedidos => {
 
                 const pedidosFiltrados = pedidos.filter(pedido =>
                     pedido.statusProdutoDoPedido == EnumStatusProdutoDoPedido.Pendente);
 
-                if (this.pedidosPendentes.length == 0)
-                    this.pedidosPendentes = pedidosFiltrados;
-                else {
-                    pedidosFiltrados.map(item => {
-                        const index = this.pedidosPendentes.findIndex(x => x.idDoProdutoDoPedido == item.idDoProdutoDoPedido);
-                        if (index >= 0) {
-                            this.pedidosPendentes[ index ] = item;
-                        }
-                        else {
-                            this.pedidosPendentes.push(item);
-                        }
-                    });
-                }
-
-                this.pedidosPendentes = this.pedidosPendentes.filter(x =>
-                    pedidosFiltrados.find(y => y.idDoProdutoDoPedido == x.idDoProdutoDoPedido));
+                this.pedidosPendentes = this.pedidoService.processarPedidosParaTela(this.pedidosPendentes, pedidosFiltrados);
             }
         });
     }

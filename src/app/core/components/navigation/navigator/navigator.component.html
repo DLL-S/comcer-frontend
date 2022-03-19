@@ -1,6 +1,6 @@
 <mat-toolbar color="primary" *ngIf="isLoggedIn$ | async as isLoggedIn" class="mat-elevation-z3">
    <div class="titulo topbar-box">
-      <i class="topbar-item menu-icone fas fa-bars" (click)="toggleSideBar()"></i>
+      <mat-icon class="topbar-item menu-icone" (click)="toggleSideBar()">menu</mat-icon>
       <a *ngIf="!(isMobile$ | async)" class="topbar-item titulo-label" [routerLink]="url">
          {{ titulo }}
       </a>
@@ -10,7 +10,7 @@
    </div>
    <div class="topbar-box">
       <a class="topbar-item" (click)="onLogout()">
-         <i class="fas fa-sign-out-alt sair-icone"></i>
+         <mat-icon class="sair-icone">logout</mat-icon>
          <span class="sair-label">Sair</span>
       </a>
    </div>
@@ -22,7 +22,7 @@
       *ngIf="isLoggedIn$ | async as isLoggedIn">
       <mat-nav-list role="list">
          <mat-list-item role="listitem" *ngFor="let item of items.itensPrincipais" routerLink="{{item.url}}">
-            <i class="{{item.icon}} menu-icon"></i>
+            <mat-icon class="menu-icon">{{item.icon}}</mat-icon>
             {{item.label}}
          </mat-list-item>
 
@@ -34,7 +34,7 @@
             </mat-expansion-panel-header>
 
             <mat-list-item role="listitem" *ngFor="let item of items.itensCadastro" routerLink="{{item.url}}">
-               <i class="{{item.icon}} menu-icon"></i>
+               <mat-icon class="menu-icon">{{item.icon}}</mat-icon>
                {{item.label}}
             </mat-list-item>
 
