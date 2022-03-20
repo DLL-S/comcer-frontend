@@ -14,7 +14,7 @@ import { Pedido } from './../models/pedido.model';
 export class PedidosService extends GenericApi<Pedido> {
 
     /**
-     * Inicia uma nova instância de {@link PedidosApi}
+     * Inicia uma nova instância de {@link PedidosService}
      * @param http O {@link HttpClient} do serviço.
      */
     constructor (http: HttpClient, private state: PedidosState) {

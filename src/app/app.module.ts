@@ -26,7 +26,6 @@ registerLocaleData(localePt);
         HttpClientModule,
         CoreModule,
         SharedModule,
-
     ],
     providers: [
         [ { provide: APP_BASE_HREF, useValue: "/" } ],

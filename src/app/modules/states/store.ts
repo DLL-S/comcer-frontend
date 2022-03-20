@@ -1,4 +1,4 @@
-import { BehaviorSubject, map } from 'rxjs';
+import { BehaviorSubject } from 'rxjs';
 import { State } from "./state";
 
 const state: State = {
@@ -30,13 +30,5 @@ export class Store {
         this.subject.next({
             ...this.value, [ storeName ]: value
         });
-    }
-
-    public get funcionarios$() {
-        return this.store.pipe(
-            map(store => {
-                return store.funcionarios;
-            })
-        );
     }
 }
