@@ -14,7 +14,6 @@
 
 .container-descricao {
    display: inline-block;
-   width: 100%;
 }
 
 .descricao {
@@ -32,7 +31,5 @@
 
 .data-hora-pedido {
    font-size: 10px;
-   position: absolute;
-   margin-left: 303px;
-   margin-top: 78px;
+   margin-left: 87%;
 }
