@@ -1,8 +1,9 @@
-import { BehaviorSubject, map } from 'rxjs';
+import { BehaviorSubject } from 'rxjs';
 import { State } from "./state";
 
 const state: State = {
-    pedidosView: []
+    pedidosView: [],
+    funcionarios: []
 };
 
 /**
@@ -11,7 +12,7 @@ const state: State = {
 export class Store {
 
     private subject = new BehaviorSubject<State>(state);
-    private store = this.subject.asObservable();
+    protected store = this.subject.asObservable();
 
     /**
      * Obtém os valore do estado de um determinado store.
@@ -25,18 +26,9 @@ export class Store {
      * @param value Os valores a serem adicionados.
      * @param storeName O nome do store utilizado.
      */
-    public set(value: any, storeName: 'pedidosView') {
+    public set(value: any, storeName: 'pedidosView' | 'funcionarios') {
         this.subject.next({
             ...this.value, [ storeName ]: value
         });
     }
-
-    public get pedidosView$() {
-        return this.store.pipe(
-            map(store => {
-                return store.pedidosView;
-            })
-        );
-    }
-
 }

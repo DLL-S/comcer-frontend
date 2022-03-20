@@ -1,10 +1,10 @@
 import { CdkDragDrop, moveItemInArray } from "@angular/cdk/drag-drop";
 import { Component, OnInit } from '@angular/core';
-import { Store } from "src/app/modules/states/store";
 import { EnumStatusProdutoDoPedido } from "src/app/shared/models/enums/status-produto-pedido.enum";
 import { PedidoViewModel } from "../../models/pedido-view.model";
 import { PedidosService } from "../../services/pedidos.service";
 import { ProdutosPedidosService } from "../../services/produtos-pedidos.service";
+import { PedidosState } from "../../state/pedidos-state";
 
 @Component({
     selector: 'app-pedidos-pendentes',
@@ -15,8 +15,8 @@ export class PedidosPendentesComponent implements OnInit {
 
     pedidosPendentes: PedidoViewModel[] = [];
 
-    constructor (private pedidoService: PedidosService, private produtosPedidoService: ProdutosPedidosService, private store: Store) {
-        this.store.pedidosView$.subscribe({
+    constructor (private pedidoService: PedidosService, private produtosPedidoService: ProdutosPedidosService, private state: PedidosState) {
+        this.state.pedidosView$.subscribe({
             next: pedidos => {
 
                 const pedidosFiltrados = pedidos.filter(pedido =>

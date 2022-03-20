@@ -6,13 +6,14 @@ import { MatCardModule } from '@angular/material/card';
 import { MatIconModule } from '@angular/material/icon';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { PedidosCozinhandoComponent } from './components/pedidos-cozinhando/pedidos-cozinhando.component';
+import { PedidosItemComponent } from './components/pedidos-item/pedidos-item.component';
 import { PedidosPendentesComponent } from './components/pedidos-pendentes/pedidos-pendentes.component';
 import { PedidosProntosComponent } from './components/pedidos-prontos/pedidos-prontos.component';
 import { PedidosListComponent } from './containers/pedidos-list/pedidos-list.component';
 import { PedidosRoutingModule } from './pedidos-routing.module';
 import { PedidosService } from "./services/pedidos.service";
 import { ProdutosPedidosService } from './services/produtos-pedidos.service';
-import { PedidosItemComponent } from './components/pedidos-item/pedidos-item.component';
+import { PedidosState } from "./state/pedidos-state";
 
 @NgModule({
     declarations: [
@@ -34,6 +35,7 @@ import { PedidosItemComponent } from './components/pedidos-item/pedidos-item.com
     providers: [
         PedidosService,
         ProdutosPedidosService,
+        PedidosState
     ]
 })
 export class PedidosModule { }
