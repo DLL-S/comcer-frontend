@@ -31,6 +31,14 @@ export class FuncionarioService extends GenericApi<Funcionario> {
 		);
 
 	/**
+	 * Atualiza os dados de um funcionario no back end.
+	 * @param funcionario O funcionario a ser atualizado.
+	 */
+	public atualizarFuncionario(funcionario: Funcionario) {
+		return this.http.put<ResponseModel<Funcionario>>(this.apiBaseUrl, funcionario, this.obtenhaHeaderAuth());
+	}
+
+	/**
 	 * Altera o status de um {@link Funcionario}.
 	 * @param funcionario O {@link Funcionario} a ser manipulado.
 	 */
@@ -46,7 +54,7 @@ export class FuncionarioService extends GenericApi<Funcionario> {
 			});
 	}
 
-	private atualizaState(funcionarioAtualizado: Funcionario) {
+	public atualizaState(funcionarioAtualizado: Funcionario) {
 		const stateValue = this.state.value.funcionarios;
 
 		const funcionarios = stateValue.map((funcionarioState: Funcionario) => {

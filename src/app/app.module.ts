@@ -14,23 +14,23 @@ import { SharedModule } from "./shared/shared.module";
 registerLocaleData(localePt);
 
 @NgModule({
-    declarations: [
-        AppComponent
-    ],
-    imports: [
-        BrowserModule,
-        AppRoutingModule,
-        BrowserAnimationsModule,
-        FormsModule,
-        ReactiveFormsModule,
-        HttpClientModule,
-        CoreModule,
-        SharedModule,
-    ],
-    providers: [
-        [ { provide: APP_BASE_HREF, useValue: "/" } ],
-        Store
-    ],
-    bootstrap: [ AppComponent ]
+	declarations: [
+		AppComponent
+	],
+	imports: [
+		BrowserModule,
+		AppRoutingModule,
+		BrowserAnimationsModule,
+		FormsModule,
+		ReactiveFormsModule,
+		HttpClientModule,
+		CoreModule,
+		SharedModule
+	],
+	providers: [
+		[ { provide: APP_BASE_HREF, useValue: "/" } ],
+		Store
+	],
+	bootstrap: [ AppComponent ]
 })
 export class AppModule { }

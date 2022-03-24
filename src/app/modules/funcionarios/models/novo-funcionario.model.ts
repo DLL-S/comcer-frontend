@@ -5,6 +5,6 @@ import { Funcionario } from "./funcionario.model";
  * Interface padrão para cadastro de Funcionario.
  */
 export interface NovoFuncionario {
-	Funcionario: Funcionario;
-	Login: Usuario;
+	funcionario: Funcionario;
+	login?: Usuario;
 }

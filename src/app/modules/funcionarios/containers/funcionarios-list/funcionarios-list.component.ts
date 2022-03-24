@@ -1,4 +1,3 @@
-import { animate, state, style, transition, trigger } from '@angular/animations';
 import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { MatPaginator } from "@angular/material/paginator";
@@ -15,14 +14,7 @@ import { FuncionariosState } from './../../state/funcionarios-state';
 @Component({
 	selector: 'app-funcionarios-list',
 	templateUrl: './funcionarios-list.component.html',
-	styleUrls: [ './funcionarios-list.component.css' ],
-	animations: [
-		trigger('detailExpand', [
-			state('collapsed', style({ height: '0px', minHeight: '0' })),
-			state('expanded', style({ height: '*' })),
-			transition('expanded <=> collapsed', animate('225ms cubic-bezier(0.4, 0.0, 0.2, 1)')),
-		]),
-	],
+	styleUrls: [ './funcionarios-list.component.css' ]
 })
 export class FuncionariosListComponent implements OnInit, AfterViewInit {
 
@@ -58,20 +50,25 @@ export class FuncionariosListComponent implements OnInit, AfterViewInit {
 	}
 
 	abrirDialogoDeEdicao(funcionario?: Funcionario) {
+
 		const dialogRef = this.dialog.open(FuncionarioEditDialogComponent, {
-			width: "600px",
+			disableClose: true,
+			width: "640px",
 			data: funcionario
 		});
 
 		dialogRef.afterClosed().subscribe(result => {
-
+			if (result && result.confirmacao) {
+				if (result.edicao)
+					this.editarFuncionario(result.funcionarioEditado.funcionario);
+			}
 		});
 	}
 
 	abrirDialogoDeInativacao(funcionario: Funcionario) {
 		const dialogRef = this.dialog.open(FuncionarioInactiveDialogComponent, {
-			width: "360px",
-			data: funcionario
+			width: "400px",
+			data: funcionario,
 		});
 
 		dialogRef.afterClosed().subscribe(result => {
@@ -81,7 +78,7 @@ export class FuncionariosListComponent implements OnInit, AfterViewInit {
 	}
 
 	editarFuncionario(funcionario: Funcionario) {
-		console.log(funcionario);
+		var result = this.funcionariosService.atualizarFuncionario(funcionario);
 	}
 
 	inativarFuncionario(funcionario: Funcionario) {
