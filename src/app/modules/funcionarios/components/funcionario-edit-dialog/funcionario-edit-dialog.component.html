@@ -191,5 +191,5 @@
 <div mat-dialog-actions>
    <button mat-button color="warn" type="button" cdkFocusInitial (click)="cancelar()">Cancelar</button>
    <button mat-button color="primary" type="button" (click)="concluir()"
-      [disabled]="!(formDadosPessoais.valid && formEndereco.valid && formUsuario.valid)">Salvar</button>
+      [disabled]="!(formDadosPessoais.valid && formEndereco.valid && (data || formUsuario.valid))">Salvar</button>
 </div>
