@@ -1,1 +1,65 @@
-<p>funcionarios-list works!</p>
+<button mat-fab class="botao-recarregar" color="primary" aria-label="Recarregar dados" (click)="atualizarDados(true)">
+   <mat-icon>refresh</mat-icon>
+</button>
+
+<section class="container-filtro">
+   <mat-form-field appearance="standard" class="filtro">
+      <mat-label>Filtro</mat-label>
+      <input matInput (keyup)="filtrar($event)" placeholder="Ex. João" #input>
+      <mat-icon matSuffix class="icone-filtro">filter_alt</mat-icon>
+   </mat-form-field>
+
+   <button mat-mini-fab color="primary" aria-label="Adicionar" matTooltip="Adicionar funcionário"
+      matTooltipPosition="below" (click)="abrirDialogoDeEdicao()">
+      <mat-icon>add</mat-icon>
+   </button>
+</section>
+
+<table mat-table matSort [dataSource]="dataSource" class="mat-elevation-z3">
+
+   <!-- Coluna Id -->
+   <ng-container matColumnDef="id">
+      <mat-header-cell mat-sort-header *matHeaderCellDef> Id </mat-header-cell>
+      <mat-cell mat-cell *matCellDef="let element"> {{element.id}} </mat-cell>
+   </ng-container>
+
+   <!-- Coluna Nome -->
+   <ng-container matColumnDef="nome">
+      <mat-header-cell mat-sort-header *matHeaderCellDef> Nome </mat-header-cell>
+      <mat-cell mat-cell *matCellDef="let element"> {{element.nome}} </mat-cell>
+   </ng-container>
+
+   <!-- Coluna Email -->
+   <ng-container matColumnDef="email">
+      <mat-header-cell mat-sort-header *matHeaderCellDef> Email </mat-header-cell>
+      <mat-cell mat-cell *matCellDef="let element"> {{element.email}} </mat-cell>
+   </ng-container>
+
+   <!-- Coluna Situação -->
+   <ng-container matColumnDef="situacao">
+      <mat-header-cell mat-sort-header *matHeaderCellDef> Situação </mat-header-cell>
+      <mat-cell mat-cell *matCellDef="let element"> {{TipoEnumSituacao[element.situacao]}} </mat-cell>
+   </ng-container>
+
+   <!-- Coluna Ações -->
+   <ng-container matColumnDef="acoes">
+      <mat-header-cell *matHeaderCellDef> Ações </mat-header-cell>
+      <mat-cell mat-cell *matCellDef="let element">
+         <button class="botao-acao" mat-mini-fab color="primary" aria-label="Editar" matTooltip="Editar funcionário"
+            matTooltipPosition="before" (click)="abrirDialogoDeEdicao(element)">
+            <mat-icon>edit</mat-icon>
+         </button>
+         <button *ngIf="element.situacao == 0" class="botao-acao" mat-mini-fab color="warn" aria-label="Inativar"
+            matTooltip="Inativar funcionário" matTooltipPosition="after" (click)="abrirDialogoDeInativacao(element)">
+            <mat-icon>close</mat-icon>
+         </button>
+      </mat-cell>
+   </ng-container>
+
+   <mat-header-row *matHeaderRowDef="colunasVisiveis"></mat-header-row>
+   <mat-row matRipple *matRowDef="let row; columns: colunasVisiveis;" (dblclick)="abrirDialogoDeEdicao(row)"></mat-row>
+</table>
+
+<mat-paginator [pageSizeOptions]="[10, 15, 25, 50]" [length]="dataSource.data.length"
+   aria-label="Paginação de funcionários" class="mat-elevation-z3">
+</mat-paginator>

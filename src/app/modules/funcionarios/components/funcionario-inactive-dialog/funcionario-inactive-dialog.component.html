@@ -1,0 +1,8 @@
+<h1 mat-dialog-title>Inativar funcionário {{data.id}}</h1>
+<div mat-dialog-content>
+   <p>Deseja realmente inativar o funcionário <strong>{{data.nome}}</strong> ?</p>
+</div>
+<div mat-dialog-actions>
+   <button mat-button color="warn" cdkFocusInitial (click)="cancelar()">Não</button>
+   <button mat-button color="primary" (click)="confirmar()">Sim</button>
+</div>

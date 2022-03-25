@@ -1,0 +1,16 @@
+::ng-deep .mat-grid-tile-content {
+   justify-content: flex-start !important;
+}
+
+.grid-width-input {
+   width: 95%;
+}
+
+.full-width-input {
+   width: 99%;
+}
+
+.situacao-container, mat-divider {
+   margin-bottom: 2.5%;
+   width: 98%;
+}
