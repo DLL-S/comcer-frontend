@@ -1,9 +1,10 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { tap } from "rxjs";
+import { map, Observable, tap } from "rxjs";
 import { GenericApi } from 'src/app/core/services/generic-api.service';
 import { NotificationService } from "src/app/core/services/notification.service";
 import { EnumSituacaoUsuario } from "src/app/shared/models/enums/situacao.enum";
+import { NovoFuncionario } from "../models/novo-funcionario.model";
 import { FuncionariosState } from "../state/funcionarios-state";
 import { ResponseModel } from './../../../core/models/response.model';
 import { Funcionario } from './../models/funcionario.model';
@@ -31,14 +32,6 @@ export class FuncionarioService extends GenericApi<Funcionario> {
 		);
 
 	/**
-	 * Atualiza os dados de um funcionario no back end.
-	 * @param funcionario O funcionario a ser atualizado.
-	 */
-	public atualizarFuncionario(funcionario: Funcionario) {
-		return this.http.put<ResponseModel<Funcionario>>(this.apiBaseUrl, funcionario, this.obtenhaHeaderAuth());
-	}
-
-	/**
 	 * Altera o status de um {@link Funcionario}.
 	 * @param funcionario O {@link Funcionario} a ser manipulado.
 	 */
@@ -54,6 +47,18 @@ export class FuncionarioService extends GenericApi<Funcionario> {
 			});
 	}
 
+	/**
+	 * Cadastra um novo objeto no back end.
+	 * @param objeto O objeto a ser cadastrado.
+	 */
+	public criarFuncionario(objeto: NovoFuncionario): Observable<Funcionario> {
+		return this.http.post<ResponseModel<Funcionario>>(this.apiBaseUrl, objeto, this.obtenhaHeaderAuth()).pipe(
+			map(result => {
+				return result.resultados[ 0 ];
+			})
+		);
+	}
+
 	public atualizaState(funcionarioAtualizado: Funcionario) {
 		const stateValue = this.state.value.funcionarios;
 
@@ -65,5 +70,9 @@ export class FuncionarioService extends GenericApi<Funcionario> {
 		});
 
 		this.state.set(funcionarios, "funcionarios");
+	}
+
+	adicionaState(funcionario: Funcionario) {
+		this.state.adicionar(funcionario, "funcionarios");
 	}
 }

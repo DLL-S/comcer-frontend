@@ -1,11 +1,11 @@
-<h1 mat-dialog-title *ngIf="!edicao">Adicionar funcionário</h1>
-<h1 mat-dialog-title *ngIf="edicao">Editar funcionário</h1>
+<h1 mat-dialog-title *ngIf="!data">Adicionar funcionário</h1>
+<h1 mat-dialog-title *ngIf="data">Editar funcionário</h1>
 
 <form [formGroup]="formDadosPessoais">
 
    <!-- Situação -->
    <section class="situacao-container">
-      <mat-button-toggle-group formControlName="situacao" aria-label="Situação" [value]="dados?.situacao || 0">
+      <mat-button-toggle-group formControlName="situacao" aria-label="Situação">
          <mat-button-toggle [value]="0">Ativo</mat-button-toggle>
          <mat-button-toggle [value]="1">Inativo</mat-button-toggle>
       </mat-button-toggle-group>
@@ -27,7 +27,7 @@
          <mat-form-field class="grid-width-input" appearance="outline">
             <mat-label>Nome</mat-label>
             <input matInput type="text" placeholder="Nome" formControlName="nome" required>
-            <mat-error *ngIf="isFieldInvalid('nome')">
+            <mat-error *ngIf="isFieldInvalid('dadosPessoais', 'nome')">
                O nome deve conter de 3 a 80 caracteres
             </mat-error>
          </mat-form-field>
@@ -38,7 +38,7 @@
          <mat-form-field class="grid-width-input" appearance="outline">
             <mat-label>CPF</mat-label>
             <input matInput mask="000.000.000-00" type="text" placeholder="CPF" formControlName="cpf" required>
-            <mat-error *ngIf="isFieldInvalid('cpf')">
+            <mat-error *ngIf="isFieldInvalid('dadosPessoais', 'cpf')">
                Informe um CPF válido
             </mat-error>
          </mat-form-field>
@@ -49,7 +49,7 @@
          <mat-form-field class="grid-width-input" appearance="outline">
             <mat-label>Data de nascimento</mat-label>
             <input matInput type="date" placeholder="Data de nascimento" formControlName="dataNascimento" required>
-            <mat-error *ngIf="isFieldInvalid('dataNascimento')">
+            <mat-error *ngIf="isFieldInvalid('dadosPessoais', 'dataNascimento')">
                Informe a data de nascimento
             </mat-error>
          </mat-form-field>
@@ -60,7 +60,7 @@
          <mat-form-field class="grid-width-input" appearance="outline">
             <mat-label>E-mail</mat-label>
             <input matInput type="email" maxlength="60" placeholder="email" formControlName="email" required>
-            <mat-error *ngIf="isFieldInvalid('email')">
+            <mat-error *ngIf="isFieldInvalid('dadosPessoais', 'email')">
                Informe um e-mail válido
             </mat-error>
          </mat-form-field>
@@ -71,7 +71,7 @@
          <mat-form-field class="grid-width-input" appearance="outline">
             <mat-label>Celular</mat-label>
             <input matInput mask="(00) 00000-0000" type="text" placeholder="Celular" formControlName="celular" required>
-            <mat-error *ngIf="isFieldInvalid('celular')">
+            <mat-error *ngIf="isFieldInvalid('dadosPessoais', 'celular')">
                Informe um número válido
             </mat-error>
          </mat-form-field>
@@ -92,7 +92,7 @@
             <mat-label>CEP</mat-label>
             <input matInput mask="00.000-000" (change)="buscarCep()" maxlength="10" type="text" placeholder="CEP"
                formControlName="cep" required>
-            <mat-error *ngIf="isFieldInvalid('cep')">
+            <mat-error *ngIf="isFieldInvalid('endereco', 'cep')">
                Informe um CEP válido
             </mat-error>
          </mat-form-field>
@@ -103,7 +103,7 @@
          <mat-form-field class="grid-width-input" appearance="outline">
             <mat-label>Estado</mat-label>
             <input matInput type="text" maxlength="40" placeholder="Estado" formControlName="estado" required>
-            <mat-error *ngIf="isFieldInvalid('estado')">
+            <mat-error *ngIf="isFieldInvalid('endereco', 'estado')">
                Informe o estado
             </mat-error>
          </mat-form-field>
@@ -114,7 +114,7 @@
          <mat-form-field class="grid-width-input" appearance="outline">
             <mat-label>Cidade</mat-label>
             <input matInput type="text" maxlength="40" placeholder="Cidade" formControlName="cidade" required>
-            <mat-error *ngIf="isFieldInvalid('cidade')">
+            <mat-error *ngIf="isFieldInvalid('endereco', 'cidade')">
                Informe a cidade
             </mat-error>
          </mat-form-field>
@@ -125,7 +125,7 @@
          <mat-form-field class="grid-width-input" appearance="outline">
             <mat-label>Bairro</mat-label>
             <input matInput type="text" maxlength="60" placeholder="Bairro" formControlName="bairro" required>
-            <mat-error *ngIf="isFieldInvalid('bairro')">
+            <mat-error *ngIf="isFieldInvalid('endereco', 'bairro')">
                Informe o bairro
             </mat-error>
          </mat-form-field>
@@ -136,7 +136,7 @@
          <mat-form-field class="grid-width-input" appearance="outline">
             <mat-label>Rua</mat-label>
             <input matInput type="text" placeholder="Rua" formControlName="rua" required>
-            <mat-error *ngIf="isFieldInvalid('rua')">
+            <mat-error *ngIf="isFieldInvalid('endereco', 'rua')">
                Informe a rua
             </mat-error>
          </mat-form-field>
@@ -147,7 +147,7 @@
          <mat-form-field class="grid-width-input" appearance="outline">
             <mat-label>Número</mat-label>
             <input matInput type="number" placeholder="Número" formControlName="numero" required>
-            <mat-error *ngIf="isFieldInvalid('numero')">
+            <mat-error *ngIf="isFieldInvalid('endereco', 'numero')">
                Informe o número
             </mat-error>
          </mat-form-field>
@@ -158,7 +158,7 @@
          <mat-form-field class="full-width-input" appearance="outline">
             <mat-label>Complemento</mat-label>
             <input matInput type="text" maxlength="60" placeholder="Complemento" formControlName="complemento">
-            <mat-error *ngIf="isFieldInvalid('complemento')">
+            <mat-error *ngIf="isFieldInvalid('endereco', 'complemento')">
                Complemento deve ter até 60 caracteres
             </mat-error>
          </mat-form-field>
@@ -167,18 +167,18 @@
    </mat-grid-list>
 </form>
 
-<form *ngIf="!edicao">
+<form *ngIf="!data" [formGroup]="formUsuario">
 
    <mat-divider></mat-divider>
 
    <mat-grid-list cols="4" rowHeight="75px">
 
       <!-- Senha -->
-      <mat-grid-tile colspan="1">
-         <mat-form-field class="grid-width-input" appearance="outline">
+      <mat-grid-tile colspan="4">
+         <mat-form-field class="full-width-input" appearance="outline">
             <mat-label>Senha</mat-label>
             <input matInput minlength="8" type="password" placeholder="Senha" formControlName="senha" required>
-            <mat-error *ngIf="isFieldInvalid('senha')">
+            <mat-error *ngIf="isFieldInvalid('usuario', 'senha')">
                Senha deve possui no mínimo 8 caracteres
             </mat-error>
          </mat-form-field>
@@ -191,5 +191,5 @@
 <div mat-dialog-actions>
    <button mat-button color="warn" type="button" cdkFocusInitial (click)="cancelar()">Cancelar</button>
    <button mat-button color="primary" type="button" (click)="concluir()"
-      [disabled]="!formDadosPessoais.valid || !formEndereco.valid || (!edicao && !formUsuario.valid)">Salvar</button>
+      [disabled]="!(formDadosPessoais.valid && formEndereco.valid && formUsuario.valid)">Salvar</button>
 </div>

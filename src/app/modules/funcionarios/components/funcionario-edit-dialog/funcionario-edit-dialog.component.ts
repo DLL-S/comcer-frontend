@@ -2,6 +2,7 @@ import { formatDate } from '@angular/common';
 import { Component, Inject, OnInit, Optional } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from "@angular/forms";
 import { MatDialogRef, MAT_DIALOG_DATA } from "@angular/material/dialog";
+import { sha256 } from "js-sha256";
 import { NotificationService } from "src/app/core/services/notification.service";
 import { ConsultaCepService } from "src/app/shared/utils/services/consulta-cep.service";
 import { cpfValidator } from "src/app/shared/utils/valida-cpf";
@@ -20,8 +21,7 @@ export class FuncionarioEditDialogComponent implements OnInit {
 	formEndereco: FormGroup;
 	formUsuario: FormGroup;
 	private formSubmitAttempt: boolean = false;
-	dados?: Funcionario;
-	edicao: boolean = false;
+	formularios = new Map<"dadosPessoais" | "endereco" | "usuario", FormGroup>();
 
 	constructor (
 		private formBuilder: FormBuilder,
@@ -31,30 +31,27 @@ export class FuncionarioEditDialogComponent implements OnInit {
 		public dialogRef: MatDialogRef<FuncionarioEditDialogComponent>,
 		@Optional() @Inject(MAT_DIALOG_DATA) public data: Funcionario
 	) {
-		this.dados = { ...data };
-
-		if (this.dados)
-			this.edicao = true;
-
 		this.formDadosPessoais = this.construirFormDadosPessoais();
-
 		this.formEndereco = this.construirFormEndereco();
-
 		this.formUsuario = this.construirFormUsuario();
+
+		this.formularios.set("dadosPessoais", this.formDadosPessoais);
+		this.formularios.set("endereco", this.formEndereco);
+		this.formularios.set("usuario", this.formUsuario);
 	}
 
 	ngOnInit(): void {
 	}
 
-	isFieldInvalid(field: string) {
+	isFieldInvalid(form: "dadosPessoais" | "endereco" | "usuario", field: string) {
 		return (
-			(!this.formDadosPessoais.get(field)?.valid && this.formDadosPessoais.get(field)?.touched) ||
-			(this.formDadosPessoais.get(field)?.untouched && this.formSubmitAttempt)
+			(!this.formularios.get(form)?.get(field)?.valid && this.formularios.get(form)?.get(field)?.touched) ||
+			(this.formularios.get(form)?.get(field)?.untouched && this.formSubmitAttempt)
 		);
 	}
 
 	buscarCep() {
-		if (!this.isFieldInvalid("cep")) {
+		if (!this.isFieldInvalid("dadosPessoais", "cep")) {
 			this.consultaCepService.consultar(this.formEndereco.get("cep")?.value).subscribe({
 				next: result => {
 					this.formEndereco.get("cidade")?.setValue(result.logradouro);
@@ -70,16 +67,30 @@ export class FuncionarioEditDialogComponent implements OnInit {
 	concluir() {
 		let funcionarioEditado = this.extrairDadosDosFormularios();
 
-		if (this.edicao) {
-			this.funcionarioService.atualizarFuncionario(funcionarioEditado.funcionario)
+		if (this.data) {
+			this.funcionarioService.atualizar(funcionarioEditado.funcionario)
 				.subscribe({
 					next: result => {
-						funcionarioEditado.funcionario = result.resultados[ 0 ];
+						funcionarioEditado.funcionario = result;
 						this.funcionarioService.atualizaState(funcionarioEditado.funcionario);
 						this.notificationService.exibir(`Funcionário ${ funcionarioEditado.funcionario.id } atualizado com sucesso!`);
 
 						this.dialogRef.close({
 							confirmacao: true,
+						});
+					}
+				});
+		}
+		else {
+			this.funcionarioService.criarFuncionario(funcionarioEditado)
+				.subscribe({
+					next: result => {
+						funcionarioEditado.funcionario = result,
+							this.funcionarioService.adicionaState(funcionarioEditado.funcionario);
+						this.notificationService.exibir(`Funcionário cadastrado com o ID ${ funcionarioEditado.funcionario.id }!`);
+
+						this.dialogRef.close({
+							confirmacao: true
 						});
 					}
 				});
@@ -94,32 +105,32 @@ export class FuncionarioEditDialogComponent implements OnInit {
 
 	private construirFormDadosPessoais() {
 		return this.formBuilder.group({
-			situacao: [ this.dados?.situacao, Validators.required ],
-			id: [ { value: this.dados?.id, disabled: true }, [ Validators.required ] ],
-			nome: [ this.dados?.nome, [ Validators.required, Validators.minLength(3), Validators.maxLength(80) ] ],
-			dataNascimento: [ formatDate(this.dados?.dataNascimento || new Date(), "yyyy-MM-dd", "pt"), [ Validators.required ] ],
-			cpf: [ this.dados?.cpf, [ Validators.required, cpfValidator() ] ],
-			email: [ this.dados?.email, [ Validators.required, Validators.maxLength(60), Validators.email ] ],
-			celular: [ this.dados?.celular, [ Validators.required ] ],
+			situacao: [ this.data?.situacao || 0, Validators.required ],
+			id: [ { value: this.data?.id, disabled: true }, [ Validators.required ] ],
+			nome: [ this.data?.nome, [ Validators.required, Validators.minLength(3), Validators.maxLength(80) ] ],
+			dataNascimento: [ this.data ? formatDate(this.data.dataNascimento, "yyyy-MM-dd", "pt") : '', [ Validators.required ] ],
+			cpf: [ this.data?.cpf, [ Validators.required, cpfValidator() ] ],
+			email: [ this.data?.email, [ Validators.required, Validators.maxLength(60), Validators.email ] ],
+			celular: [ this.data?.celular, [ Validators.required ] ],
 		});
 	}
 
 	private construirFormEndereco() {
 		return this.formBuilder.group({
-			cep: [ this.dados?.endereco.cep, [ Validators.required, Validators.maxLength(8) ] ],
-			cidade: [ this.dados?.endereco.cidade, [ Validators.required, Validators.maxLength(40) ] ],
-			estado: [ this.dados?.endereco.estado, [ Validators.required, Validators.maxLength(40) ] ],
-			bairro: [ this.dados?.endereco.bairro, [ Validators.required, Validators.maxLength(60) ] ],
-			rua: [ this.dados?.endereco.rua, [ Validators.required, Validators.maxLength(60) ] ],
-			numero: [ this.dados?.endereco.numero, [ Validators.required ] ],
-			complemento: [ this.dados?.endereco.complemento, [ Validators.maxLength(80) ] ]
+			cep: [ this.data?.endereco?.cep, [ Validators.required, Validators.maxLength(8) ] ],
+			cidade: [ this.data?.endereco?.cidade, [ Validators.required, Validators.maxLength(40) ] ],
+			estado: [ this.data?.endereco?.estado, [ Validators.required, Validators.maxLength(40) ] ],
+			bairro: [ this.data?.endereco?.bairro, [ Validators.required, Validators.maxLength(60) ] ],
+			rua: [ this.data?.endereco?.rua, [ Validators.required, Validators.maxLength(60) ] ],
+			numero: [ this.data?.endereco?.numero, [ Validators.required ] ],
+			complemento: [ this.data?.endereco?.complemento, [ Validators.maxLength(80) ] ]
 		});
 	}
 
 	private construirFormUsuario() {
 		return this.formBuilder.group({
 			senha: [ "", [ Validators.required, Validators.minLength(8) ] ],
-			role: [ "", [ Validators.required ] ]
+			// role: [ "", [ Validators.required ] ]
 		});
 	}
 
@@ -131,8 +142,13 @@ export class FuncionarioEditDialogComponent implements OnInit {
 
 		funcionarioEditado.funcionario.endereco = this.formEndereco.value;
 
-		if (this.dados)
-			funcionarioEditado.funcionario.id = this.dados.id;
+		if (funcionarioEditado.login) {
+			funcionarioEditado.login.usuario = funcionarioEditado.funcionario.email;
+			funcionarioEditado.login.senha = sha256(funcionarioEditado.login.senha);
+		}
+
+		if (this.data)
+			funcionarioEditado.funcionario.id = this.data.id;
 
 		return funcionarioEditado;
 	}

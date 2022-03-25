@@ -3,6 +3,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { MatPaginator } from "@angular/material/paginator";
 import { MatSort } from "@angular/material/sort";
 import { MatTableDataSource } from "@angular/material/table";
+import { NotificationService } from "src/app/core/services/notification.service";
 import { TitleService } from 'src/app/core/services/title.service';
 import { EnumSituacaoUsuario } from "src/app/shared/models/enums/situacao.enum";
 import { FuncionarioEditDialogComponent } from "../../components/funcionario-edit-dialog/funcionario-edit-dialog.component";
@@ -28,6 +29,7 @@ export class FuncionariosListComponent implements OnInit, AfterViewInit {
 		private titleService: TitleService,
 		private funcionariosState: FuncionariosState,
 		private funcionariosService: FuncionarioService,
+		private notificationService: NotificationService,
 		public dialog: MatDialog
 	) {
 		this.titleService.setTitle("Funcionários", "/funcionarios", "Cadastro de funcionários");
@@ -49,20 +51,27 @@ export class FuncionariosListComponent implements OnInit, AfterViewInit {
 		this.dataSource.paginator = this.paginator;
 	}
 
+	filtrar(event: Event) {
+		const filterValue = (event.target as HTMLInputElement).value;
+		this.dataSource.filter = filterValue.trim().toLowerCase();
+	}
+
+	atualizarDados(exibirNotificacao: boolean = false) {
+		this.funcionariosService.listaDeFuncionarios$.subscribe(() => {
+			if (exibirNotificacao)
+				this.notificationService.exibir("Dados atualizados com sucesso!");
+		});
+	}
+
 	abrirDialogoDeEdicao(funcionario?: Funcionario) {
 
 		const dialogRef = this.dialog.open(FuncionarioEditDialogComponent, {
 			disableClose: true,
 			width: "640px",
-			data: funcionario
+			data: funcionario,
 		});
 
-		dialogRef.afterClosed().subscribe(result => {
-			if (result && result.confirmacao) {
-				if (result.edicao)
-					this.editarFuncionario(result.funcionarioEditado.funcionario);
-			}
-		});
+		dialogRef.afterClosed().subscribe(result => { });
 	}
 
 	abrirDialogoDeInativacao(funcionario: Funcionario) {
@@ -75,10 +84,6 @@ export class FuncionariosListComponent implements OnInit, AfterViewInit {
 			if (result && result.confirmacao)
 				this.inativarFuncionario(funcionario);
 		});
-	}
-
-	editarFuncionario(funcionario: Funcionario) {
-		var result = this.funcionariosService.atualizarFuncionario(funcionario);
 	}
 
 	inativarFuncionario(funcionario: Funcionario) {
