@@ -22,10 +22,6 @@ export class SubscriptionContainer {
 	 */
 	dispose() {
 		let x = 0;
-		this.subs.forEach(sub => {
-			x++;
-			console.log("Destruindo subscription: ", x);
-			sub.unsubscribe();
-		});
+		this.subs.forEach(sub => sub.unsubscribe());
 	}
 }

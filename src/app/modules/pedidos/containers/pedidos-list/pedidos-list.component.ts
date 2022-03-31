@@ -12,6 +12,7 @@ import { PedidosService } from "../../services/pedidos.service";
 export class PedidosListComponent implements OnInit, OnDestroy {
 
 	scheduler: any;
+	carregando: boolean = true;
 
 	constructor (
 		private pedidosService: PedidosService,
@@ -34,11 +35,13 @@ export class PedidosListComponent implements OnInit, OnDestroy {
 	}
 
 	atualizarDados(exibirNotificacao: boolean = false) {
+		this.carregando = true;
 		this.pedidosService.listaDeProdutosPorPedido$
 			.pipe(take(1))
 			.subscribe(() => {
 				if (exibirNotificacao)
 					this.notificationService.exibir("Dados atualizados com sucesso!");
+				this.carregando = false;
 			});
 	}
 }

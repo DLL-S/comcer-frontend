@@ -1,5 +1,5 @@
 import { CdkDragDrop, moveItemInArray } from "@angular/cdk/drag-drop";
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, Input, OnDestroy, OnInit } from '@angular/core';
 import { SubscriptionContainer } from "src/app/core/helpers/subscription-container";
 import { EnumStatusProdutoDoPedido } from "src/app/shared/models/enums/status-produto-pedido.enum";
 import { PedidoViewModel } from "../../models/pedido-view.model";
@@ -14,6 +14,7 @@ import { PedidosState } from "../../state/pedidos-state";
 })
 export class PedidosProntosComponent implements OnInit, OnDestroy {
 
+	@Input() carregando: boolean = true;
 	pedidosProntos: PedidoViewModel[] = [];
 	private subscriptions = new SubscriptionContainer();
 

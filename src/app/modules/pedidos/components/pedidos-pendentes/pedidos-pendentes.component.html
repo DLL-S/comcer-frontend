@@ -8,8 +8,12 @@
       [cdkDropListConnectedTo]="['listaCozinhando', 'listaProntos']" class="lista" cdkDropList
       (cdkDropListDropped)="drop($event)">
 
-      <div class="container-vazio" *ngIf="pedidosPendentes.length == 0">
+      <div class="container-vazio" *ngIf="carregando">
          <mat-spinner></mat-spinner>
+      </div>
+
+      <div class="container-vazio" *ngIf="pedidosPendentes.length == 0 && !carregando">
+         Não há pedidos aqui...
       </div>
 
       <div class="itens-lista" *ngFor="let item of pedidosPendentes" cdkDrag>
