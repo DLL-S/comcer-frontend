@@ -21,6 +21,11 @@ export class SubscriptionContainer {
 	 * Faz unsubscribe de todas as subscriptions do container.
 	 */
 	dispose() {
-		this.subs.forEach(sub => sub.unsubscribe());
+		let x = 0;
+		this.subs.forEach(sub => {
+			x++;
+			console.log("Destruindo subscription: ", x);
+			sub.unsubscribe();
+		});
 	}
 }

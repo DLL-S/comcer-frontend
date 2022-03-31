@@ -3,6 +3,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { MatPaginator } from "@angular/material/paginator";
 import { MatSort } from "@angular/material/sort";
 import { MatTableDataSource } from "@angular/material/table";
+import { take } from "rxjs";
 import { SubscriptionContainer } from "src/app/core/helpers/subscription-container";
 import { NotificationService } from "src/app/core/services/notification.service";
 import { TitleService } from 'src/app/core/services/title.service';
@@ -63,10 +64,12 @@ export class FuncionariosListComponent implements OnInit, AfterViewInit, OnDestr
 	}
 
 	atualizarDados(exibirNotificacao: boolean = false) {
-		this.subscriptions.add = this.funcionariosService.listaDeFuncionarios$.subscribe(() => {
-			if (exibirNotificacao)
-				this.notificationService.exibir("Dados atualizados com sucesso!");
-		});
+		this.funcionariosService.listaDeFuncionarios$
+			.pipe(take(1))
+			.subscribe(() => {
+				if (exibirNotificacao)
+					this.notificationService.exibir("Dados atualizados com sucesso!");
+			});
 	}
 
 	abrirDialogoDeEdicao(funcionario?: Funcionario) {
@@ -77,7 +80,9 @@ export class FuncionariosListComponent implements OnInit, AfterViewInit, OnDestr
 			data: funcionario,
 		});
 
-		this.subscriptions.add = dialogRef.afterClosed().subscribe(result => { });
+		dialogRef.afterClosed()
+			.pipe(take(1))
+			.subscribe(result => { });
 	}
 
 	abrirDialogoDeInativacao(funcionario: Funcionario) {
@@ -86,10 +91,12 @@ export class FuncionariosListComponent implements OnInit, AfterViewInit, OnDestr
 			data: funcionario,
 		});
 
-		this.subscriptions.add = dialogRef.afterClosed().subscribe(result => {
-			if (result && result.confirmacao)
-				this.inativarFuncionario(funcionario);
-		});
+		dialogRef.afterClosed()
+			.pipe(take(1))
+			.subscribe(result => {
+				if (result && result.confirmacao)
+					this.inativarFuncionario(funcionario);
+			});
 	}
 
 	inativarFuncionario(funcionario: Funcionario) {

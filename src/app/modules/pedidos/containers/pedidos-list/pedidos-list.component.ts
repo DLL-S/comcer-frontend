@@ -1,5 +1,5 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { SubscriptionContainer } from "src/app/core/helpers/subscription-container";
+import { take } from "rxjs";
 import { NotificationService } from '../../../../core/services/notification.service';
 import { TitleService } from '../../../../core/services/title.service';
 import { PedidosService } from "../../services/pedidos.service";
@@ -12,7 +12,6 @@ import { PedidosService } from "../../services/pedidos.service";
 export class PedidosListComponent implements OnInit, OnDestroy {
 
 	scheduler: any;
-	private subscriptions = new SubscriptionContainer();
 
 	constructor (
 		private pedidosService: PedidosService,
@@ -30,15 +29,16 @@ export class PedidosListComponent implements OnInit, OnDestroy {
 	}
 
 	ngOnDestroy(): void {
-		this.subscriptions.dispose();
 		if (this.scheduler)
 			clearInterval(this.scheduler);
 	}
 
 	atualizarDados(exibirNotificacao: boolean = false) {
-		this.subscriptions.add = this.pedidosService.listaDeProdutosPorPedido$.subscribe(() => {
-			if (exibirNotificacao)
-				this.notificationService.exibir("Dados atualizados com sucesso!");
-		});
+		this.pedidosService.listaDeProdutosPorPedido$
+			.pipe(take(1))
+			.subscribe(() => {
+				if (exibirNotificacao)
+					this.notificationService.exibir("Dados atualizados com sucesso!");
+			});
 	}
 }
