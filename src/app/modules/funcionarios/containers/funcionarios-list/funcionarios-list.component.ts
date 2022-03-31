@@ -1,8 +1,9 @@
-import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { MatPaginator } from "@angular/material/paginator";
 import { MatSort } from "@angular/material/sort";
 import { MatTableDataSource } from "@angular/material/table";
+import { SubscriptionContainer } from "src/app/core/helpers/subscription-container";
 import { NotificationService } from "src/app/core/services/notification.service";
 import { TitleService } from 'src/app/core/services/title.service';
 import { EnumSituacaoUsuario } from "src/app/shared/models/enums/situacao.enum";
@@ -17,13 +18,14 @@ import { FuncionariosState } from '../../state/funcionarios-state';
 	templateUrl: './funcionarios-list.component.html',
 	styleUrls: [ './funcionarios-list.component.css' ]
 })
-export class FuncionariosListComponent implements OnInit, AfterViewInit {
+export class FuncionariosListComponent implements OnInit, AfterViewInit, OnDestroy {
 
 	TipoEnumSituacao = EnumSituacaoUsuario;
 	dataSource: MatTableDataSource<Funcionario>;
 	colunasVisiveis: string[] = [ "id", "nome", "email", "situacao", "acoes" ];
 	@ViewChild(MatSort) sort!: MatSort;
 	@ViewChild(MatPaginator) paginator!: MatPaginator;
+	private subscriptions = new SubscriptionContainer();
 
 	constructor (
 		private titleService: TitleService,
@@ -34,12 +36,12 @@ export class FuncionariosListComponent implements OnInit, AfterViewInit {
 	) {
 		this.titleService.setTitle("Funcionários", "/funcionarios", "Cadastro de funcionários");
 
-		this.funcionariosService.listaDeFuncionarios$.subscribe();
+		this.atualizarDados();
 		this.dataSource = new MatTableDataSource();
 	}
 
 	ngOnInit(): void {
-		this.funcionariosState.funcionarios$.subscribe({
+		this.subscriptions.add = this.funcionariosState.funcionarios$.subscribe({
 			next: funcionarios => {
 				this.dataSource.data = funcionarios;
 			}
@@ -51,13 +53,17 @@ export class FuncionariosListComponent implements OnInit, AfterViewInit {
 		this.dataSource.paginator = this.paginator;
 	}
 
+	ngOnDestroy(): void {
+		this.subscriptions.dispose();
+	}
+
 	filtrar(event: Event) {
 		const filterValue = (event.target as HTMLInputElement).value;
 		this.dataSource.filter = filterValue.trim().toLowerCase();
 	}
 
 	atualizarDados(exibirNotificacao: boolean = false) {
-		this.funcionariosService.listaDeFuncionarios$.subscribe(() => {
+		this.subscriptions.add = this.funcionariosService.listaDeFuncionarios$.subscribe(() => {
 			if (exibirNotificacao)
 				this.notificationService.exibir("Dados atualizados com sucesso!");
 		});
@@ -71,7 +77,7 @@ export class FuncionariosListComponent implements OnInit, AfterViewInit {
 			data: funcionario,
 		});
 
-		dialogRef.afterClosed().subscribe(result => { });
+		this.subscriptions.add = dialogRef.afterClosed().subscribe(result => { });
 	}
 
 	abrirDialogoDeInativacao(funcionario: Funcionario) {
@@ -80,7 +86,7 @@ export class FuncionariosListComponent implements OnInit, AfterViewInit {
 			data: funcionario,
 		});
 
-		dialogRef.afterClosed().subscribe(result => {
+		this.subscriptions.add = dialogRef.afterClosed().subscribe(result => {
 			if (result && result.confirmacao)
 				this.inativarFuncionario(funcionario);
 		});
