@@ -4,10 +4,10 @@ import { Injectable } from '@angular/core';
 import { ResponseModel } from "src/app/core/models/response.model";
 import { GenericApi } from "src/app/core/services/generic-api.service";
 import { NotificationService } from '../../../core/services/notification.service';
+import { EnumStatusProdutoDoPedido } from '../../../shared/models/enums/status-produto-pedido.enum';
+import { PedidoViewModel } from '../models/pedido-view.model';
 import { ProdutoPedido } from '../models/produto-pedido.model';
 import { PedidosState } from "../state/pedidos-state";
-import { EnumStatusProdutoDoPedido } from './../../../shared/models/enums/status-produto-pedido.enum';
-import { PedidoViewModel } from './../models/pedido-view.model';
 
 /**
  * Serviço de Produtos de Pedidos.

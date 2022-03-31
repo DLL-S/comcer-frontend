@@ -54,7 +54,7 @@ export class FuncionarioEditDialogComponent implements OnInit {
 		if (!this.isFieldInvalid("dadosPessoais", "cep")) {
 			this.consultaCepService.consultar(this.formEndereco.get("cep")?.value).subscribe({
 				next: result => {
-					this.formEndereco.get("cidade")?.setValue(result.logradouro);
+					this.formEndereco.get("cidade")?.setValue(result.localidade);
 					this.formEndereco.get("estado")?.setValue(result.uf);
 					this.formEndereco.get("bairro")?.setValue(result.bairro);
 					this.formEndereco.get("rua")?.setValue(result.logradouro);

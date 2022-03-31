@@ -1,7 +1,7 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
+import { NotificationService } from '../../../../core/services/notification.service';
+import { TitleService } from '../../../../core/services/title.service';
 import { PedidosService } from "../../services/pedidos.service";
-import { NotificationService } from './../../../../core/services/notification.service';
-import { TitleService } from './../../../../core/services/title.service';
 
 @Component({
     selector: 'app-pedidos-list',

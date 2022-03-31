@@ -3,9 +3,9 @@ import { Injectable } from '@angular/core';
 import { tap } from "rxjs";
 import { ResponseModel } from "src/app/core/models/response.model";
 import { GenericApi } from "src/app/core/services/generic-api.service";
+import { PedidoViewModel } from '../models/pedido-view.model';
+import { Pedido } from '../models/pedido.model';
 import { PedidosState } from "../state/pedidos-state";
-import { PedidoViewModel } from './../models/pedido-view.model';
-import { Pedido } from './../models/pedido.model';
 
 /**
  * Serviço de Pedidos.

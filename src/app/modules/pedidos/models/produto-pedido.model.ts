@@ -6,9 +6,9 @@ import { EnumStatusProdutoDoPedido } from "src/app/shared/models/enums/status-pr
  * Interface padrão do Model ProdutoPedido.
  */
 export interface ProdutoPedido extends BaseModel {
-    produto: Produto;
-    quantidade: number;
-    valorUnitario: number;
-    status: EnumStatusProdutoDoPedido;
-    dataHoraPedido?: Date;
+	produto: Produto;
+	quantidade: number;
+	valorUnitario: number;
+	status: EnumStatusProdutoDoPedido;
+	dataHoraPedido?: Date;
 }

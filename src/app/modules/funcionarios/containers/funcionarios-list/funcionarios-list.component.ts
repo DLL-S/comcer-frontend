@@ -9,8 +9,8 @@ import { EnumSituacaoUsuario } from "src/app/shared/models/enums/situacao.enum";
 import { FuncionarioEditDialogComponent } from "../../components/funcionario-edit-dialog/funcionario-edit-dialog.component";
 import { FuncionarioInactiveDialogComponent } from "../../components/funcionario-inactive-dialog/funcionario-inactive-dialog.component";
 import { Funcionario } from "../../models/funcionario.model";
-import { FuncionarioService } from './../../services/funcionario.service';
-import { FuncionariosState } from './../../state/funcionarios-state';
+import { FuncionarioService } from '../../services/funcionario.service';
+import { FuncionariosState } from '../../state/funcionarios-state';
 
 @Component({
 	selector: 'app-funcionarios-list',

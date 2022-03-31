@@ -1,5 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { PedidoViewModel } from './../../models/pedido-view.model';
+import { PedidoViewModel } from '../../models/pedido-view.model';
 
 @Component({
     selector: 'app-pedidos-item',
