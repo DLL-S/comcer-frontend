@@ -1,13 +1,13 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { map, Observable, tap } from "rxjs";
+import { map, Observable, take, tap } from "rxjs";
 import { GenericApi } from 'src/app/core/services/generic-api.service';
 import { NotificationService } from "src/app/core/services/notification.service";
 import { EnumSituacaoUsuario } from "src/app/shared/models/enums/situacao.enum";
+import { ResponseModel } from '../../../core/models/response.model';
+import { Funcionario } from '../models/funcionario.model';
 import { NovoFuncionario } from "../models/novo-funcionario.model";
 import { FuncionariosState } from "../state/funcionarios-state";
-import { ResponseModel } from './../../../core/models/response.model';
-import { Funcionario } from './../models/funcionario.model';
 
 @Injectable()
 export class FuncionarioService extends GenericApi<Funcionario> {
@@ -38,6 +38,7 @@ export class FuncionarioService extends GenericApi<Funcionario> {
 	alternarSituacao(funcionario: Funcionario) {
 
 		this.http.patch<number>(`${ this.apiBaseUrl }/${ funcionario.id }/situacao`, null, this.obtenhaHeaderAuth())
+			.pipe(take(1))
 			.subscribe({
 				next: result => {
 					funcionario.situacao = result;

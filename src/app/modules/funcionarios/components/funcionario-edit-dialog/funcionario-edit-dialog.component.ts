@@ -3,6 +3,7 @@ import { Component, Inject, OnInit, Optional } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from "@angular/forms";
 import { MatDialogRef, MAT_DIALOG_DATA } from "@angular/material/dialog";
 import { sha256 } from "js-sha256";
+import { take } from "rxjs";
 import { NotificationService } from "src/app/core/services/notification.service";
 import { ConsultaCepService } from "src/app/shared/utils/services/consulta-cep.service";
 import { cpfValidator } from "src/app/shared/utils/valida-cpf";
@@ -20,8 +21,8 @@ export class FuncionarioEditDialogComponent implements OnInit {
 	formDadosPessoais: FormGroup;
 	formEndereco: FormGroup;
 	formUsuario: FormGroup;
-	private formSubmitAttempt: boolean = false;
 	formularios = new Map<"dadosPessoais" | "endereco" | "usuario", FormGroup>();
+	private formSubmitAttempt: boolean = false;
 
 	constructor (
 		private formBuilder: FormBuilder,
@@ -34,13 +35,12 @@ export class FuncionarioEditDialogComponent implements OnInit {
 		this.formDadosPessoais = this.construirFormDadosPessoais();
 		this.formEndereco = this.construirFormEndereco();
 		this.formUsuario = this.construirFormUsuario();
-
-		this.formularios.set("dadosPessoais", this.formDadosPessoais);
-		this.formularios.set("endereco", this.formEndereco);
-		this.formularios.set("usuario", this.formUsuario);
 	}
 
 	ngOnInit(): void {
+		this.formularios.set("dadosPessoais", this.formDadosPessoais);
+		this.formularios.set("endereco", this.formEndereco);
+		this.formularios.set("usuario", this.formUsuario);
 	}
 
 	isFieldInvalid(form: "dadosPessoais" | "endereco" | "usuario", field: string) {
@@ -52,15 +52,17 @@ export class FuncionarioEditDialogComponent implements OnInit {
 
 	buscarCep() {
 		if (!this.isFieldInvalid("dadosPessoais", "cep")) {
-			this.consultaCepService.consultar(this.formEndereco.get("cep")?.value).subscribe({
-				next: result => {
-					this.formEndereco.get("cidade")?.setValue(result.logradouro);
-					this.formEndereco.get("estado")?.setValue(result.uf);
-					this.formEndereco.get("bairro")?.setValue(result.bairro);
-					this.formEndereco.get("rua")?.setValue(result.logradouro);
-					this.formEndereco.get("complemento")?.setValue(result.complemento);
-				}
-			});
+			this.consultaCepService.consultar(this.formEndereco.get("cep")?.value)
+				.pipe(take(1))
+				.subscribe({
+					next: result => {
+						this.formEndereco.get("cidade")?.setValue(result.localidade);
+						this.formEndereco.get("estado")?.setValue(result.uf);
+						this.formEndereco.get("bairro")?.setValue(result.bairro);
+						this.formEndereco.get("rua")?.setValue(result.logradouro);
+						this.formEndereco.get("complemento")?.setValue(result.complemento);
+					}
+				});
 		}
 	}
 
@@ -69,6 +71,7 @@ export class FuncionarioEditDialogComponent implements OnInit {
 
 		if (this.data) {
 			this.funcionarioService.atualizar(funcionarioEditado.funcionario)
+				.pipe(take(1))
 				.subscribe({
 					next: result => {
 						funcionarioEditado.funcionario = result;
@@ -83,6 +86,7 @@ export class FuncionarioEditDialogComponent implements OnInit {
 		}
 		else {
 			this.funcionarioService.criarFuncionario(funcionarioEditado)
+				.pipe(take(1))
 				.subscribe({
 					next: result => {
 						funcionarioEditado.funcionario = result,
