@@ -39,14 +39,12 @@ export class LoginService extends BaseApi {
 	login(usuario: Usuario) {
 		this.http.post<Usuario>(this.apiBaseUrl, usuario, this.obtenhaHeaders())
 			.pipe(take(1))
-			.subscribe({
-				next: result => {
-					this.localStorage.salvarDadosLocaisUsuario(result);
-					this.loggedIn.next(true);
-					let returnUrl = this.route.snapshot.queryParams[ 'returnUrl' ].split("?")[ 0 ];
-					returnUrl && returnUrl != "/login" ? this.router.navigate([ returnUrl ]) : this.router.navigate([ '/' ]);
-					this.notificationService.exibir("Login realizado com sucesso!");
-				}
+			.subscribe(result => {
+				this.localStorage.salvarDadosLocaisUsuario(result);
+				this.loggedIn.next(true);
+				let returnUrl = this.route.snapshot.queryParams[ 'returnUrl' ].split("?")[ 0 ];
+				returnUrl && returnUrl != "/login" ? this.router.navigate([ returnUrl ]) : this.router.navigate([ '/' ]);
+				this.notificationService.exibir("Login realizado com sucesso!");
 			});
 	}
 

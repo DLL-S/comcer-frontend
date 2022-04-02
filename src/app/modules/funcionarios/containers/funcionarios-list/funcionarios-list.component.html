@@ -1,7 +1,3 @@
-<button mat-fab class="botao-recarregar" color="primary" aria-label="Recarregar dados" (click)="atualizarDados(true)">
-   <mat-icon>refresh</mat-icon>
-</button>
-
 <section class="container-filtro">
    <mat-form-field appearance="standard" class="filtro">
       <mat-label>Filtro</mat-label>
@@ -60,6 +56,10 @@
    <mat-row matRipple *matRowDef="let row; columns: colunasVisiveis;" (dblclick)="abrirDialogoDeEdicao(row)"></mat-row>
 </table>
 
-<mat-paginator [pageSizeOptions]="[10, 15, 25, 50]" [length]="dataSource.data.length"
+<mat-paginator [pageSizeOptions]="[10, 15, 25, 50]" [length]="dataSource.data.length" showFirstLastButtons
    aria-label="Paginação de funcionários" class="mat-elevation-z3">
 </mat-paginator>
+
+<button mat-fab class="botao-recarregar" color="primary" aria-label="Recarregar dados" (click)="atualizarDados(true)">
+   <mat-icon>refresh</mat-icon>
+</button>
