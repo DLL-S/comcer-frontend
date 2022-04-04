@@ -36,12 +36,11 @@ export class FuncionariosListComponent implements OnInit, AfterViewInit, OnDestr
 		public dialog: MatDialog
 	) {
 		this.titleService.setTitle("Funcionários", "/funcionarios", "Cadastro de funcionários");
-
-		this.atualizarDados();
 		this.dataSource = new MatTableDataSource();
 	}
 
 	ngOnInit(): void {
+		this.atualizarDados();
 		this.subscriptions.add = this.funcionariosState.funcionarios$.subscribe({
 			next: funcionarios => {
 				this.dataSource.data = funcionarios;
@@ -82,7 +81,7 @@ export class FuncionariosListComponent implements OnInit, AfterViewInit, OnDestr
 
 		dialogRef.afterClosed()
 			.pipe(take(1))
-			.subscribe(result => { });
+			.subscribe();
 	}
 
 	abrirDialogoDeInativacao(funcionario: Funcionario) {
@@ -101,5 +100,10 @@ export class FuncionariosListComponent implements OnInit, AfterViewInit, OnDestr
 
 	inativarFuncionario(funcionario: Funcionario) {
 		this.funcionariosService.alternarSituacao(funcionario);
+	}
+
+	limparInput(input: any) {
+		input.value = '';
+		this.dataSource.filter = '';
 	}
 }

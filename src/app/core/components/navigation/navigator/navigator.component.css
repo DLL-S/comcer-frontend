@@ -74,7 +74,6 @@ mat-drawer-container {
 mat-drawer {
    width: 220px;
    padding-top: 65px;
-   padding-bottom: 10px;
    position: fixed;
 }
 
@@ -87,8 +86,9 @@ mat-drawer i {
 }
 
 .mat-drawer-content {
-   padding: 20px;
+   padding: 20px 20px 28px 20px;
    background-color: #FAFAFA;
+   overflow-x: scroll;
    height: 90%;
 }
 

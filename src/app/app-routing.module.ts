@@ -6,56 +6,57 @@ import { PaginaEmConstrucaoComponent } from "./shared/pages/pagina-em-construcao
 import { PaginaNaoEncontradaComponent } from "./shared/pages/pagina-nao-encontrada/pagina-nao-encontrada.component";
 
 const routes: Routes = [
-    { path: "login", component: LoginComponent },
-    {
-        path: "", loadChildren: () =>
-            import("./modules/pedidos/pedidos.module").then(m => m.PedidosModule),
-        canActivate: [ BaseGuard ]
-    },
-    {
-        path: "home", loadChildren: () =>
-            import("./modules/pedidos/pedidos.module").then(m => m.PedidosModule),
-        canActivate: [ BaseGuard ]
-    },
-    {
-        path: "pedidos", loadChildren: () =>
-            import("./modules/pedidos/pedidos.module").then(m => m.PedidosModule),
-        canActivate: [ BaseGuard ]
-    },
-    {
-        path: "comandas", component: PaginaEmConstrucaoComponent,
-        canActivate: [ BaseGuard ]
-    },
-    {
-        path: "mesas", component: PaginaEmConstrucaoComponent,
-        canActivate: [ BaseGuard ]
-    },
-    {
-        path: "produtos", component: PaginaEmConstrucaoComponent,
-        canActivate: [ BaseGuard ]
-    },
-    {
-        path: "funcionarios", loadChildren: () =>
-            import("./modules/funcionarios/funcionarios.module").then(m => m.FuncionariosModule),
-        canActivate: [ BaseGuard ]
-    },
+	{ path: "login", component: LoginComponent },
+	{
+		path: "", loadChildren: () =>
+			import("./modules/pedidos/pedidos.module").then(m => m.PedidosModule),
+		canActivate: [ BaseGuard ]
+	},
+	{
+		path: "home", loadChildren: () =>
+			import("./modules/pedidos/pedidos.module").then(m => m.PedidosModule),
+		canActivate: [ BaseGuard ]
+	},
+	{
+		path: "pedidos", loadChildren: () =>
+			import("./modules/pedidos/pedidos.module").then(m => m.PedidosModule),
+		canActivate: [ BaseGuard ]
+	},
+	{
+		path: "comandas", component: PaginaEmConstrucaoComponent,
+		canActivate: [ BaseGuard ]
+	},
+	{
+		path: "mesas", component: PaginaEmConstrucaoComponent,
+		canActivate: [ BaseGuard ]
+	},
+	{
+		path: "produtos", loadChildren: () =>
+			import("./modules/produtos/produtos.module").then(m => m.ProdutosModule),
+		canActivate: [ BaseGuard ]
+	},
+	{
+		path: "funcionarios", loadChildren: () =>
+			import("./modules/funcionarios/funcionarios.module").then(m => m.FuncionariosModule),
+		canActivate: [ BaseGuard ]
+	},
 
 
-    // { path: "comandas", loadChildren: () => import("./modules/comandas/comandas.module").then(m => m.ComandasModule) },
-    // { path: "mesas", loadChildren: () => import("./modules/mesas/mesas.module").then(m => m.MesasModule) },
-    // { path: "produtos", loadChildren: () => import("./modules/produtos/produtos.module").then(m => m.ProdutosModule) },
-    {
-        path: "pagina-em-construcao", component: PaginaEmConstrucaoComponent,
-        canActivate: [ BaseGuard ]
-    },
-    {
-        path: '**', component: PaginaNaoEncontradaComponent,
-        canActivate: [ BaseGuard ]
-    }
+	// { path: "comandas", loadChildren: () => import("./modules/comandas/comandas.module").then(m => m.ComandasModule) },
+	// { path: "mesas", loadChildren: () => import("./modules/mesas/mesas.module").then(m => m.MesasModule) },
+	// { path: "produtos", loadChildren: () => import("./modules/produtos/produtos.module").then(m => m.ProdutosModule) },
+	{
+		path: "pagina-em-construcao", component: PaginaEmConstrucaoComponent,
+		canActivate: [ BaseGuard ]
+	},
+	{
+		path: '**', component: PaginaNaoEncontradaComponent,
+		canActivate: [ BaseGuard ]
+	}
 ];
 
 @NgModule({
-    imports: [ RouterModule.forRoot(routes) ],
-    exports: [ RouterModule ]
+	imports: [ RouterModule.forRoot(routes) ],
+	exports: [ RouterModule ]
 })
 export class AppRoutingModule { }
