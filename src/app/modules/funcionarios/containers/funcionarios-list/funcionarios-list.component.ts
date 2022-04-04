@@ -81,7 +81,7 @@ export class FuncionariosListComponent implements OnInit, AfterViewInit, OnDestr
 
 		dialogRef.afterClosed()
 			.pipe(take(1))
-			.subscribe(result => { });
+			.subscribe();
 	}
 
 	abrirDialogoDeInativacao(funcionario: Funcionario) {
@@ -100,5 +100,10 @@ export class FuncionariosListComponent implements OnInit, AfterViewInit, OnDestr
 
 	inativarFuncionario(funcionario: Funcionario) {
 		this.funcionariosService.alternarSituacao(funcionario);
+	}
+
+	limparInput(input: any) {
+		input.value = '';
+		this.dataSource.filter = '';
 	}
 }

@@ -93,18 +93,14 @@ export class FuncionarioEditDialogComponent implements OnInit {
 							this.funcionarioService.adicionaState(funcionarioEditado.funcionario);
 						this.notificationService.exibir(`Funcionário cadastrado com o ID ${ funcionarioEditado.funcionario.id }!`);
 
-						this.dialogRef.close({
-							confirmacao: true
-						});
+						this.dialogRef.close();
 					}
 				});
 		}
 	}
 
 	cancelar() {
-		this.dialogRef.close({
-			confirmacao: false,
-		});
+		this.dialogRef.close();
 	}
 
 	private construirFormDadosPessoais() {

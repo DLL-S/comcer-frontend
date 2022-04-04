@@ -1,17 +1,20 @@
-<section class="container-filtro">
-   <mat-form-field appearance="standard" class="filtro">
-      <mat-label>Filtro</mat-label>
-      <input matInput (keyup)="filtrar($event)" placeholder="Ex. Pizza" #input>
-      <mat-icon matSuffix class="icone-filtro">filter_alt</mat-icon>
-   </mat-form-field>
-
-   <button mat-mini-fab color="primary" aria-label="Adicionar" matTooltip="Adicionar produto" matTooltipPosition="below"
-      (click)="abrirDialogoDeEdicao()">
-      <mat-icon>add</mat-icon>
-   </button>
-</section>
-
 <div class="main-container mat-elevation-z3">
+
+   <section class="container-filtro">
+      <mat-form-field appearance="standard" class="filtro">
+         <mat-label>Filtro</mat-label>
+         <input matInput (keyup)="filtrar($event)" placeholder="Ex. Pizza" #input>
+         <button *ngIf="input.value" matSuffix mat-icon-button aria-label="Clear" (click)="limparInput(input)">
+            <mat-icon>close</mat-icon>
+         </button>
+         <mat-icon matSuffix *ngIf="!input.value" class="icone-filtro">filter_alt</mat-icon>
+      </mat-form-field>
+
+      <button mat-mini-fab color="primary" aria-label="Adicionar" matTooltip="Adicionar produto"
+         matTooltipPosition="below" (click)="abrirDialogoDeEdicao()">
+         <mat-icon>add</mat-icon>
+      </button>
+   </section>
 
    <div class="loading-shade" *ngIf="carregando">
       <mat-spinner></mat-spinner>
@@ -43,8 +46,9 @@
       <ng-container matColumnDef="acoes">
          <mat-header-cell *matHeaderCellDef> Ações </mat-header-cell>
          <mat-cell mat-cell *matCellDef="let produto">
-            <button class="botao-acao" mat-mini-fab color="primary" aria-label="Editar" matTooltip="Editar produto"
-               matTooltipPosition="before" (click)="abrirDialogoDeEdicao(produto)">
+            <button class="mat-elevation-z2" mat-mini-fab color="primary" aria-label="Editar"
+               matTooltip="Editar produto" matTooltipPosition="after" (click)="abrirDialogoDeEdicao(produto)"
+               click-stop-propagation>
                <mat-icon>edit</mat-icon>
             </button>
          </mat-cell>
@@ -62,14 +66,13 @@
       </ng-container>
 
       <mat-header-row *matHeaderRowDef="colunasVisiveis"></mat-header-row>
-      <mat-row matRipple *matRowDef="let row; columns: colunasVisiveis;" class="example-element-row"
-         [class.example-expanded-row]="produtoClicado === row" (click)="toggleRowExpanded(row)"
+      <mat-row matRipple *matRowDef="let row; columns: colunasVisiveis;" (click)="toggleRowExpanded(row)"
          (dblclick)="abrirDialogoDeEdicao(row)">
       </mat-row>
       <tr mat-row *matRowDef="let row; columns: ['expandedDetail']" class="linha-detalhes-produto"></tr>
    </table>
 
-   <mat-paginator [pageSizeOptions]="[10, 15, 25, 50]" [length]="quantidadeTotal" showFirstLastButtons
+   <mat-paginator [pageSizeOptions]="tamanhosPaginacao" [length]="quantidadeTotal" showFirstLastButtons
       aria-label="Paginação de produtos">
    </mat-paginator>
 

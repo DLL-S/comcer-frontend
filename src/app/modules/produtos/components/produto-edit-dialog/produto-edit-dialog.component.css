@@ -10,8 +10,6 @@
    margin-right: 5px !important;
 }
 
-.situacao-container,
-mat-divider {
-   margin-bottom: 2.5%;
-   width: 98%;
+::ng-deep .mat-form-field-prefix {
+   top: unset !important;
 }

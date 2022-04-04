@@ -1,0 +1,30 @@
+<form>
+   <fieldset [class.possui-erro]="mensagemDeErro">
+      <div class="container-header"><label class="form-label">Imagem *</label>
+         <a class="icone-remover" *ngIf="imagemBase64" (click)="removerImagem()">
+            <mat-icon matTooltip="Remover imagem" matTooltipPosition="before">highlight_off</mat-icon>
+         </a>
+      </div>
+
+      <div class="input-container">
+
+         <div class="container-imagem">
+            <ng-container *ngIf="imagemBase64; else defaultPlaceHolder">
+               <img src='data:image/png;base64,{{imagemBase64}}' />
+            </ng-container>
+            <ng-template #defaultPlaceHolder>
+               <div class="icone-vazio">
+                  <mat-icon>upload_file</mat-icon>
+                  <div>Selecione ou arraste uma imagem aqui.</div>
+               </div>
+            </ng-template>
+         </div>
+
+         <input type="file" (change)="fileChangeEvent($event)" class="input-upload" #seletorDeimagem>
+      </div>
+
+   </fieldset>
+
+   <mat-error *ngIf="mensagemDeErro" class="mensagem-erro">{{mensagemDeErro}}</mat-error>
+
+</form>

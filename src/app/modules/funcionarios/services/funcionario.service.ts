@@ -26,6 +26,7 @@ export class FuncionarioService extends GenericApi<Funcionario> {
 	public listaDeFuncionarios$ = this.http
 		.get<ResponseModel<Funcionario>>(this.apiBaseUrl, this.obtenhaHeaderAuth())
 		.pipe(
+			take(1),
 			tap(next => {
 				this.state.set(next.resultados, "funcionarios");
 			})

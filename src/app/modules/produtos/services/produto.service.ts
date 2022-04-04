@@ -8,7 +8,7 @@ import { Produto } from '../models/produto.model';
 import { ProdutosState } from "../state/produtos-state";
 
 @Injectable()
-export class ProdutosService extends GenericApi<Produto> {
+export class ProdutoService extends GenericApi<Produto> {
 
 	/**
 	 * Inicia uma nova instância de {@link ProdutoService}
@@ -27,38 +27,36 @@ export class ProdutosService extends GenericApi<Produto> {
 		})
 	);
 
-	listarComPaginacao(pagina: number, quantidade: number, ordem: number): Observable<ResponseModel<Produto>> {
-		var response = this.http
-			.get<ResponseModel<Produto>>(
-				`${ this.apiBaseUrl }?pagina=${ pagina }&quantidade=${ quantidade }&ordem=${ ordem }`,
-				this.obtenhaHeaderAuth()
-			).pipe(
-				take(1),
-				tap(next => {
-					this.atualizaState(next.resultados);
-				}));
-
-		return response;
-	}
-
 	/**
-	 * Obtém uma lista dos produtos do back end de acordo com o termo de busca.
+	 * Obtém uma lista dos produtos do back end de acordo com os parâmetros especificados.
+	 * @param pagina A página a ser retornada.
+	 * @param quantidade A quantidade de itens a ser retornada.
+	 * @param ordem A prdem de listagem dos itens.
 	 * @param termoDeBusca A string de consulta.
 	 * @returns Um {@link Observable} contendo os dados da resposta.
 	 */
-	public override pesquisar(termoDeBusca: string): Observable<ResponseModel<Produto>> {
-		var response: Observable<ResponseModel<Produto>> = super.pesquisar(termoDeBusca)
+	public override pesquisar(pagina: number, quantidade: number, ordem: number, termoDeBusca?: string): Observable<ResponseModel<Produto>> {
+		var result = super.pesquisar(pagina, quantidade, ordem, termoDeBusca)
 			.pipe(
 				take(1),
-				tap(next => {
-					this.atualizaState(next.resultados);
-				})
-			);
-
-		return response;
+				tap(next => this.state.set(next.resultados, "produtos")));
+		return result;
 	}
 
-	private atualizaState(produtos: Produto[]) {
+	public atualizaState(produtoAtualizado: Produto) {
+		const stateValue = this.state.value.produtos;
+
+		const produtos = stateValue.map((produtoState: Produto) => {
+			if (produtoAtualizado.id == produtoState.id)
+				return { ...produtoState, ...produtoAtualizado };
+			else
+				return produtoState;
+		});
+
 		this.state.set(produtos, "produtos");
+	}
+
+	public adicionaState(produto: Produto) {
+		this.state.adicionar(produto, "produtos");
 	}
 }

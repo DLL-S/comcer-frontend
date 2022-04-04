@@ -1,8 +1,11 @@
-<section class="container-filtro">
+<section class="container-filtro mat-elevation-z3">
    <mat-form-field appearance="standard" class="filtro">
       <mat-label>Filtro</mat-label>
       <input matInput (keyup)="filtrar($event)" placeholder="Ex. João" #input>
-      <mat-icon matSuffix class="icone-filtro">filter_alt</mat-icon>
+      <button *ngIf="input.value" matSuffix mat-icon-button aria-label="Clear" (click)="limparInput(input)">
+         <mat-icon>close</mat-icon>
+      </button>
+      <mat-icon matSuffix *ngIf="!input.value" class="icone-filtro">filter_alt</mat-icon>
    </mat-form-field>
 
    <button mat-mini-fab color="primary" aria-label="Adicionar" matTooltip="Adicionar funcionário"

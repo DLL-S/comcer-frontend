@@ -11,6 +11,7 @@ mat-row:hover {
 }
 
 .container-filtro {
+   padding: 0px 20px 0px 20px;
    display: flex;
    align-items: center;
    justify-content: space-between;

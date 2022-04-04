@@ -11,9 +11,9 @@
    position: absolute;
    top: 0;
    left: 0;
-   bottom: -1px;
+   bottom: 0px;
    right: 0;
-   background: rgba(0, 0, 0, 0.15);
+   background: rgba(0, 0, 0, 0.26);
    z-index: 1;
    display: flex;
    align-items: center;
@@ -42,6 +42,7 @@ tr.linha-detalhes-produto {
 }
 
 .container-filtro {
+   padding: 0px 20px 0px 20px;
    display: flex;
    align-items: center;
    justify-content: space-between;

@@ -1,0 +1,58 @@
+<h1 mat-dialog-title *ngIf="!data">Adicionar produto</h1>
+<h1 mat-dialog-title *ngIf="data">Editar produto</h1>
+
+<form [formGroup]="formProduto">
+
+   <app-file-upload [grupoFormulario]="formProduto" nomeControleFormulario="foto"></app-file-upload>
+
+   <mat-grid-list cols="8" rowHeight="80px">
+
+      <!-- Id -->
+      <mat-grid-tile colspan="1" class="field-with-space">
+         <mat-form-field class="full-width-input" appearance="outline">
+            <mat-label>ID</mat-label>
+            <input matInput type="text" placeholder="Id" formControlName="id" />
+         </mat-form-field>
+      </mat-grid-tile>
+
+      <!-- Nome -->
+      <mat-grid-tile colspan="5" class="field-with-space">
+         <mat-form-field class="full-width-input" appearance="outline">
+            <mat-label>Nome</mat-label>
+            <input matInput type="text" placeholder="Ex: Pizza tamanho família" formControlName="nome" required>
+            <mat-error *ngIf="isFieldInvalid('nome')">
+               O nome deve conter de 3 a 60 caracteres
+            </mat-error>
+         </mat-form-field>
+      </mat-grid-tile>
+
+      <!-- Preço -->
+      <mat-grid-tile colspan="2">
+         <mat-form-field class="full-width-input" appearance="outline">
+            <mat-label>Preço</mat-label>
+            <span matPrefix>R$ &nbsp;</span>
+            <input matInput mask="separator.2" thousandSeparator="," type="text" placeholder="0.00"
+               formControlName="preco" required class="fix-prefix">
+            <mat-error *ngIf="isFieldInvalid('preco')">
+               Informe o preço
+            </mat-error>
+         </mat-form-field>
+      </mat-grid-tile>
+
+   </mat-grid-list>
+
+   <mat-form-field class="full-width-input" appearance="outline">
+      <mat-label>Descrição</mat-label>
+      <textarea matInput rows="3" placeholder="Ex: Pizza de 8 pedaços sabor 4 queijos" formControlName="descricao"
+         required></textarea>
+      <mat-error *ngIf="isFieldInvalid('descricao')">
+         A descrição deve ser informada, com até 200 caracteres
+      </mat-error>
+   </mat-form-field>
+
+</form>
+
+<div mat-dialog-actions>
+   <button mat-button color="warn" type="button" cdkFocusInitial (click)="cancelar()">Cancelar</button>
+   <button mat-button color="primary" type="button" (click)="concluir()" [disabled]="!formProduto.valid">Salvar</button>
+</div>
