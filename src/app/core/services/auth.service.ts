@@ -4,14 +4,20 @@ import { ActivatedRoute, Router } from "@angular/router";
 import { BehaviorSubject, take } from 'rxjs';
 import { Usuario } from "../models/usuario.model";
 import { BaseApi } from "./base-api.service";
+import { LocalStorageService } from "./local-storage.service";
 import { NotificationService } from './notification.service';
 
 @Injectable()
-export class LoginService extends BaseApi {
+export class AuthService extends BaseApi {
+
+	/**
+	 * Utilitário para armazenamento e consulta de dados no LocalStorage.
+	 */
+	public localStorage: LocalStorageService = new LocalStorageService();
 
 	private loggedIn: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
 
-	get isLoggedIn() {
+	get isLoggedIn$() {
 		return this.loggedIn.asObservable();
 	}
 
@@ -37,7 +43,7 @@ export class LoginService extends BaseApi {
 	}
 
 	login(usuario: Usuario) {
-		this.http.post<Usuario>(this.apiBaseUrl, usuario, this.obtenhaHeaders())
+		this.http.post<Usuario>(this.apiBaseUrl, usuario)
 			.pipe(take(1))
 			.subscribe(result => {
 				this.localStorage.salvarDadosLocaisUsuario(result);

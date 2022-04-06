@@ -47,7 +47,6 @@ export class ProdutosListComponent implements OnInit, OnDestroy, AfterViewInit {
 	}
 
 	ngOnInit(): void {
-		this.atualizarDados();
 		this.subscriptions.add = this.produtosState.produtos$.subscribe({
 			next: produtos => {
 				this.produtos = produtos;
@@ -80,7 +79,7 @@ export class ProdutosListComponent implements OnInit, OnDestroy, AfterViewInit {
 		return this.produtoService.pesquisar(
 			this.paginator?.pageIndex || 0,
 			this.paginator?.pageSize || this.tamanhosPaginacao[ 0 ],
-			(this.sort?.direction == "asc" ? 1 : -1) || 1
+			(this.sort?.direction === "asc" ? 1 : -1) || 1
 		);
 	}
 

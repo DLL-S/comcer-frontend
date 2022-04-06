@@ -10,6 +10,9 @@ mat-icon {
 .container-header {
    display: flex;
    justify-content: space-between;
+}
+
+.icone-remover {
    cursor: pointer;
 }
 

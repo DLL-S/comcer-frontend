@@ -1,7 +1,7 @@
 <form>
    <fieldset [class.possui-erro]="mensagemDeErro">
       <div class="container-header"><label class="form-label">Imagem *</label>
-         <a class="icone-remover" *ngIf="imagemBase64" (click)="removerImagem()">
+         <a class="icone-remover" *ngIf="imagemBase64" (click)="removerImagem(fileInput)">
             <mat-icon matTooltip="Remover imagem" matTooltipPosition="before">highlight_off</mat-icon>
          </a>
       </div>
@@ -20,7 +20,7 @@
             </ng-template>
          </div>
 
-         <input type="file" (change)="fileChangeEvent($event)" class="input-upload" #seletorDeimagem>
+         <input type="file" #fileInput (change)="fileChangeEvent($event)" class="input-upload" #seletorDeimagem>
       </div>
 
    </fieldset>

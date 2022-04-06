@@ -16,42 +16,42 @@ import { RouterModule } from '@angular/router';
 import { LoginComponent } from './components/login/login.component';
 import { NavigatorComponent } from './components/navigation/navigator/navigator.component';
 import { BaseGuard } from "./helpers/base.guard";
-import { ErrorInterceptor } from "./helpers/error-interceptor";
-import { LoginService } from "./services/login.service";
+import { Interceptor } from "./helpers/interceptor";
+import { AuthService } from "./services/auth.service";
 
 export const httpInterceptorProviders = [
-    { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },
+	{ provide: HTTP_INTERCEPTORS, useClass: Interceptor, multi: true },
 ];
 
 @NgModule({
-    declarations: [
-        LoginComponent,
-        NavigatorComponent
-    ],
-    imports: [
-        CommonModule,
-        RouterModule,
-        FormsModule,
-        ReactiveFormsModule,
-        MatFormFieldModule,
-        MatCardModule,
-        MatInputModule,
-        MatButtonModule,
-        MatToolbarModule,
-        MatSnackBarModule,
-        MatSidenavModule,
-        MatListModule,
-        MatExpansionModule,
-        MatIconModule
-    ],
-    exports: [
-        LoginComponent,
-        NavigatorComponent
-    ],
-    providers: [
-        httpInterceptorProviders,
-        LoginService,
-        BaseGuard
-    ]
+	declarations: [
+		LoginComponent,
+		NavigatorComponent
+	],
+	imports: [
+		CommonModule,
+		RouterModule,
+		FormsModule,
+		ReactiveFormsModule,
+		MatFormFieldModule,
+		MatCardModule,
+		MatInputModule,
+		MatButtonModule,
+		MatToolbarModule,
+		MatSnackBarModule,
+		MatSidenavModule,
+		MatListModule,
+		MatExpansionModule,
+		MatIconModule
+	],
+	exports: [
+		LoginComponent,
+		NavigatorComponent
+	],
+	providers: [
+		httpInterceptorProviders,
+		AuthService,
+		BaseGuard
+	]
 })
 export class CoreModule { }

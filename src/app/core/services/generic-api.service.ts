@@ -21,7 +21,7 @@ export abstract class GenericApi<TModel> extends BaseApi {
 	 * Obtém uma lista dos objetos do back end.
 	 * @returns Um {@link Observable} contendo os dados da resposta.
 	 */
-	public listaDeObjetos$ = this.http.get<ResponseModel<TModel>>(this.apiBaseUrl, this.obtenhaHeaderAuth());
+	public listaDeObjetos$ = this.http.get<ResponseModel<TModel>>(this.apiBaseUrl);
 
 	/**
 	 * Pesquisa um objeto no back end pelo Id.
@@ -29,7 +29,7 @@ export abstract class GenericApi<TModel> extends BaseApi {
 	 * @returns Um {@link Observable} contendo os dados da resposta.
 	 */
 	public pesquisarPorId(id: number): Observable<TModel> {
-		return this.http.get<ResponseModel<TModel>>(`${ this.apiBaseUrl }/${ id }`, this.obtenhaHeaderAuth()).pipe(
+		return this.http.get<ResponseModel<TModel>>(`${ this.apiBaseUrl }/${ id }`).pipe(
 			map(result => {
 				return result.resultados[ 0 ];
 			})
@@ -46,7 +46,7 @@ export abstract class GenericApi<TModel> extends BaseApi {
 	 */
 	public pesquisar(pagina: number, quantidade: number, ordem: number, termoDeBusca?: string): Observable<ResponseModel<TModel>> {
 		let url = `${ this.apiBaseUrl }?pagina=${ pagina }&quantidade=${ quantidade }&ordem=${ ordem }&termoDeBusca=${ termoDeBusca || "" }`;
-		var response: Observable<ResponseModel<TModel>> = this.http.get<ResponseModel<TModel>>(url, this.obtenhaHeaderAuth());
+		var response: Observable<ResponseModel<TModel>> = this.http.get<ResponseModel<TModel>>(url);
 		return response;
 	}
 
@@ -55,7 +55,7 @@ export abstract class GenericApi<TModel> extends BaseApi {
 	 * @param objeto O objeto a ser cadastrado.
 	 */
 	public criar(objeto: TModel): Observable<TModel> {
-		return this.http.post<ResponseModel<TModel>>(this.apiBaseUrl, objeto, this.obtenhaHeaderAuth()).pipe(
+		return this.http.post<ResponseModel<TModel>>(this.apiBaseUrl, objeto).pipe(
 			take(1),
 			map(result => {
 				return result.resultados[ 0 ];
@@ -68,7 +68,7 @@ export abstract class GenericApi<TModel> extends BaseApi {
 	 * @param objeto O objeto a ser atualizado.
 	 */
 	public atualizar(objeto: TModel): Observable<TModel> {
-		return this.http.put<ResponseModel<TModel>>(this.apiBaseUrl, objeto, this.obtenhaHeaderAuth()).pipe(
+		return this.http.put<ResponseModel<TModel>>(this.apiBaseUrl, objeto).pipe(
 			take(1),
 			map(result => {
 				return result.resultados[ 0 ];
@@ -82,18 +82,7 @@ export abstract class GenericApi<TModel> extends BaseApi {
 	 * @returns O status Http informa se a operação falhou ou executou.
 	 */
 	public remover(id: number): Observable<TModel> {
-		var response: Observable<TModel> = this.http.delete<TModel>(`${ this.apiBaseUrl }/${ id }`, this.obtenhaHeaderAuth());
+		var response: Observable<TModel> = this.http.delete<TModel>(`${ this.apiBaseUrl }/${ id }`);
 		return response;
-	}
-
-	/**
-	 * Extrai os dados de uma {@link ResponseModel} para um {@link TModel}.
-	 * @param response A resposta a ser analisada.
-	 * @returns Um Observale de {@link TModel} ou de uma lista vazia.
-	 */
-	public extrairDados(response: Observable<ResponseModel<TModel>>): Observable<TModel[]> {
-		return response.pipe(
-			map(result => { return result.resultados || [ {} ]; })
-		);
 	}
 }
