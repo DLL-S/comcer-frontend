@@ -40,7 +40,8 @@ export class FileUploadComponent implements OnInit {
 		}
 	}
 
-	removerImagem() {
+	removerImagem(input: any) {
+		input.value = "";
 		this.imagemBase64 = null;
 		this.grupoFormulario.get(this.nomeControleFormulario)?.setValue(this.imagemBase64);
 		this.mensagemDeErro = 'Selecione uma imagem, PNG ou JPEG';
