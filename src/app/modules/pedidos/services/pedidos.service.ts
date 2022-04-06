@@ -25,7 +25,7 @@ export class PedidosService extends GenericApi<Pedido> {
      * Obtém a lista da View de pedidos do backend.
      */
     public listaDeProdutosPorPedido$ = this.http
-        .get<ResponseModel<PedidoViewModel>>(`${ this.apiBaseUrl }/ComandaView`, this.obtenhaHeaderAuth())
+        .get<ResponseModel<PedidoViewModel>>(`${ this.apiBaseUrl }/ComandaView`)
         .pipe(
             tap(next => {
                 this.state.set(next.resultados, "pedidosView");

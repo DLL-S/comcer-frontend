@@ -1,25 +1,44 @@
 import { HttpErrorResponse, HttpEvent, HttpHandler, HttpInterceptor, HttpRequest } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { catchError, Observable, throwError } from "rxjs";
-import { LoginService } from "../services/login.service";
-import { NotificationService } from './../services/notification.service';
+import { AuthService } from "../services/auth.service";
+import { LocalStorageService } from "../services/local-storage.service";
+import { NotificationService } from '../services/notification.service';
 
 /**
  * Interceptador de erros HTTP global.
  */
 @Injectable()
-export class ErrorInterceptor implements HttpInterceptor {
+export class Interceptor implements HttpInterceptor {
+
+	/**
+	 * Utilitário para armazenamento e consulta de dados no LocalStorage.
+	 */
+	public localStorage: LocalStorageService = new LocalStorageService();
 
 	/**
 	 * Inicia uma instância de {@link @ErrorInterceptor}.
-	 * @param router O {@link Route} para acompanhamento da rota.
+	 * @param authService O serviço gerenciador de autenticação.
+	 * @param notificationService O serviço de exibição de notificações.
 	 */
 	public constructor (
-		private loginService: LoginService,
+		private authService: AuthService,
 		private notificationService: NotificationService
 	) { }
 
+	/**
+	 * Handler padrão de requisições http.
+	 * @param req A requisição a ser processada.
+	 * @param next O próximo Handler do pipeline.
+	 * @returns Um {@link Observable} de {@link HttpEvent}.
+	 */
 	intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
+
+		if (this.authService.verificarLogin()) {
+			req = req.clone({
+				setHeaders: { Authorization: `Bearer ${ this.localStorage.obtenhaTokenUsuario() }` }
+			});
+		}
 
 		return next.handle(req).pipe(
 			catchError(requisicao => {
@@ -37,7 +56,7 @@ export class ErrorInterceptor implements HttpInterceptor {
 					this.notificationService.exibir(response.error.message);
 					break;
 				case 401:
-					this.loginService.logout();
+					this.authService.logout();
 					break;
 				case 403:
 					this.notificationService.exibir("Ops, você não possui permissão para acessar este recurso!");

@@ -37,7 +37,7 @@ export class ProdutosPedidosService extends GenericApi<ProdutoPedido> {
 
 		var urlEndpoint = `${ this.apiBaseUrl }/${ pedidoAtualizado.idDoProdutoDoPedido }?status=${ novoStatus }`;
 
-		this.http.put<ResponseModel<ProdutoPedido>>(urlEndpoint, null, this.obtenhaHeaderAuth())
+		this.http.put<ResponseModel<ProdutoPedido>>(urlEndpoint, null)
 			.pipe(take(1))
 			.subscribe({
 				next: result => {

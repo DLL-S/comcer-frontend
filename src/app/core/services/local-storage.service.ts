@@ -10,7 +10,7 @@ export class LocalStorageService {
 	 * @returns Um objeto json contendo o usuário armazenado no storage.
 	 */
 	public obtenhaUsuario() {
-		return window.localStorage.getItem("comcer.user");
+		return localStorage.getItem("comcer.user");
 	}
 
 	/**
@@ -18,7 +18,7 @@ export class LocalStorageService {
 	 * @returns O token do usuário no storage.
 	 */
 	public obtenhaTokenUsuario(): string | null {
-		return window.localStorage.getItem("comcer.token");
+		return localStorage.getItem("comcer.token");
 	}
 
 	/**
@@ -34,8 +34,8 @@ export class LocalStorageService {
 	 * Remove os dados do usuário do storage.
 	 */
 	public limparDadosLocaisUsuario() {
-		window.localStorage.removeItem("comcer.token");
-		window.localStorage.removeItem("comcer.user");
+		localStorage.removeItem("comcer.token");
+		localStorage.removeItem("comcer.user");
 	}
 
 	/**
@@ -43,7 +43,7 @@ export class LocalStorageService {
 	 * @param token O token do usuário.
 	 */
 	public salvarTokenUsuario(token: string) {
-		window.localStorage.setItem('comcer.token', token);
+		localStorage.setItem('comcer.token', token);
 	}
 
 	/**
@@ -51,6 +51,6 @@ export class LocalStorageService {
 	 * @param usuario O usuário.
 	 */
 	public salvarUsuario(usuario: string) {
-		window.localStorage.setItem('comcer.user', JSON.stringify(usuario));
+		localStorage.setItem('comcer.user', JSON.stringify(usuario));
 	}
 }

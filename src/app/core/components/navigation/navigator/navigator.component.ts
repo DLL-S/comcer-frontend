@@ -1,7 +1,7 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Observable, of } from "rxjs";
 import { SubscriptionContainer } from "src/app/core/helpers/subscription-container";
-import { LoginService } from "src/app/core/services/login.service";
+import { AuthService } from "src/app/core/services/auth.service";
 import { IsMobileState } from "src/app/core/services/states/is-mobile.state";
 import { TitleService } from "src/app/core/services/title.service";
 
@@ -23,7 +23,7 @@ export class NavigatorComponent implements OnInit, OnDestroy {
 
 
 	constructor (
-		private loginService: LoginService,
+		private authService: AuthService,
 		private titleService: TitleService,
 		private isMobileState: IsMobileState
 	) {
@@ -47,7 +47,7 @@ export class NavigatorComponent implements OnInit, OnDestroy {
 	}
 
 	ngOnInit(): void {
-		this.isLoggedIn$ = this.loginService.isLoggedIn;
+		this.isLoggedIn$ = this.authService.isLoggedIn$;
 	}
 
 	ngOnDestroy(): void {
@@ -55,7 +55,7 @@ export class NavigatorComponent implements OnInit, OnDestroy {
 	}
 
 	onLogout() {
-		this.loginService.logout();
+		this.authService.logout();
 	}
 
 	toggleSideBar() {

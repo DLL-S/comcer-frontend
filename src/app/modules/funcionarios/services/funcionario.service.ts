@@ -24,7 +24,7 @@ export class FuncionarioService extends GenericApi<Funcionario> {
 	 * Obtém uma lista de {@link Funcionario} da API.
 	 */
 	public listaDeFuncionarios$ = this.http
-		.get<ResponseModel<Funcionario>>(this.apiBaseUrl, this.obtenhaHeaderAuth())
+		.get<ResponseModel<Funcionario>>(this.apiBaseUrl)
 		.pipe(
 			take(1),
 			tap(next => {
@@ -38,7 +38,7 @@ export class FuncionarioService extends GenericApi<Funcionario> {
 	 */
 	alternarSituacao(funcionario: Funcionario) {
 
-		this.http.patch<number>(`${ this.apiBaseUrl }/${ funcionario.id }/situacao`, null, this.obtenhaHeaderAuth())
+		this.http.patch<number>(`${ this.apiBaseUrl }/${ funcionario.id }/situacao`, null)
 			.pipe(take(1))
 			.subscribe({
 				next: result => {
@@ -54,7 +54,7 @@ export class FuncionarioService extends GenericApi<Funcionario> {
 	 * @param objeto O objeto a ser cadastrado.
 	 */
 	public criarFuncionario(objeto: NovoFuncionario): Observable<Funcionario> {
-		return this.http.post<ResponseModel<Funcionario>>(this.apiBaseUrl, objeto, this.obtenhaHeaderAuth()).pipe(
+		return this.http.post<ResponseModel<Funcionario>>(this.apiBaseUrl, objeto).pipe(
 			map(result => {
 				return result.resultados[ 0 ];
 			})
