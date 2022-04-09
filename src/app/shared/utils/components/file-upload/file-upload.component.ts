@@ -1,5 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { FormGroup } from '@angular/forms';
+import { DataUrl, NgxImageCompressService } from "ngx-image-compress";
 import { Observable, ReplaySubject, take } from 'rxjs';
 
 @Component({
@@ -14,7 +15,7 @@ export class FileUploadComponent implements OnInit {
 	mensagemDeErro: string | null = "";
 	imagemBase64: string | null = "";
 
-	constructor () { }
+	constructor (private imageCompress: NgxImageCompressService) { }
 
 	ngOnInit(): void {
 		this.imagemBase64 = this.grupoFormulario.get(this.nomeControleFormulario)?.value;
@@ -31,7 +32,13 @@ export class FileUploadComponent implements OnInit {
 				.subscribe({
 					next: base64 => {
 						this.imagemBase64 = base64;
-						this.grupoFormulario.get(this.nomeControleFormulario)?.setValue(this.imagemBase64);
+						this.imageCompress
+							.compressFile(`data:${ fileInput.target.files[ 0 ].type };base64,${ base64 }`, 0, 65, 65, 130, 80)
+							.then((result: DataUrl) => {
+								let resultSemHeader = result.replace(/^data:image\/\w+;base64,/, "");
+								this.imagemBase64 = resultSemHeader;
+								this.grupoFormulario.get(this.nomeControleFormulario)?.setValue(resultSemHeader);
+							});
 					},
 					error: () => {
 						this.mensagemDeErro = "Ocorreu um erro ao carregar a imagem, tente novamente";
@@ -64,10 +71,11 @@ export class FileUploadComponent implements OnInit {
 				return false;
 			}
 		}
-		else {
-			this.mensagemDeErro = 'Selecione uma imagem, PNG ou JPEG';
-			return false;
-		}
+		else
+			if (!this.imagemBase64) {
+				this.mensagemDeErro = 'Selecione uma imagem, PNG ou JPEG';
+				return false;
+			}
 
 		return true;
 	}
@@ -82,5 +90,4 @@ export class FileUploadComponent implements OnInit {
 		};
 		return result;
 	}
-
 }
