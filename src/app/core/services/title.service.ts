@@ -22,8 +22,8 @@ export class TitleService extends Title {
 	/**
 	 * Inicia uma nova instância da classe.
 	 */
-	constructor() {
-		super(document)
+	constructor () {
+		super(document);
 	}
 
 	/**
