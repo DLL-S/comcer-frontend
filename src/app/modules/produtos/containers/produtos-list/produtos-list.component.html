@@ -8,6 +8,10 @@
       <mat-icon matSuffix *ngIf="!input.value" class="icone-filtro">filter_alt</mat-icon>
    </mat-form-field>
 
+   <button mat-mini-fab class="botao-recarregar" color="primary" aria-label="Recarregar dados"
+      matTooltip="Recarregar dados" matTooltipPosition="below" (click)="atualizarDados(true)">
+      <mat-icon>refresh</mat-icon>
+   </button>
    <button mat-mini-fab color="primary" aria-label="Adicionar" matTooltip="Adicionar produto" matTooltipPosition="below"
       (click)="abrirDialogoDeEdicao()">
       <mat-icon>add</mat-icon>
@@ -24,8 +28,8 @@
    <!-- Coluna Foto -->
    <ng-container matColumnDef="foto">
       <mat-header-cell *matHeaderCellDef> Foto </mat-header-cell>
-      <mat-cell mat-cell *matCellDef="let produto">
-         <img src='data:image/png;base64,{{produto.foto}}' />
+      <mat-cell class="container-imagem" mat-cell *matCellDef="let produto">
+         <img class="imagem" src='data:image/png;base64,{{produto.foto}}' />
       </mat-cell>
    </ng-container>
 
@@ -79,7 +83,3 @@
 <mat-paginator class="mat-elevation-z3" [pageSizeOptions]="tamanhosPaginacao" [length]="quantidadeTotal"
    showFirstLastButtons aria-label="Paginação de produtos">
 </mat-paginator>
-
-<button mat-fab class="botao-recarregar" color="primary" aria-label="Recarregar dados" (click)="atualizarDados(true)">
-   <mat-icon>refresh</mat-icon>
-</button>

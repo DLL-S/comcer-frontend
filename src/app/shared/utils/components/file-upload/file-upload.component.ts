@@ -33,7 +33,7 @@ export class FileUploadComponent implements OnInit {
 					next: base64 => {
 						this.imagemBase64 = base64;
 						this.imageCompress
-							.compressFile(`data:${ fileInput.target.files[ 0 ].type };base64,${ base64 }`, 0, 65, 65, 130, 80)
+							.compressFile(`data:${ fileInput.target.files[ 0 ].type };base64,${ base64 }`, 0, 80, 80, 130, 80)
 							.then((result: DataUrl) => {
 								let resultSemHeader = result.replace(/^data:image\/\w+;base64,/, "");
 								this.imagemBase64 = resultSemHeader;

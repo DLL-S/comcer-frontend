@@ -28,7 +28,7 @@ export class PedidosService extends GenericApi<Pedido> {
 		.get<ResponseModel<PedidoViewModel>>(`${ this.apiBaseUrl }/ComandaView`)
 		.pipe(
 			tap(next => {
-				this.state.set(next.resultados, "pedidosView");
+				this.state.set(next?.resultados, "pedidosView");
 			})
 		);
 
