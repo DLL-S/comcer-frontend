@@ -15,6 +15,7 @@ import { MatToolbarModule } from '@angular/material/toolbar';
 import { RouterModule } from '@angular/router';
 import { LoginComponent } from './components/login/login.component';
 import { NavigatorComponent } from './components/navigation/navigator/navigator.component';
+import { ValidacoesComponent } from './components/validacoes/validacoes.component';
 import { BaseGuard } from "./helpers/base.guard";
 import { Interceptor } from "./helpers/interceptor";
 import { AuthService } from "./services/auth.service";
@@ -26,7 +27,8 @@ export const httpInterceptorProviders = [
 @NgModule({
 	declarations: [
 		LoginComponent,
-		NavigatorComponent
+		NavigatorComponent,
+		ValidacoesComponent
 	],
 	imports: [
 		CommonModule,
@@ -46,7 +48,8 @@ export const httpInterceptorProviders = [
 	],
 	exports: [
 		LoginComponent,
-		NavigatorComponent
+		NavigatorComponent,
+		ValidacoesComponent
 	],
 	providers: [
 		httpInterceptorProviders,

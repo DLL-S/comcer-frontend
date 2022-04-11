@@ -6,7 +6,7 @@
    <!-- Situação -->
    <section class="situacao-container">
       <mat-button-toggle-group formControlName="situacao" aria-label="Situação">
-         <mat-button-toggle [value]="0">Ativo</mat-button-toggle>
+         <mat-button-toggle cdkFocusInitial [value]="0">Ativo</mat-button-toggle>
          <mat-button-toggle [value]="1">Inativo</mat-button-toggle>
       </mat-button-toggle-group>
    </section>
@@ -188,8 +188,10 @@
 
 </form>
 
+<app-validacoes></app-validacoes>
+
 <div mat-dialog-actions>
-   <button mat-button color="warn" type="button" cdkFocusInitial (click)="cancelar()">Cancelar</button>
+   <button mat-button color="warn" type="button" (click)="cancelar()">Cancelar</button>
    <button mat-button color="primary" type="button" (click)="concluir()"
       [disabled]="!(formDadosPessoais.valid && formEndereco.valid && (data || formUsuario.valid))">Salvar</button>
 </div>

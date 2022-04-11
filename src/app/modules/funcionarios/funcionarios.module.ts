@@ -16,6 +16,7 @@ import { MatTableModule } from '@angular/material/table';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { NgxMaskModule } from 'ngx-mask';
 import { ConsultaCepService } from "src/app/shared/utils/services/consulta-cep.service";
+import { CoreModule } from './../../core/core.module';
 import { FuncionarioEditDialogComponent } from './components/funcionario-edit-dialog/funcionario-edit-dialog.component';
 import { FuncionarioInactiveDialogComponent } from './components/funcionario-inactive-dialog/funcionario-inactive-dialog.component';
 import { FuncionariosListComponent } from './containers/funcionarios-list/funcionarios-list.component';
@@ -32,6 +33,7 @@ import { FuncionariosState } from './state/funcionarios-state';
 	imports: [
 		FuncionariosRoutingModule,
 		CommonModule,
+		CoreModule,
 		FormsModule,
 		ReactiveFormsModule,
 		MatTableModule,
