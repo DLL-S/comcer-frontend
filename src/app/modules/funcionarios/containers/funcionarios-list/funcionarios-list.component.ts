@@ -55,6 +55,7 @@ export class FuncionariosListComponent implements OnInit, AfterViewInit, OnDestr
 
 	ngOnDestroy(): void {
 		this.subscriptions.dispose();
+		this.dialog.closeAll();
 	}
 
 	filtrar(event: Event) {
