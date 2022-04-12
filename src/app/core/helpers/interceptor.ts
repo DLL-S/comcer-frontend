@@ -5,6 +5,7 @@ import { environment } from 'src/environments/environment';
 import { AuthService } from "../services/auth.service";
 import { LocalStorageService } from "../services/local-storage.service";
 import { NotificationService } from '../services/notification.service';
+import { ValidacoesState } from './../services/states/validacoes.state';
 
 /**
  * Interceptador de erros HTTP global.
@@ -24,7 +25,8 @@ export class Interceptor implements HttpInterceptor {
 	 */
 	public constructor (
 		private authService: AuthService,
-		private notificationService: NotificationService
+		private notificationService: NotificationService,
+		private validacoesState: ValidacoesState
 	) { }
 
 	/**
@@ -54,7 +56,9 @@ export class Interceptor implements HttpInterceptor {
 
 			switch (response.status) {
 				case 400:
-					this.notificationService.exibir(response.error.message);
+					this.validacoesState.set(response.error.validacoes || []);
+					if (response.url?.includes("login"))
+						this.notificationService.exibir(response.error.message);
 					break;
 				case 401:
 					this.authService.logout();

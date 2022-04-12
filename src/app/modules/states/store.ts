@@ -29,7 +29,7 @@ export class Store {
 	 */
 	public set(valor: any, storeName: 'pedidosView' | 'funcionarios' | 'produtos') {
 		this.subject.next({
-			...this.value, [ storeName ]: valor
+			...this.value, [ storeName ]: valor || []
 		});
 	}
 

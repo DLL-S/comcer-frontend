@@ -5,6 +5,7 @@
 		"ng": "ng",
 		"start": "ng serve -o",
 		"build": "ng build",
+		"build-dev": "ng build -c development",
 		"watch": "ng build --watch --configuration development",
 		"test": "ng test"
 	},
@@ -22,6 +23,7 @@
 		"@angular/router": "~13.2.0",
 		"firebase": "^9.6.9",
 		"js-sha256": "^0.9.0",
+		"ngx-image-compress": "^13.1.9",
 		"ngx-mask": "^13.1.1",
 		"rxjs": "~7.5.0",
 		"tslib": "^2.3.0",
