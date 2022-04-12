@@ -1,7 +1,7 @@
 const proxy = [
 	{
 		context: '/api',
-		target: 'http://189.63.74.198:5000/api',
+		target: 'http://comcer-api-dev.herokuapp.com/api',
 		pathRewrite: {
 			'^/api': ''
 		},

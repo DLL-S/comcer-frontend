@@ -76,6 +76,7 @@ export class FuncionariosListComponent implements OnInit, AfterViewInit, OnDestr
 		const dialogRef = this.dialog.open(FuncionarioEditDialogComponent, {
 			disableClose: true,
 			width: "640px",
+			height: "640px",
 			data: funcionario,
 		});
 

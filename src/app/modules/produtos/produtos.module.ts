@@ -15,6 +15,7 @@ import { MatTableModule } from "@angular/material/table";
 import { MatTooltipModule } from "@angular/material/tooltip";
 import { NgxMaskModule } from "ngx-mask";
 import { SharedModule } from "src/app/shared/shared.module";
+import { CoreModule } from './../../core/core.module';
 import { ProdutoEditDialogComponent } from './components/produto-edit-dialog/produto-edit-dialog.component';
 import { ProdutosListComponent } from './containers/produtos-list/produtos-list.component';
 import { ProdutosRoutingModule } from "./produtos-routing.module";
@@ -28,6 +29,7 @@ import { ProdutosState } from "./state/produtos-state";
 	],
 	imports: [
 		CommonModule,
+		CoreModule,
 		ProdutosRoutingModule,
 		SharedModule,
 		FormsModule,

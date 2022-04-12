@@ -2,19 +2,19 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from "@angular/router";
 
 @Component({
-    selector: 'app-pagina-nao-encontrada',
-    templateUrl: './pagina-nao-encontrada.component.html',
-    styleUrls: [ './pagina-nao-encontrada.component.css' ]
+	selector: 'app-pagina-nao-encontrada',
+	templateUrl: './pagina-nao-encontrada.component.html',
+	styleUrls: [ './pagina-nao-encontrada.component.css' ]
 })
 export class PaginaNaoEncontradaComponent implements OnInit {
 
-    constructor (private router: Router) { }
+	constructor (private router: Router) { }
 
-    ngOnInit(): void {
-    }
+	ngOnInit(): void {
+	}
 
-    back(): void {
-        this.router.navigate([ ".." ]);
-    }
+	back(): void {
+		this.router.navigate([ ".." ]);
+	}
 
 }

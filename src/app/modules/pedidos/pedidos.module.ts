@@ -16,26 +16,26 @@ import { ProdutosPedidosService } from './services/produtos-pedidos.service';
 import { PedidosState } from "./state/pedidos-state";
 
 @NgModule({
-    declarations: [
-        PedidosListComponent,
-        PedidosPendentesComponent,
-        PedidosCozinhandoComponent,
-        PedidosProntosComponent,
-        PedidosItemComponent,
-    ],
-    imports: [
-        CommonModule,
-        PedidosRoutingModule,
-        MatCardModule,
-        MatButtonModule,
-        DragDropModule,
-        MatProgressSpinnerModule,
-        MatIconModule,
-    ],
-    providers: [
-        PedidosService,
-        ProdutosPedidosService,
-        PedidosState
-    ]
+	declarations: [
+		PedidosListComponent,
+		PedidosPendentesComponent,
+		PedidosCozinhandoComponent,
+		PedidosProntosComponent,
+		PedidosItemComponent,
+	],
+	imports: [
+		CommonModule,
+		PedidosRoutingModule,
+		MatCardModule,
+		MatButtonModule,
+		DragDropModule,
+		MatProgressSpinnerModule,
+		MatIconModule,
+	],
+	providers: [
+		PedidosService,
+		ProdutosPedidosService,
+		PedidosState
+	]
 })
 export class PedidosModule { }

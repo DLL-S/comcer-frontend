@@ -19,18 +19,13 @@ mat-row:hover {
 
 .filtro {
    width: 100%;
-   margin-right: 2%;
+}
+
+.filtro,
+.botao-recarregar {
+   margin-right: 1%;
 }
 
 .icone-filtro {
    color: #535353;
-}
-
-.botao-recarregar {
-   position: fixed;
-   bottom: 40px;
-   right: 40px;
-   width: 70px;
-   height: 70px;
-   z-index: 1000;
 }

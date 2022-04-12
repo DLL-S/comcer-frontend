@@ -39,7 +39,7 @@ export class ProdutoService extends GenericApi<Produto> {
 		var result = super.pesquisar(pagina, quantidade, ordem, termoDeBusca)
 			.pipe(
 				take(1),
-				tap(next => this.state.set(next.resultados, "produtos")));
+				tap(next => this.state.set(next?.resultados, "produtos")));
 		return result;
 	}
 
