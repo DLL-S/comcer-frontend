@@ -72,6 +72,7 @@ export class ProdutosListComponent implements OnInit, OnDestroy, AfterViewInit {
 
 	ngOnDestroy(): void {
 		this.subscriptions.dispose();
+		this.dialog.closeAll();
 	}
 
 	carregarDados() {
