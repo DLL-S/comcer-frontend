@@ -1,0 +1,6 @@
+<div class="validacoes-container" *ngIf="validacoes.length > 0">
+   <h3 class="titulo">Ops! Alguma coisa não deu certo:</h3>
+   <ul>
+      <li *ngFor="let validacao of validacoes">{{ validacao.propriedade }}: {{ validacao.mensagem }}</li>
+   </ul>
+</div>

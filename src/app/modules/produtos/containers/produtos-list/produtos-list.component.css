@@ -1,12 +1,3 @@
-.botao-recarregar {
-   position: fixed;
-   bottom: 40px;
-   right: 40px;
-   width: 70px;
-   height: 70px;
-   z-index: 1000;
-}
-
 .loading-shade {
    position: absolute;
    top: 0;
@@ -50,9 +41,25 @@ tr.linha-detalhes-produto {
 
 .filtro {
    width: 100%;
-   margin-right: 2%;
+}
+
+.filtro,
+.botao-recarregar {
+   margin-right: 1%;
 }
 
 .icone-filtro {
    color: #535353;
+}
+
+.container-imagem {
+   padding: 8px;
+}
+
+.imagem {
+   border-radius: 2px;
+   min-width: 130px;
+   min-height: 80px;
+   max-width: 130px;
+   max-height: 80px;
 }

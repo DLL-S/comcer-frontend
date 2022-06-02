@@ -66,12 +66,13 @@ export class ProdutosListComponent implements OnInit, OnDestroy, AfterViewInit {
 				})
 			).subscribe(data => {
 				this.carregando = false;
-				this.quantidadeTotal = data.total;
+				this.quantidadeTotal = data?.total;
 			});
 	}
 
 	ngOnDestroy(): void {
 		this.subscriptions.dispose();
+		this.dialog.closeAll();
 	}
 
 	carregarDados() {
@@ -88,7 +89,7 @@ export class ProdutosListComponent implements OnInit, OnDestroy, AfterViewInit {
 			if (exibirNotificacao)
 				this.notificationService.exibir("Dados atualizados com sucesso!");
 			this.carregando = false;
-			this.quantidadeTotal = data.total;
+			this.quantidadeTotal = data?.total;
 		});
 	}
 

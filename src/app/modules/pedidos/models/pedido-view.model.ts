@@ -2,16 +2,16 @@ import { EnumStatusComanda } from "src/app/shared/models/enums/status-comanda.en
 import { EnumStatusProdutoDoPedido } from "src/app/shared/models/enums/status-produto-pedido.enum";
 
 export interface PedidoViewModel {
-    idComanda: number;
-    nomeComanda: string;
-    valorTotalComanda: number;
-    statusComanda: EnumStatusComanda;
-    idDoProdutoDoPedido: number;
-    nomeProdutoDoPedido: string;
-    descricaoProdutoDoPedido: string;
-    precoProdutoDoPedido: number;
-    fotoProdutoDoPedido: string;
-    quantidadeProdutoDoPedido: number;
-    statusProdutoDoPedido: EnumStatusProdutoDoPedido;
-    dataHoraPedido?: Date;
+	idComanda: number;
+	nomeComanda: string;
+	valorTotalComanda: number;
+	statusComanda: EnumStatusComanda;
+	idDoProdutoDoPedido: number;
+	nomeProdutoDoPedido: string;
+	descricaoProdutoDoPedido: string;
+	precoProdutoDoPedido: number;
+	fotoProdutoDoPedido: string;
+	quantidadeProdutoDoPedido: number;
+	statusProdutoDoPedido: EnumStatusProdutoDoPedido;
+	dataHoraPedido?: Date;
 }

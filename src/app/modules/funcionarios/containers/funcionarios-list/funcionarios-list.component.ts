@@ -55,6 +55,7 @@ export class FuncionariosListComponent implements OnInit, AfterViewInit, OnDestr
 
 	ngOnDestroy(): void {
 		this.subscriptions.dispose();
+		this.dialog.closeAll();
 	}
 
 	filtrar(event: Event) {
@@ -76,6 +77,7 @@ export class FuncionariosListComponent implements OnInit, AfterViewInit, OnDestr
 		const dialogRef = this.dialog.open(FuncionarioEditDialogComponent, {
 			disableClose: true,
 			width: "640px",
+			height: "640px",
 			data: funcionario,
 		});
 

@@ -28,7 +28,7 @@ export class FuncionarioService extends GenericApi<Funcionario> {
 		.pipe(
 			take(1),
 			tap(next => {
-				this.state.set(next.resultados, "funcionarios");
+				this.state.set(next?.resultados, "funcionarios");
 			})
 		);
 
@@ -56,7 +56,7 @@ export class FuncionarioService extends GenericApi<Funcionario> {
 	public criarFuncionario(objeto: NovoFuncionario): Observable<Funcionario> {
 		return this.http.post<ResponseModel<Funcionario>>(this.apiBaseUrl, objeto).pipe(
 			map(result => {
-				return result.resultados[ 0 ];
+				return result?.resultados[ 0 ];
 			})
 		);
 	}

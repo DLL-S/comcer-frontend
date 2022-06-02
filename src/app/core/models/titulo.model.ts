@@ -8,7 +8,7 @@ export class Titulo {
 	/**
 	 * Inicia uma nova instância da classe Titulo definindo o título e a url.
 	 */
-	constructor(novoTituloNoHeader: string, novaUrl: string) {
+	constructor (novoTituloNoHeader: string, novaUrl: string) {
 		this.tituloNoHeader = novoTituloNoHeader;
 		this.url = novaUrl;
 	}
