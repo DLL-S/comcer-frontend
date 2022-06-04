@@ -1,7 +1,9 @@
 <div class="container">
+
    <div class="imagem-produto">
       <img src='data:image/png;base64,{{pedido.fotoProdutoDoPedido}}' />
    </div>
+
    <div class="container-descricao">
       <div class="descricao">
          <mat-icon class="descricao-icone">lunch_dining</mat-icon>
@@ -16,7 +18,15 @@
          {{pedido.quantidadeProdutoDoPedido}}x
       </div>
    </div>
-</div>
-<div class="data-hora-pedido">
-   {{pedido.dataHoraPedido | date: 'HH:mm a'}}
+
+   <mat-icon class="icone-cancelar grow"
+      [matTooltip]="'Cancelar produto'"
+      [matTooltipPosition]="'below'"
+      (click)="onCancell()">
+      cancel
+   </mat-icon>
+
+   <div class="data-hora-pedido">
+      {{pedido.dataHoraPedido | date: 'HH:mm a'}}
+   </div>
 </div>

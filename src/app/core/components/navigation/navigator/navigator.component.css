@@ -95,3 +95,14 @@ mat-drawer i {
 :host::ng-deep .mat-expansion-panel-body {
    padding: 0 !important;
 }
+
+.dev-message {
+   position: absolute;
+   bottom: 0px !important;
+   width: 100%;
+   color: var(--primary-color);
+   font-weight: 400;
+   padding-top: 5px;
+   padding-bottom: 5px;
+   text-align: center;
+}

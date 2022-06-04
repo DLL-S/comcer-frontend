@@ -28,7 +28,8 @@ import { ClickStopPropagationDirective } from "./utils/directives/click-stop-pro
 		PaginaEmConstrucaoComponent,
 		PaginaNaoEncontradaComponent,
 		ClickStopPropagationDirective,
-		FileUploadComponent
+		FileUploadComponent,
+		MatTooltipModule
 	],
 	providers: [
 		NgxImageCompressService

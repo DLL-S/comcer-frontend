@@ -1,5 +1,6 @@
 .container {
    display: flex;
+   position: relative;
 }
 
 .imagem-produto {
@@ -24,12 +25,24 @@
 
 .descricao-icone {
    transform: scale(0.8);
-   color: #535353;
    margin-right: 5px;
    vertical-align: middle;
 }
 
 .data-hora-pedido {
    font-size: 10px;
-   margin-left: 87%;
+   position: absolute;
+   bottom: 0;
+   right: 0;
+}
+
+mat-icon {
+   color: #535353;
+}
+
+.icone-cancelar {
+   color: var(--primary-color);
+   cursor: pointer !important;
+   position: absolute;
+   right: 0;
 }

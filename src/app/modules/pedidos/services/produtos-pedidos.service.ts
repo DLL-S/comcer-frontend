@@ -41,16 +41,7 @@ export class ProdutosPedidosService extends GenericApi<ProdutoPedido> {
 			.pipe(take(1))
 			.subscribe({
 				next: result => {
-					const stateValue = this.state.value.pedidosView;
-
-					const pedidosView = stateValue.map((pedido: PedidoViewModel) => {
-						if (pedidoAtualizado.idDoProdutoDoPedido == pedido.idDoProdutoDoPedido)
-							return { ...pedido, ...pedidoAtualizado };
-						else
-							return pedido;
-					});
-
-					this.state.set(pedidosView, "pedidosView");
+					this.atualizaState(pedidoAtualizado);
 					this.notificationService.exibir(`${ result.resultados[ 0 ].id } - ${ result.resultados[ 0 ].produto.nome }: ${ EnumStatusProdutoDoPedido[ result.resultados[ 0 ].status ] }`);
 				},
 				error: error => {
@@ -58,5 +49,37 @@ export class ProdutosPedidosService extends GenericApi<ProdutoPedido> {
 					transferArrayItem(event.container.data, event.previousContainer.data, event.currentIndex, event.previousIndex);
 				}
 			});
+	}
+
+	public cancelarProduto(pedido: PedidoViewModel) {
+
+		var urlEndpoint = `${ this.apiBaseUrl }/${ pedido.idDoProdutoDoPedido }?status=4`;
+
+		this.http.put<ResponseModel<ProdutoPedido>>(urlEndpoint, null)
+			.pipe(take(1))
+			.subscribe({
+				next: result => {
+					this.removerDoState(pedido);
+					this.notificationService.exibir(`${ pedido.idDoProdutoDoPedido } - ${ pedido.nomeProdutoDoPedido } cancelado com sucesso!`);
+				}
+			});
+	}
+
+	private atualizaState(pedidoAtualizado: PedidoViewModel) {
+		const stateValue = this.state.value.pedidosView;
+
+		const pedidosView = stateValue.map((pedido: PedidoViewModel) => {
+			if (pedidoAtualizado.idDoProdutoDoPedido == pedido.idDoProdutoDoPedido)
+				return { ...pedido, ...pedidoAtualizado };
+			else
+				return pedido;
+		});
+
+		this.state.set(pedidosView, "pedidosView");
+	}
+
+	private removerDoState(pedido: PedidoViewModel) {
+		var stateValue = this.state.value.pedidosView.filter(p => p.idDoProdutoDoPedido != pedido.idDoProdutoDoPedido);
+		this.state.set(stateValue, "pedidosView");
 	}
 }
