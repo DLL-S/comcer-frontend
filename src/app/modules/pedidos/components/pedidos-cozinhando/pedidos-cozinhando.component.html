@@ -4,19 +4,28 @@
       Cozinhando
    </div>
 
-   <div id="listaCozinhando" [cdkDropListData]="pedidosCozinhando" class="lista" cdkDropList
-      [cdkDropListConnectedTo]="['listaPendentes', 'listaProntos']" (cdkDropListDropped)="drop($event)">
+   <div id="listaCozinhando"
+      [cdkDropListData]="pedidosCozinhando"
+      class="lista"
+      cdkDropList
+      [cdkDropListConnectedTo]="['listaPendentes', 'listaProntos']"
+      (cdkDropListDropped)="drop($event)">
 
-      <div class="container-vazio" *ngIf="carregando">
+      <div class="container-vazio"
+         *ngIf="carregando">
          <mat-spinner></mat-spinner>
       </div>
 
-      <div class="container-vazio" *ngIf="pedidosCozinhando.length == 0 && !carregando">
+      <div class="container-vazio"
+         *ngIf="pedidosCozinhando.length == 0 && !carregando">
          Não há pedidos aqui...
       </div>
 
-      <div class="itens-lista" *ngFor="let item of pedidosCozinhando" cdkDrag>
-         <div class="custom-placeholder" *cdkDragPlaceholder></div>
+      <div class="itens-lista"
+         *ngFor="let item of pedidosCozinhando"
+         cdkDrag>
+         <div class="custom-placeholder"
+            *cdkDragPlaceholder></div>
          <app-pedidos-item [pedido]="item"></app-pedidos-item>
       </div>
    </div>

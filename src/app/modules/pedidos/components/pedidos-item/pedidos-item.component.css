@@ -37,7 +37,7 @@
 }
 
 mat-icon {
-   color: #535353;
+   color: var(--icon-color);
 }
 
 .icone-cancelar {
