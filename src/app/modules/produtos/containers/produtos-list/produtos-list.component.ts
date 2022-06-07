@@ -78,7 +78,7 @@ export class ProdutosListComponent implements OnInit, OnDestroy, AfterViewInit {
 	carregarDados() {
 		this.carregando = true;
 		return this.produtoService.pesquisar(
-			this.paginator?.pageIndex || 0,
+			this.paginator?.pageIndex + 1,
 			this.paginator?.pageSize || this.tamanhosPaginacao[ 0 ],
 			(this.sort?.direction === "asc" ? 1 : -1) || 1
 		);
