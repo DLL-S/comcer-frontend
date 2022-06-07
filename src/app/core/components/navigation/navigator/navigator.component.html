@@ -1,16 +1,24 @@
-<mat-toolbar color="primary" *ngIf="isLoggedIn$ | async as isLoggedIn" class="mat-elevation-z3">
+<mat-toolbar color="primary"
+   *ngIf="isLoggedIn$ | async as isLoggedIn"
+   class="mat-elevation-z3">
    <div class="titulo topbar-box">
-      <mat-icon class="topbar-item menu-icone" (click)="toggleSideBar()">menu</mat-icon>
-      <a *ngIf="!(isMobile$ | async)" class="topbar-item titulo-label" [routerLink]="url">
+      <mat-icon class="topbar-item menu-icone"
+         (click)="toggleSideBar()">menu</mat-icon>
+      <a *ngIf="!(isMobile$ | async)"
+         class="topbar-item titulo-label"
+         [routerLink]="url">
          {{ titulo }}
       </a>
    </div>
    <div class="topbar-box">
-      <img class="topbar-item logo" src="assets/img/logo-horizontal-transparente.png" alt="Logotipo Comanda Certa"
+      <img class="topbar-item logo"
+         src="assets/img/logo-horizontal-transparente.png"
+         alt="Logotipo Comanda Certa"
          routerLink="/">
    </div>
    <div class="topbar-box">
-      <a class="topbar-item" (click)="onLogout()">
+      <a class="topbar-item"
+         (click)="onLogout()">
          <mat-icon class="sair-icone">logout</mat-icon>
          <span class="sair-label">Sair</span>
       </a>
@@ -19,28 +27,41 @@
 
 <mat-drawer-container autosize>
 
-   <mat-drawer class="mat-elevation-z3" [mode]="(isMobile$ | async) ? 'over' : 'side'" [opened]="visibilidadeDoMenu"
+   <mat-drawer class="mat-elevation-z3"
+      [mode]="(isMobile$ | async) ? 'over' : 'side'"
+      [opened]="visibilidadeDoMenu"
       *ngIf="isLoggedIn$ | async as isLoggedIn">
       <mat-nav-list role="list">
-         <mat-list-item role="listitem" *ngFor="let item of items.itensPrincipais" routerLink="{{item.url}}">
+         <mat-list-item role="listitem"
+            *ngFor="let item of items.itensPrincipais"
+            routerLink="{{item.url}}">
             <mat-icon class="menu-icon">{{item.icon}}</mat-icon>
             {{item.label}}
          </mat-list-item>
 
-         <mat-expansion-panel class="mat-elevation-z0" expanded>
+         <mat-expansion-panel class="mat-elevation-z0"
+            expanded>
             <mat-expansion-panel-header>
                <mat-panel-title>
                   Cadastros
                </mat-panel-title>
             </mat-expansion-panel-header>
 
-            <mat-list-item role="listitem" *ngFor="let item of items.itensCadastro" routerLink="{{item.url}}">
+            <mat-list-item role="listitem"
+               *ngFor="let item of items.itensCadastro"
+               routerLink="{{item.url}}">
                <mat-icon class="menu-icon">{{item.icon}}</mat-icon>
                {{item.label}}
             </mat-list-item>
 
          </mat-expansion-panel>
       </mat-nav-list>
+
+      <div class="dev-message"
+         *ngIf="isDevMode">
+         <span>Ambiente de desenvolvimento</span>
+      </div>
+
    </mat-drawer>
 
    <mat-drawer-content>

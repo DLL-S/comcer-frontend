@@ -1,4 +1,4 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, isDevMode, OnDestroy, OnInit } from '@angular/core';
 import { Observable, of } from "rxjs";
 import { SubscriptionContainer } from "src/app/core/helpers/subscription-container";
 import { AuthService } from "src/app/core/services/auth.service";
@@ -12,6 +12,7 @@ import { TitleService } from "src/app/core/services/title.service";
 })
 export class NavigatorComponent implements OnInit, OnDestroy {
 
+	isDevMode: boolean = isDevMode();
 	isLoggedIn$: Observable<boolean> = of(true);
 	visibilidadeDoMenu: boolean = true;
 	isMobile$: Observable<boolean>;

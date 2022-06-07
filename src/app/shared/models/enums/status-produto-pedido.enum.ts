@@ -5,5 +5,6 @@ export enum EnumStatusProdutoDoPedido {
 	Pendente,
 	Cozinhando,
 	Pronto,
-	Entregue
+	Entregue,
+	Cancelado
 }

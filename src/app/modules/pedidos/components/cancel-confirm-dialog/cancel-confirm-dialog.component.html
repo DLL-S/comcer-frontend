@@ -1,0 +1,15 @@
+<h1 mat-dialog-title>Cancelar produto</h1>
+<div mat-dialog-content>
+   <p>Deseja realmente cancelar o produto <strong>{{data.idDoProdutoDoPedido}} - {{data.nomeProdutoDoPedido}}</strong>
+      da mesa <strong>{{data.idComanda}}</strong> ?
+   </p>
+</div>
+<div mat-dialog-actions>
+   <button mat-button
+      color="warn"
+      cdkFocusInitial
+      (click)="cancelar()">Não</button>
+   <button mat-button
+      color="primary"
+      (click)="confirmar()">Sim</button>
+</div>

@@ -10,6 +10,7 @@ body {
    margin: 0;
    font-family: Roboto, "Helvetica Neue", sans-serif;
    overflow: hidden;
+   --icon-color: #535353;
 }
 
 .blur-1 {

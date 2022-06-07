@@ -7,6 +7,7 @@
    color: #414040;
    font-size: 20px;
    font-weight: 500;
+   z-index: 10;
 }
 
 .badge {
@@ -42,7 +43,9 @@
 }
 
 .itens-lista {
-   padding: 20px 10px;
+   display: grid;
+   align-items: center;
+   padding: 10px 10px;
    border-bottom: solid 1px #ccc;
    color: rgba(0, 0, 0, 0.87);
    box-sizing: border-box;
