@@ -1,0 +1,63 @@
+.card-mesa {
+   position: relative;
+   text-align: center;
+   background-color: #fff;
+   min-width: 80px;
+   min-height: 80px;
+   border-radius: 4px;
+   padding: 20px;
+   cursor: pointer;
+   margin-bottom: 20px;
+}
+
+.card-mesa:hover {
+   background-color: whitesmoke;
+}
+
+.nova-mesa {
+   background-color: rgba(243, 243, 243, 0.336);
+   border-style: dashed;
+   border-color: rgb(214, 214, 214);
+   border-width: 1.2px;
+   display: flex;
+   justify-content: center;
+   align-items: center;
+}
+
+.card-mesa .card-title h2,
+h1 {
+   margin: 4px 0px 0px 0px;
+
+}
+
+.card-mesa .card-title h1 {
+   color: var(--primary-color);
+   font-weight: 600;
+   font-size: 28px;
+}
+
+.badge {
+   position: absolute;
+   top: 8px;
+   right: 8px;
+   width: 15px;
+   height: 15px;
+   border-radius: 50%;
+}
+
+.disponivel {
+   background-color: var(--pronto-color) !important;
+}
+
+.ocupada {
+   background-color: var(--pendente-color) !important;
+}
+
+.botao-recarregar {
+   position: fixed;
+   bottom: 40px;
+   right: 40px;
+   width: 70px;
+   height: 70px;
+   z-index: 1000;
+}

@@ -27,7 +27,8 @@ const routes: Routes = [
 		canActivate: [ BaseGuard ]
 	},
 	{
-		path: "mesas", component: PaginaEmConstrucaoComponent,
+		path: "mesas", loadChildren: () =>
+			import("./modules/mesas/mesas.module").then(m => m.MesasModule),
 		canActivate: [ BaseGuard ]
 	},
 	{
@@ -43,8 +44,6 @@ const routes: Routes = [
 
 
 	// { path: "comandas", loadChildren: () => import("./modules/comandas/comandas.module").then(m => m.ComandasModule) },
-	// { path: "mesas", loadChildren: () => import("./modules/mesas/mesas.module").then(m => m.MesasModule) },
-	// { path: "produtos", loadChildren: () => import("./modules/produtos/produtos.module").then(m => m.ProdutosModule) },
 	{
 		path: "pagina-em-construcao", component: PaginaEmConstrucaoComponent,
 		canActivate: [ BaseGuard ]

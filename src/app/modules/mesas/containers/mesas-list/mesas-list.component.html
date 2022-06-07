@@ -1,0 +1,32 @@
+<div class="mesa-container"
+   fxLayout="row wrap"
+   fxLayoutGap="20px">
+   <div *ngFor="let mesa of mesas"
+      class="card-mesa mat-elevation-z3"
+      matRipple
+      (click)="abrirDialogoDeEdicao(mesa)">
+      <div class="card-title">
+         <h2>MESA</h2>
+         <h1>{{mesa.numero}}</h1>
+      </div>
+      <span class="badge"
+         [class.disponivel]="mesa.disponivel"
+         [class.ocupada]="!mesa.disponivel"></span>
+   </div>
+
+   <div *ngIf="!carregando"
+      class="card-mesa nova-mesa mat-elevation-z3"
+      matRipple
+      matTooltip="Cadastrar mesa"
+      (click)="abrirDialogoDeEdicao()">
+      <mat-icon>add</mat-icon>
+   </div>
+</div>
+
+<button mat-fab
+   class="botao-recarregar"
+   color="primary"
+   aria-label="Recarregar dados"
+   (click)="atualizarDados(true)">
+   <mat-icon>refresh</mat-icon>
+</button>

@@ -11,6 +11,9 @@ body {
    font-family: Roboto, "Helvetica Neue", sans-serif;
    overflow: hidden;
    --icon-color: #535353;
+   --pendente-color: #ffc4ce;
+   --cozinhando-color: #fff0bf;
+   --pronto-color: #cff5c0;
 }
 
 .blur-1 {
