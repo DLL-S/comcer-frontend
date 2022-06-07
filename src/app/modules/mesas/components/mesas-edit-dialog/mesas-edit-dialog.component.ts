@@ -16,7 +16,6 @@ export class MesasEditDialogComponent implements OnInit {
 	formMesa: FormGroup;
 	private formSubmitAttempt: boolean = false;
 
-
 	constructor (
 		private formBuilder: FormBuilder,
 		private mesaService: MesaService,
@@ -67,7 +66,7 @@ export class MesasEditDialogComponent implements OnInit {
 					next: result => {
 						mesaEditada = result,
 							this.mesaService.adicionaState(mesaEditada);
-						this.notificationService.exibir(`Mesa cadastrado com o ID ${ mesaEditada.id }!`);
+						this.notificationService.exibir(`Mesa cadastrado com o ID ${ mesaEditada.numero }!`);
 
 						this.dialogRef.close();
 					}
