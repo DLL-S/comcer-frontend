@@ -102,7 +102,7 @@ export class ComandasListComponent implements OnInit, OnDestroy, AfterViewInit {
 	}
 
 	getStatusComanda(status: EnumStatusComanda) {
-		return status != 0 ? EnumStatusComanda[ status ] : "Aguardando pagamento";
+		return status != 2 ? EnumStatusComanda[ status ] : "Aguardando pagamento";
 	}
 
 	encerrarComanda(comanda: Comanda) {
