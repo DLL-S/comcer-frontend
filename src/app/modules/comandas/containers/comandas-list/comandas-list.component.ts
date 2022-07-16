@@ -51,7 +51,6 @@ export class ComandasListComponent implements OnInit, OnDestroy, AfterViewInit {
 		this.subscriptions.add = this.comnandasState.comandas$
 			.pipe(
 				map(result => {
-					console.log(result);
 					return result.sort((a, b) => a.status - b.status);
 				})
 			)
