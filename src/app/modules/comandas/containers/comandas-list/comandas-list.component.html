@@ -69,15 +69,12 @@
             <mat-icon>info</mat-icon>
          </button>
          <button class="botao-acao mat-elevation-z2"
-            mat-mini-fab
-            color="warn"
+            mat-button
             aria-label="Encerrar comanda"
-            matTooltip="Encerrar comanda"
-            matTooltipPosition="after"
             (click)="abrirDialogoDeEncerramento(comanda)"
             click-stop-propagation
             *ngIf="comanda.status != 1">
-            <mat-icon>close</mat-icon>
+            Encerrar
          </button>
       </mat-cell>
    </ng-container>
