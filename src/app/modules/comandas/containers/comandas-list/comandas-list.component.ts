@@ -10,6 +10,7 @@ import { TitleService } from 'src/app/core/services/title.service';
 import { Comanda } from '../../models/comanda.model';
 import { ComandasService } from '../../services/comandas.service';
 import { EnumStatusComanda } from './../../../../shared/models/enums/status-comanda.enum';
+import { ComandaConfirmDialogComponent } from './../../components/comanda-confirm-dialog/comanda-confirm-dialog.component';
 import { ComandaViewComponent } from './../../components/comanda-view/comanda-view.component';
 import { ComandasState } from './../../state/comandas-state';
 
@@ -101,7 +102,11 @@ export class ComandasListComponent implements OnInit, OnDestroy, AfterViewInit {
 	}
 
 	getStatusComanda(status: EnumStatusComanda) {
-		return EnumStatusComanda[ status ];
+		return status != 2 ? EnumStatusComanda[ status ] : "Aguardando pagamento";
+	}
+
+	encerrarComanda(comanda: Comanda) {
+		this.comandasService.encerrarComanda(comanda.id);
 	}
 
 	paginar(event: Event) {
@@ -114,7 +119,6 @@ export class ComandasListComponent implements OnInit, OnDestroy, AfterViewInit {
 	}
 
 	abrirDialogoDeVisualizacao(comanda?: Comanda) {
-
 		const dialogRef = this.dialog.open(ComandaViewComponent, {
 			width: "640px",
 			data: comanda,
@@ -123,6 +127,20 @@ export class ComandasListComponent implements OnInit, OnDestroy, AfterViewInit {
 		dialogRef.afterClosed()
 			.pipe(take(1))
 			.subscribe(result => { });
+	}
+
+	abrirDialogoDeEncerramento(comanda: Comanda) {
+		const dialogRef = this.dialog.open(ComandaConfirmDialogComponent, {
+			width: "400px",
+			data: comanda,
+		});
+
+		dialogRef.afterClosed()
+			.pipe(take(1))
+			.subscribe(result => {
+				if (result && result.confirmacao)
+					this.encerrarComanda(comanda);
+			});
 	}
 
 	limparInput(input: any) {

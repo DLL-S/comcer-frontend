@@ -63,3 +63,7 @@ tr.linha-detalhes-produto {
    max-width: 130px;
    max-height: 80px;
 }
+
+.botao-acao {
+   margin-left: 5%;
+}

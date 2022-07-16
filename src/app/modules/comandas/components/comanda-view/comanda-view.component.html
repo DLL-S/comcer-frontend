@@ -10,6 +10,10 @@
       <span class="label">Horário:</span>
       <span class="valor"> {{item.dataHoraPedido | date:"dd/MM/yyyy HH:MM"}}</span>
    </div>
+   <div class="linha">
+      <span class="label">Valor total:</span>
+      <span class="valor"> {{getValorToral(item) | currency:"BRL"}}</span>
+   </div>
 
    <mat-accordion>
       <mat-expansion-panel [expanded]="true">
@@ -27,6 +31,7 @@
                <img class="imagem"
                   src='data:image/png;base64,{{produto.produto.foto}}' />
                <div mat-line>{{produto.produto.nome}}</div>
+               <div mat-line>Preço: {{produto.produto.preco | currency:"BRL"}}</div>
                <div mat-line>Quantidade: {{produto.quantidade}}x</div>
                <div mat-line>Status: {{getStatusProdutoPedido(produto.status)}}</div>
             </mat-list-item>

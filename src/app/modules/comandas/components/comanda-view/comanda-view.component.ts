@@ -1,6 +1,7 @@
 import { Component, Inject, OnInit, Optional } from '@angular/core';
 import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { NotificationService } from 'src/app/core/services/notification.service';
+import { Pedido } from 'src/app/modules/pedidos/models/pedido.model';
 import { EnumStatusProdutoDoPedido } from './../../../../shared/models/enums/status-produto-pedido.enum';
 import { Comanda } from './../../models/comanda.model';
 import { ComandasService } from './../../services/comandas.service';
@@ -23,5 +24,9 @@ export class ComandaViewComponent implements OnInit {
 
 	getStatusProdutoPedido(status: EnumStatusProdutoDoPedido) {
 		return EnumStatusProdutoDoPedido[ status ];
+	}
+
+	getValorToral(pedido: Pedido) {
+		return pedido.produtosDoPedido.reduce((partialSum, a) => partialSum + (a.produto.preco * a.quantidade), 0);
 	}
 }

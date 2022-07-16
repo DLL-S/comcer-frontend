@@ -57,16 +57,24 @@
    <ng-container matColumnDef="acoes">
       <mat-header-cell *matHeaderCellDef> Ações </mat-header-cell>
       <mat-cell mat-cell
-         *matCellDef="let produto">
-         <button class="mat-elevation-z2"
+         *matCellDef="let comanda">
+         <button class="botao-acao mat-elevation-z2"
             mat-mini-fab
             color="primary"
-            aria-label="Editar"
-            matTooltip="Editar produto"
+            aria-label="Visualizar"
+            matTooltip="Visualizar comanda"
             matTooltipPosition="after"
-            (click)="abrirDialogoDeVisualizacao(produto)"
+            (click)="abrirDialogoDeVisualizacao(comanda)"
             click-stop-propagation>
             <mat-icon>info</mat-icon>
+         </button>
+         <button class="botao-acao mat-elevation-z2"
+            mat-button
+            aria-label="Encerrar comanda"
+            (click)="abrirDialogoDeEncerramento(comanda)"
+            click-stop-propagation
+            *ngIf="comanda.status != 1">
+            Encerrar
          </button>
       </mat-cell>
    </ng-container>
@@ -90,5 +98,5 @@
    [pageSizeOptions]="tamanhosPaginacao"
    [length]="quantidadeTotal"
    showFirstLastButtons
-   aria-label="Paginação de produtos">
+   aria-label="Paginação de comandas">
 </mat-paginator>
