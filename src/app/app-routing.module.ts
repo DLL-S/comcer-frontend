@@ -23,7 +23,8 @@ const routes: Routes = [
 		canActivate: [ BaseGuard ]
 	},
 	{
-		path: "comandas", component: PaginaEmConstrucaoComponent,
+		path: "comandas", loadChildren: () =>
+			import("./modules/comandas/comandas.module").then(m => m.ComandasModule),
 		canActivate: [ BaseGuard ]
 	},
 	{

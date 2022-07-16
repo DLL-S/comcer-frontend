@@ -1,0 +1,27 @@
+.label {
+   color: rgb(73, 73, 73);
+}
+
+.content:not(:first-child) {
+   margin-top: 25px;
+}
+
+.linha {
+   margin-bottom: 4px;
+}
+
+.mat-expansion-panel {
+   margin-top: 10px;
+}
+
+.mat-accordion > .mat-expansion-panel-spacing:first-child,
+.mat-accordion > *:first-child:not(.mat-expansion-panel) .mat-expansion-panel-spacing {
+   margin-top: 10px !important;
+}
+
+img {
+   border-radius: 2px;
+   max-width: 120px;
+   min-width: 120px;
+   object-fit: cover;
+}
