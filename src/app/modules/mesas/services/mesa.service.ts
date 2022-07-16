@@ -25,7 +25,7 @@ export class MesaService extends GenericApi<Mesa> {
 		.get<ResponseModel<Mesa>>(this.apiBaseUrl)
 		.pipe(
 			tap(next => {
-				this.state.set(next.resultados, "mesas");
+				this.state.set(next?.resultados, "mesas");
 			})
 		);
 
