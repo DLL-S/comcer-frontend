@@ -3,7 +3,9 @@ import { Injectable } from "@angular/core";
 import { Observable, take, tap } from "rxjs";
 import { ResponseModel } from 'src/app/core/models/response.model';
 import { GenericApi } from "src/app/core/services/generic-api.service";
+import { NotificationService } from 'src/app/core/services/notification.service';
 import { ComandasState } from '../state/comandas-state';
+import { environment } from './../../../../environments/environment';
 import { Comanda } from './../models/comanda.model';
 
 /**
@@ -16,7 +18,7 @@ export class ComandasService extends GenericApi<Comanda> {
 	 * Inicia uma nova instância de {@link ComandasService}
 	 * @param http O {@link HttpClient} do serviço.
 	 */
-	constructor (http: HttpClient, private state: ComandasState) {
+	constructor (http: HttpClient, private state: ComandasState, private notificationService: NotificationService) {
 		super(http, "/comanda");
 	}
 
@@ -59,6 +61,16 @@ export class ComandasService extends GenericApi<Comanda> {
 		});
 
 		this.state.set(comandas, "comandas");
+	}
+
+	encerrarComanda(idComanda: number) {
+		this.http.put<ResponseModel<Comanda>>(`${ environment.apiUrl }/mesa/encerrarcomanda/${ idComanda }?paraPagamento=false`, null)
+			.subscribe({
+				next: result => {
+					this.atualizaState(result.resultados[ 0 ]);
+					this.notificationService.exibir("Comanda encerrada com sucesso!");
+				}
+			});
 	}
 
 	public adicionaState(comanda: Comanda) {

@@ -23,12 +23,14 @@ import { ComandaViewComponent } from './components/comanda-view/comanda-view.com
 import { ComandasListComponent } from './containers/comandas-list/comandas-list.component';
 import { ComandasService } from './services/comandas.service';
 import { ComandasState } from './state/comandas-state';
+import { ComandaConfirmDialogComponent } from './components/comanda-confirm-dialog/comanda-confirm-dialog.component';
 
 
 @NgModule({
 	declarations: [
 		ComandasListComponent,
 		ComandaViewComponent,
+  ComandaConfirmDialogComponent,
 	],
 	imports: [
 		CommonModule,
