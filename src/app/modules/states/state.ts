@@ -1,3 +1,4 @@
+import { Comanda } from '../comandas/models/comanda.model';
 import { Funcionario } from '../funcionarios/models/funcionario.model';
 import { Mesa } from "../mesas/models/mesa.model";
 import { PedidoViewModel } from '../pedidos/models/pedido-view.model';
@@ -11,4 +12,5 @@ export interface State {
 	funcionarios: Funcionario[];
 	produtos: Produto[];
 	mesas: Mesa[];
+	comandas: Comanda[];
 }

@@ -5,10 +5,11 @@ const state: State = {
 	pedidosView: [],
 	funcionarios: [],
 	produtos: [],
-	mesas: []
+	mesas: [],
+	comandas: []
 };
 
-export type StoreNames = 'pedidosView' | 'funcionarios' | 'produtos' | 'mesas';
+export type StoreNames = 'pedidosView' | 'funcionarios' | 'produtos' | 'mesas' | 'comandas';
 
 /**
  * Classe de estado de base.
@@ -30,7 +31,7 @@ export class Store {
 	 * @param valor Os valores a serem adicionados.
 	 * @param storeName O nome do store utilizado.
 	 */
-	public set(valor: any, storeName: 'pedidosView' | 'funcionarios' | 'produtos' | 'mesas') {
+	public set(valor: any, storeName: StoreNames) {
 		this.subject.next({
 			...this.value, [ storeName ]: valor || []
 		});
