@@ -73,7 +73,7 @@
             aria-label="Encerrar comanda"
             (click)="abrirDialogoDeEncerramento(comanda)"
             click-stop-propagation
-            *ngIf="comanda.status != 1">
+            *ngIf="comanda.status != 2">
             Encerrar
          </button>
       </mat-cell>

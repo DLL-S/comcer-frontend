@@ -3,6 +3,6 @@
  */
 export enum EnumStatusComanda {
 	Aberta,
+	Aguardando_Pagamento,
 	Fechada,
-	Aguardando_Pagamento
 }
