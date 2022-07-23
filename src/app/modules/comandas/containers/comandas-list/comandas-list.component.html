@@ -1,4 +1,31 @@
 <section class="container-filtro mat-elevation-z3">
+   <mat-form-field appearance="standard">
+      <mat-label>Filtrar</mat-label>
+      <mat-select [(value)]="termoBuscado">
+         <mat-option value="nome">Mesa</mat-option>
+         <mat-option value="valor">Valor</mat-option>
+         <mat-option value="id">ID</mat-option>
+      </mat-select>
+   </mat-form-field>
+   <mat-form-field appearance="standard"
+      class="filtro">
+      <mat-label>Filtro</mat-label>
+      <input matInput
+         (keyup)="pesquisarV2($event)"
+         placeholder="Ex. Mesa 10"
+         #input>
+      <button *ngIf="input.value"
+         matSuffix
+         mat-icon-button
+         aria-label="Clear"
+         (click)="limparInput(input)">
+         <mat-icon>close</mat-icon>
+      </button>
+      <mat-icon matSuffix
+         *ngIf="!input.value"
+         class="icone-filtro">filter_alt</mat-icon>
+   </mat-form-field>
+
    <button mat-mini-fab
       class="botao-recarregar"
       color="primary"

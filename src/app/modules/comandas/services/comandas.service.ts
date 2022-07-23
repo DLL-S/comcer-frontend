@@ -1,11 +1,11 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from "@angular/core";
 import { Observable, take, tap } from "rxjs";
-import { ResponseModel } from 'src/app/core/models/response.model';
 import { GenericApi } from "src/app/core/services/generic-api.service";
 import { NotificationService } from 'src/app/core/services/notification.service';
 import { ComandasState } from '../state/comandas-state';
 import { environment } from './../../../../environments/environment';
+import { ResponseModel } from './../../../core/models/response.model';
 import { Comanda } from './../models/comanda.model';
 
 /**
@@ -43,8 +43,9 @@ export class ComandasService extends GenericApi<Comanda> {
 		var result = super.pesquisar(pagina, quantidade, ordem)
 			.pipe(
 				take(1),
-				tap(next =>
-					this.state.set(next?.resultados, "comandas"))
+				tap(next => {
+					this.state.set(next?.resultados, "comandas");
+				})
 			);
 
 		return result;
@@ -63,7 +64,15 @@ export class ComandasService extends GenericApi<Comanda> {
 		this.state.set(comandas, "comandas");
 	}
 
-	encerrarComanda(idComanda: number) {
+	public pesquisarV2(termoBuscado: string, termoDeBusca: string) {
+		return this.http.get<ResponseModel<Comanda>>(`${ this.apiBaseUrl }/v2?termoBuscado=${ termoBuscado }&termoDeBusca=${ termoDeBusca }`)
+			.pipe(
+				take(1),
+				tap(next => this.state.set(next?.resultados, "comandas"))
+			);
+	}
+
+	public encerrarComanda(idComanda: number) {
 		this.http.put<ResponseModel<Comanda>>(`${ environment.apiUrl }/mesa/encerrarcomanda/${ idComanda }?paraPagamento=false`, null)
 			.subscribe({
 				next: result => {

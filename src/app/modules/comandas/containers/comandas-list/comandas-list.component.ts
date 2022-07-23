@@ -28,6 +28,15 @@ import { ComandasState } from './../../state/comandas-state';
 })
 export class ComandasListComponent implements OnInit, OnDestroy, AfterViewInit {
 
+	/**
+	 * 1. Montar a tela utilizando uma combo box para o usuário selecionar a propriedade a ser filtrada (termoBuscado)
+	 * 	- Nome
+	 * 	- Id
+	 * 	- Valor
+	 * 2. Deixar um input para o valor do filtro (termoDeBusca)
+	 * 3. Ao pesquisar chamar o endpoint de listagem v2 da API
+	 */
+
 	comandas: Comanda[] = [];
 	quantidadeTotal: number = 0;
 	carregando: boolean = true;
@@ -37,6 +46,8 @@ export class ComandasListComponent implements OnInit, OnDestroy, AfterViewInit {
 	private subscriptions: SubscriptionContainer = new SubscriptionContainer();
 	comandaClicada: Comanda | null = null;
 	tamanhosPaginacao: number[] = [ 5, 10, 15, 20 ];
+	termoDeBusca: string = "";
+	termoBuscado: "nome" | "id" | "valor" = "nome";
 
 	constructor (
 		private titleService: TitleService,
@@ -57,7 +68,7 @@ export class ComandasListComponent implements OnInit, OnDestroy, AfterViewInit {
 			)
 			.subscribe({
 				next: comandas => {
-					this.comandas = comandas;
+					this.comandas = comandas.sort((a, b) => a.status - b.status);
 				}
 			});
 	}
@@ -107,6 +118,11 @@ export class ComandasListComponent implements OnInit, OnDestroy, AfterViewInit {
 
 	encerrarComanda(comanda: Comanda) {
 		this.comandasService.encerrarComanda(comanda.id);
+	}
+
+	pesquisarV2(e: Event) {
+		let termoDeBusca = (e.target as HTMLInputElement).value;
+		this.comandasService.pesquisarV2(this.termoBuscado, termoDeBusca).subscribe();
 	}
 
 	paginar(event: Event) {

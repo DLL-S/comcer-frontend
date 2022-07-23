@@ -12,6 +12,7 @@ import { MatInputModule } from '@angular/material/input';
 import { MatListModule } from '@angular/material/list';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { MatSelectModule } from '@angular/material/select';
 import { MatSortModule } from '@angular/material/sort';
 import { MatTableModule } from '@angular/material/table';
 import { MatTooltipModule } from '@angular/material/tooltip';
@@ -19,18 +20,18 @@ import { NgxMaskModule } from 'ngx-mask';
 import { CoreModule } from './../../core/core.module';
 import { SharedModule } from './../../shared/shared.module';
 import { ComandasRoutingModule } from './comandas-routing.module';
+import { ComandaConfirmDialogComponent } from './components/comanda-confirm-dialog/comanda-confirm-dialog.component';
 import { ComandaViewComponent } from './components/comanda-view/comanda-view.component';
 import { ComandasListComponent } from './containers/comandas-list/comandas-list.component';
 import { ComandasService } from './services/comandas.service';
 import { ComandasState } from './state/comandas-state';
-import { ComandaConfirmDialogComponent } from './components/comanda-confirm-dialog/comanda-confirm-dialog.component';
 
 
 @NgModule({
 	declarations: [
 		ComandasListComponent,
 		ComandaViewComponent,
-  ComandaConfirmDialogComponent,
+		ComandaConfirmDialogComponent,
 	],
 	imports: [
 		CommonModule,
@@ -44,6 +45,7 @@ import { ComandaConfirmDialogComponent } from './components/comanda-confirm-dial
 		MatRippleModule,
 		MatSortModule,
 		MatPaginatorModule,
+		MatSelectModule,
 		MatProgressSpinnerModule,
 		MatExpansionModule,
 		MatButtonModule,
