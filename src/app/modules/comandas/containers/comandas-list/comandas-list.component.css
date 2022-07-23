@@ -37,15 +37,11 @@ tr.linha-detalhes-produto {
    display: flex;
    align-items: center;
    justify-content: right;
+   gap: 10px;
 }
 
 .filtro {
    width: 100%;
-}
-
-.filtro,
-.botao-recarregar {
-   margin-right: 1%;
 }
 
 .icone-filtro {
