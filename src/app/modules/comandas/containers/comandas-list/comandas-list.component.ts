@@ -3,7 +3,7 @@ import { AfterViewInit, Component, OnDestroy, OnInit, ViewChild } from '@angular
 import { MatDialog } from '@angular/material/dialog';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
-import { map, merge, startWith, switchMap, take } from 'rxjs';
+import { merge, startWith, switchMap, take } from 'rxjs';
 import { SubscriptionContainer } from 'src/app/core/helpers/subscription-container';
 import { NotificationService } from 'src/app/core/services/notification.service';
 import { TitleService } from 'src/app/core/services/title.service';
@@ -27,15 +27,6 @@ import { ComandasState } from './../../state/comandas-state';
 	],
 })
 export class ComandasListComponent implements OnInit, OnDestroy, AfterViewInit {
-
-	/**
-	 * 1. Montar a tela utilizando uma combo box para o usuário selecionar a propriedade a ser filtrada (termoBuscado)
-	 * 	- Nome
-	 * 	- Id
-	 * 	- Valor
-	 * 2. Deixar um input para o valor do filtro (termoDeBusca)
-	 * 3. Ao pesquisar chamar o endpoint de listagem v2 da API
-	 */
 
 	comandas: Comanda[] = [];
 	quantidadeTotal: number = 0;
@@ -61,14 +52,9 @@ export class ComandasListComponent implements OnInit, OnDestroy, AfterViewInit {
 
 	ngOnInit(): void {
 		this.subscriptions.add = this.comnandasState.comandas$
-			.pipe(
-				map(result => {
-					return result.sort((a, b) => a.status - b.status);
-				})
-			)
 			.subscribe({
 				next: comandas => {
-					this.comandas = comandas.sort((a, b) => a.status - b.status);
+					this.comandas = comandas;
 				}
 			});
 	}
@@ -99,7 +85,7 @@ export class ComandasListComponent implements OnInit, OnDestroy, AfterViewInit {
 		return this.comandasService.pesquisar(
 			this.paginator?.pageIndex + 1,
 			this.paginator?.pageSize || this.tamanhosPaginacao[ 0 ],
-			(this.sort?.direction === "asc" ? 1 : -1) || 1
+			(this.sort?.direction === "desc" ? 1 : -1) || -1
 		);
 	}
 
