@@ -26,7 +26,7 @@ export class MesasEditDialogComponent implements OnInit {
 		this.formMesa = this.formBuilder.group({
 			id: [ { value: this.data?.id, disabled: true }, [ Validators.required ] ],
 			numero: [ this.data?.numero, [ Validators.required, Validators.min(1) ] ],
-			disponivel: [ this.data?.disponivel || false, [ Validators.required ] ]
+			disponivel: [ this.data?.disponivel || true, [ Validators.required ] ]
 		});
 	}
 

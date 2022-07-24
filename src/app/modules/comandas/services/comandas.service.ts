@@ -65,7 +65,7 @@ export class ComandasService extends GenericApi<Comanda> {
 	}
 
 	public pesquisarV2(termoBuscado: string, termoDeBusca: string) {
-		return this.http.get<ResponseModel<Comanda>>(`${ this.apiBaseUrl }/v2?termoBuscado=${ termoBuscado }&termoDeBusca=${ termoDeBusca }&ordem=-1`)
+		return this.http.get<ResponseModel<Comanda>>(`${ this.apiBaseUrl }/v2?termoBuscado=${ termoBuscado }&termoDeBusca=${ termoDeBusca }&ordem=1`)
 			.pipe(
 				take(1),
 				tap(next => this.state.set(next?.resultados, "comandas"))

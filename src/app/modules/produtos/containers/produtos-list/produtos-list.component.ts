@@ -113,7 +113,10 @@ export class ProdutosListComponent implements OnInit, OnDestroy, AfterViewInit {
 
 		dialogRef.afterClosed()
 			.pipe(take(1))
-			.subscribe(result => { });
+			.subscribe(result => {
+				if (result)
+					this.produtoService.atualizaState(result);
+			});
 	}
 
 	toggleRowExpanded(produtoClicado: Produto) {
