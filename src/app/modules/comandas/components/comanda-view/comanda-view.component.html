@@ -1,0 +1,41 @@
+<h1 mat-dialog-title>Detalhes da comanda {{data.id}} ({{data.nome}})</h1>
+
+<div *ngFor="let item of data.listaPedidos"
+   class="content">
+   <div class="linha">
+      <span class="label">Id do pedido:</span>
+      <span class="valor"> {{item.id}}</span>
+   </div>
+   <div class="linha">
+      <span class="label">Horário:</span>
+      <span class="valor"> {{item.dataHoraPedido | date:"dd/MM/yyyy HH:MM"}}</span>
+   </div>
+   <div class="linha">
+      <span class="label">Valor total:</span>
+      <span class="valor"> {{getValorToral(item) | currency:"BRL"}}</span>
+   </div>
+
+   <mat-accordion>
+      <mat-expansion-panel [expanded]="true">
+         <mat-expansion-panel-header>
+            <mat-panel-title>
+               Produtos
+            </mat-panel-title>
+            <mat-panel-description>
+               Lista de produtos deste pedido
+            </mat-panel-description>
+         </mat-expansion-panel-header>
+
+         <mat-list>
+            <mat-list-item *ngFor="let produto of item.produtosDoPedido">
+               <img class="imagem"
+                  src='data:image/png;base64,{{produto.produto.foto}}' />
+               <div mat-line>{{produto.produto.nome}}</div>
+               <div mat-line>Preço: {{produto.produto.preco | currency:"BRL"}}</div>
+               <div mat-line>Quantidade: {{produto.quantidade}}x</div>
+               <div mat-line>Status: {{getStatusProdutoPedido(produto.status)}}</div>
+            </mat-list-item>
+         </mat-list>
+      </mat-expansion-panel>
+   </mat-accordion>
+</div>

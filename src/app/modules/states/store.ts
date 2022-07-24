@@ -4,8 +4,12 @@ import { State } from "./state";
 const state: State = {
 	pedidosView: [],
 	funcionarios: [],
-	produtos: []
+	produtos: [],
+	mesas: [],
+	comandas: []
 };
+
+export type StoreNames = 'pedidosView' | 'funcionarios' | 'produtos' | 'mesas' | 'comandas';
 
 /**
  * Classe de estado de base.
@@ -27,7 +31,7 @@ export class Store {
 	 * @param valor Os valores a serem adicionados.
 	 * @param storeName O nome do store utilizado.
 	 */
-	public set(valor: any, storeName: 'pedidosView' | 'funcionarios' | 'produtos') {
+	public set(valor: any, storeName: StoreNames) {
 		this.subject.next({
 			...this.value, [ storeName ]: valor || []
 		});
@@ -38,7 +42,7 @@ export class Store {
 	 * @param valor Os valores a serem adicionados.
 	 * @param storeName O nome do store utilizado.
 	 */
-	public adicionar(valor: any, storeName: 'pedidosView' | 'funcionarios' | 'produtos') {
+	public adicionar(valor: any, storeName: StoreNames) {
 		this.value[ storeName ].push(valor);
 		this.subject.next(this.value);
 	}

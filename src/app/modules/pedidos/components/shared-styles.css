@@ -19,15 +19,15 @@
 }
 
 .badge-pendente {
-   background-color: #ffc4ce;
+   background-color: var(--pendente-color);
 }
 
 .badge-cozinhando {
-   background-color: #fff0bf;
+   background-color: var(--cozinhando-color);
 }
 
 .badge-pronto {
-   background-color: #cff5c0;
+   background-color: var(--pronto-color);
 }
 
 .lista {

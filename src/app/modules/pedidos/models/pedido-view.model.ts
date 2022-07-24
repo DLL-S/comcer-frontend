@@ -3,6 +3,7 @@ import { EnumStatusProdutoDoPedido } from "src/app/shared/models/enums/status-pr
 
 export interface PedidoViewModel {
 	idComanda: number;
+	numeroMesa: number;
 	nomeComanda: string;
 	valorTotalComanda: number;
 	statusComanda: EnumStatusComanda;
