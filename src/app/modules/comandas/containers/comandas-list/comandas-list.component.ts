@@ -85,7 +85,7 @@ export class ComandasListComponent implements OnInit, OnDestroy, AfterViewInit {
 		return this.comandasService.pesquisar(
 			this.paginator?.pageIndex + 1,
 			this.paginator?.pageSize || this.tamanhosPaginacao[ 0 ],
-			(this.sort?.direction === "desc" ? 1 : -1) || -1
+			(this.sort?.direction === "asc" ? 1 : -1) || 1
 		);
 	}
 
@@ -109,15 +109,6 @@ export class ComandasListComponent implements OnInit, OnDestroy, AfterViewInit {
 	pesquisarV2(e: Event) {
 		let termoDeBusca = (e.target as HTMLInputElement).value;
 		this.comandasService.pesquisarV2(this.termoBuscado, termoDeBusca).subscribe();
-	}
-
-	paginar(event: Event) {
-		const filterValue = (event.target as HTMLInputElement).value;
-		this.comandasService.pesquisar(
-			this.paginator?.pageIndex || 0,
-			this.paginator?.pageSize || 10,
-			(this.sort?.direction == "asc" ? 1 : -1) || 1,
-		).subscribe();
 	}
 
 	abrirDialogoDeVisualizacao(comanda?: Comanda) {
