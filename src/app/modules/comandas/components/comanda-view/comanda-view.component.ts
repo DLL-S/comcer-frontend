@@ -27,6 +27,6 @@ export class ComandaViewComponent implements OnInit {
 	}
 
 	getValorToral(pedido: Pedido) {
-		return pedido.produtosDoPedido.reduce((partialSum, a) => partialSum + (a.produto.preco * a.quantidade), 0);
+		return pedido.produtosDoPedido.reduce((partialSum, a) => partialSum + (a.valorUnitario * a.quantidade), 0);
 	}
 }
