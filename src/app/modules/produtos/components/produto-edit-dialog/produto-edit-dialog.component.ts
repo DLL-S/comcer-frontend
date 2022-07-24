@@ -54,7 +54,7 @@ export class ProdutoEditDialogComponent implements OnInit {
 				next: result => {
 					this.produtoService.atualizaState(result);
 					this.notificationService.exibir(`Produto ${ produtoEditado.id } atualizado com sucesso!`);
-					this.dialogRef.close();
+					this.dialogRef.close(result);
 				}
 			});
 		else
@@ -62,7 +62,7 @@ export class ProdutoEditDialogComponent implements OnInit {
 				next: result => {
 					this.produtoService.adicionaState(result);
 					this.notificationService.exibir(`Produto cadastrado com o ID ${ result.id }!`);
-					this.dialogRef.close();
+					this.dialogRef.close(result);
 				}
 			});
 	}
