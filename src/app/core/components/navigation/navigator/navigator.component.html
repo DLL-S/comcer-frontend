@@ -34,7 +34,8 @@
       <mat-nav-list role="list">
          <mat-list-item role="listitem"
             *ngFor="let item of items.itensPrincipais"
-            routerLink="{{item.url}}">
+            routerLink="{{item.url}}"
+            [routerLinkActive]="'router-link-active'">
             <mat-icon class="menu-icon">{{item.icon}}</mat-icon>
             {{item.label}}
          </mat-list-item>
@@ -49,7 +50,8 @@
 
             <mat-list-item role="listitem"
                *ngFor="let item of items.itensCadastro"
-               routerLink="{{item.url}}">
+               routerLink="{{item.url}}"
+               [routerLinkActive]="'router-link-active'">
                <mat-icon class="menu-icon">{{item.icon}}</mat-icon>
                {{item.label}}
             </mat-list-item>

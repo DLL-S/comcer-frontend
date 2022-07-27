@@ -106,3 +106,7 @@ mat-drawer i {
    padding-bottom: 5px;
    text-align: center;
 }
+
+.router-link-active {
+   background-color: rgba(0, 0, 0, 0.04);
+}
