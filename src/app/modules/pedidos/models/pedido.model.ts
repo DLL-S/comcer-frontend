@@ -7,4 +7,5 @@ import { ProdutoPedido } from "./produto-pedido.model";
 export interface Pedido extends BaseModel {
 	produtosDoPedido: ProdutoPedido[];
 	dataHoraPedido?: Date;
+	observacao?: string;
 }
