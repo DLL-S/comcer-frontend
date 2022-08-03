@@ -52,7 +52,7 @@
    cursor: move;
    background: white;
    font-size: 14px;
-   max-height: 120px;
+   max-height: auto;
    min-height: 120px;
    overflow: hidden;
 }

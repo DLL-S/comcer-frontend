@@ -15,4 +15,5 @@ export interface PedidoViewModel {
 	quantidadeProdutoDoPedido: number;
 	statusProdutoDoPedido: EnumStatusProdutoDoPedido;
 	dataHoraPedido?: Date;
+	observacao?: string;
 }

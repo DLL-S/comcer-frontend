@@ -1,0 +1,21 @@
+.container-observacao {
+   width: auto;
+   display: flex;
+   margin: 10px 0 4px 0;
+   background-color: #ecd1361e;
+   border-color: #f3f023;
+   border-style: dashed;
+   border-width: 2px;
+   border-radius: 4px;
+   padding: 8px;
+}
+
+.observacao {
+   display: flex;
+   align-items: center;
+}
+
+mat-icon {
+   color: var(--icon-color);
+   margin-right: 5px;
+}

@@ -14,6 +14,7 @@
       <span class="label">Valor total:</span>
       <span class="valor"> {{getValorToral(item) | currency:"BRL"}}</span>
    </div>
+   <app-observacao [pedido]="item"></app-observacao>
 
    <mat-accordion>
       <mat-expansion-panel [expanded]="true">
