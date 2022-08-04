@@ -1,6 +1,6 @@
 import { HttpClient } from "@angular/common/http";
 import { Injectable } from '@angular/core';
-import { tap } from "rxjs";
+import { BehaviorSubject, tap } from "rxjs";
 import { ResponseModel } from "src/app/core/models/response.model";
 import { GenericApi } from "src/app/core/services/generic-api.service";
 import { PedidoViewModel } from '../models/pedido-view.model';
@@ -13,12 +13,22 @@ import { PedidosState } from "../state/pedidos-state";
 @Injectable()
 export class PedidosService extends GenericApi<Pedido> {
 
+	private podeAtualizarSubject: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(true);
+
 	/**
 	 * Inicia uma nova instância de {@link PedidosService}
 	 * @param http O {@link HttpClient} do serviço.
 	 */
 	constructor (http: HttpClient, private state: PedidosState) {
 		super(http, "/pedidos");
+	}
+
+	public get podeAtualizarListas() {
+		return this.podeAtualizarSubject.value;
+	}
+
+	public set podeAtualizarListas(value: boolean) {
+		this.podeAtualizarSubject.next(value);
 	}
 
 	/**
