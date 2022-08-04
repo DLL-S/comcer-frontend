@@ -27,7 +27,7 @@ export class PedidosListComponent implements OnInit, OnDestroy {
 		this.scheduler = setInterval(() => {
 			if (this.pedidosService.podeAtualizarListas)
 				this.atualizarDados();
-		}, 5000);
+		}, 20000);
 	}
 
 	ngOnDestroy(): void {
