@@ -23,7 +23,9 @@
 
       <div class="itens-lista"
          *ngFor="let item of pedidosProntos"
-         cdkDrag>
+         cdkDrag
+         (cdkDragStarted)="podeAtualizar(false)"
+         (cdkDragDropped)="podeAtualizar()">
          <div class="custom-placeholder"
             *cdkDragPlaceholder></div>
          <app-pedidos-item [pedido]="item"></app-pedidos-item>

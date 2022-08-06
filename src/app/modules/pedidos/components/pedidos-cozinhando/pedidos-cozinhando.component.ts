@@ -1,5 +1,5 @@
 import { CdkDragDrop, moveItemInArray } from "@angular/cdk/drag-drop";
-import { Component, Input, OnDestroy, OnInit } from '@angular/core';
+import { Component, Input, OnDestroy } from '@angular/core';
 import { SubscriptionContainer } from "src/app/core/helpers/subscription-container";
 import { EnumStatusProdutoDoPedido } from "src/app/shared/models/enums/status-produto-pedido.enum";
 import { PedidoViewModel } from "../../models/pedido-view.model";
@@ -12,7 +12,7 @@ import { PedidosState } from "../../state/pedidos-state";
 	templateUrl: './pedidos-cozinhando.component.html',
 	styleUrls: [ '../shared-styles.css' ]
 })
-export class PedidosCozinhandoComponent implements OnInit, OnDestroy {
+export class PedidosCozinhandoComponent implements OnDestroy {
 
 	@Input() carregando: boolean = true;
 	pedidosCozinhando: PedidoViewModel[] = [];
@@ -31,9 +31,6 @@ export class PedidosCozinhandoComponent implements OnInit, OnDestroy {
 		});
 	}
 
-	ngOnInit(): void {
-	}
-
 	ngOnDestroy(): void {
 		this.subscriptions.dispose();
 	}
@@ -46,5 +43,9 @@ export class PedidosCozinhandoComponent implements OnInit, OnDestroy {
 		else {
 			this.produtosPedidoService.atualizarStatusProdutoPedido(event, EnumStatusProdutoDoPedido.Cozinhando);
 		}
+	}
+
+	podeAtualizar(value: boolean = true) {
+		this.pedidoService.podeAtualizarListas = value;
 	}
 }
