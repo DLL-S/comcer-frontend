@@ -114,6 +114,7 @@ export class ComandasListComponent implements OnInit, OnDestroy, AfterViewInit {
 	abrirDialogoDeVisualizacao(comanda?: Comanda) {
 		const dialogRef = this.dialog.open(ComandaViewComponent, {
 			width: "640px",
+			height: "80%",
 			data: comanda,
 		});
 
