@@ -46,4 +46,8 @@ export class PedidosProntosComponent implements OnInit, OnDestroy {
 			this.produtosPedidoService.atualizarStatusProdutoPedido(event, EnumStatusProdutoDoPedido.Pronto);
 		}
 	}
+
+	podeAtualizar(value: boolean = true) {
+		this.pedidoService.podeAtualizarListas = value;
+	}
 }

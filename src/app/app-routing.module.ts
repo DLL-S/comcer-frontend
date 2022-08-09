@@ -8,14 +8,10 @@ import { PaginaNaoEncontradaComponent } from "./shared/pages/pagina-nao-encontra
 const routes: Routes = [
 	{ path: "login", component: LoginComponent },
 	{
-		path: "", loadChildren: () =>
-			import("./modules/pedidos/pedidos.module").then(m => m.PedidosModule),
-		canActivate: [ BaseGuard ]
+		path: "", redirectTo: "pedidos", pathMatch: "full",
 	},
 	{
-		path: "home", loadChildren: () =>
-			import("./modules/pedidos/pedidos.module").then(m => m.PedidosModule),
-		canActivate: [ BaseGuard ]
+		path: "home", redirectTo: "pedidos", pathMatch: "full",
 	},
 	{
 		path: "pedidos", loadChildren: () =>
@@ -42,9 +38,6 @@ const routes: Routes = [
 			import("./modules/funcionarios/funcionarios.module").then(m => m.FuncionariosModule),
 		canActivate: [ BaseGuard ]
 	},
-
-
-	// { path: "comandas", loadChildren: () => import("./modules/comandas/comandas.module").then(m => m.ComandasModule) },
 	{
 		path: "pagina-em-construcao", component: PaginaEmConstrucaoComponent,
 		canActivate: [ BaseGuard ]

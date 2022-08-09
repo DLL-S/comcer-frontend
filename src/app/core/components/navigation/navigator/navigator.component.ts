@@ -36,7 +36,7 @@ export class NavigatorComponent implements OnInit, OnDestroy {
 
 		this.items = {
 			itensPrincipais: [
-				{ label: "Pedidos", icon: "restaurant", url: "/" },
+				{ label: "Pedidos", icon: "restaurant", url: "/pedidos" },
 				{ label: "Comandas", icon: "receipt", url: "/comandas" }
 			],
 			itensCadastro: [
